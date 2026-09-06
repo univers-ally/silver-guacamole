@@ -611,6 +611,24 @@
         <p>Works on <code>GET100</code> and may work on other offers. Be careful if you have other daily-claim promos going at the same time, since jumping the date can screw those up too.</p>
       </div>
     </details>
+    <details class="sec">
+      <summary>Price Adjustment(s)</summary>
+      <div class="sec-body">
+        <ul>
+          <li>This is when the seller you bought something from adjusts the price. This happens a lot, due to the volatility of the market. It's free money for you!</li>
+          <li class="warn">Check all of your orders that have at least reached the Shipped stage (if it's been less than 30 days) every day for free money that is price adjustments. They don't actually have to be delivered for a price adjustment.</li>
+          <li>Simply go to the item you ordered, select "Price match/adjustment", and check if the button is orange. If it is, congrats, you can get free money! Click it and get your refund.</li>
+          <li class="warn">Note: Temu may or may not let you refund the difference as cash. Apple users are almost always offered a cash option, while Android users are almost never offered one. It depends on Temu's mood or something.</li>
+          <li>If you can't find the option to price match, try the three dots menu.</li>
+        </ul>
+        <div class="shots">
+          <figure><button type="button" class="shot" aria-label="Open screenshot of the order menu"><img src="img/c8f62366.webp" loading="lazy" decoding="async" alt="Order page menu with Price match/adjustment"></button><figcaption>Three dots menu on the order</figcaption></figure>
+          <figure><button type="button" class="shot" aria-label="Open screenshot of the request picker"><img src="img/ae2f858d.webp" loading="lazy" decoding="async" alt="Select a request, orange Request a price adjustment button"></button><figcaption>Orange button means that you're eligible!</figcaption></figure>
+          <figure><button type="button" class="shot" aria-label="Open screenshot of the request screen"><img src="img/cdf5f7c8.webp" loading="lazy" decoding="async" alt="Request a price adjustment screen"></button><figcaption>Request screen (seen: est. refund $0.80)</figcaption></figure>
+          <figure><button type="button" class="shot" aria-label="Open screenshot of the refund method"><img src="img/f1a166bd.webp" loading="lazy" decoding="async" alt="Select refund method, Temu credit balance"></button><figcaption>Credit only on this account (Android)</figcaption></figure>
+        </div>
+      </div>
+    </details>
   </div>
 </details>
 <div class="legend">
@@ -1116,6 +1134,7 @@ const lb = document.getElementById("lightbox");
 function openLightbox(src) { lb.querySelector("img").src = src; lb.classList.add("open"); lb.setAttribute("aria-hidden","false"); }
 function closeLightbox() { lb.classList.remove("open"); lb.setAttribute("aria-hidden","true"); }
 lb.addEventListener("click", closeLightbox);
+for (const b of document.querySelectorAll(".howto-body .shot")) b.addEventListener("click", () => openLightbox(b.querySelector("img").src));
 document.addEventListener("keydown", e => { if (e.key === "Escape") { closeLightbox(); closeTerms(); } });
 let rt; q.addEventListener("input", () => { clearTimeout(rt); rt = setTimeout(render, 80); });
 build();
