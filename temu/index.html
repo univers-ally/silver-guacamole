@@ -261,28 +261,30 @@
     position: absolute; top: 10px; right: 12px;
     font-size: 12px; font-weight: 800; color: var(--muted);
   }
-  .seller-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .seller { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 0 10px; align-items: start; }
   .howto-body img.seller-avatar, .seller-avatar {
-    flex: none; display: block; width: 40px; height: 40px; max-width: 40px;
+    display: block; width: 40px; height: 40px; max-width: 40px;
     border-radius: 50%; border: 1.5px solid var(--line); margin: 0;
     background: var(--accent-soft); object-fit: cover;
   }
-  .seller-head > div { min-width: 0; padding-right: 28px; }
-  .seller-initials { display: grid; place-items: center; color: var(--accent); font-weight: 800; font-size: 15px; }
-  .seller-bars { padding-top: 8px; border-top: 1px solid var(--line); }
-  .seller a { color: var(--ink); font-weight: 800; font-size: 15px; text-decoration: none; }
+  .seller-body { min-width: 0; padding-right: 28px; }
+  .seller a { display: block; color: var(--ink); font-weight: 800; font-size: 15px; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; }
   .seller a:hover { text-decoration: underline; }
-  .seller-badge { display: inline-block; margin-top: 2px; padding: 1px 7px; border-radius: 999px; background: #E8F5EC; color: #2E8B57; font-size: 11px; font-weight: 700; }
-  .seller-badge.star { background: #F3EAFB; color: #6B2FA0; }
+  .seller-badges { margin-top: 3px; min-height: 18px; }
+  .seller-badge { display: inline-block; padding: 1px 6px; border-radius: 999px; background: #E8F5EC; font-size: 12px; line-height: 16px; cursor: help; }
+  .seller-badge.star { background: #F3EAFB; }
+  .seller-badge.pack-good { background: #E6F0FB; }
+  .seller-badge.pack-bad { background: #FBE7E5; }
   .seller.placeholder { border-style: dashed; opacity: .75; }
-  .seller-row { display: flex; justify-content: space-between; gap: 8px; font-size: 12px; margin-bottom: 8px; }
-  .seller-row span { color: var(--muted); flex: none; }
-  .seller-row b { text-align: right; }
-  .seller-stats { display: grid; grid-template-columns: 1fr 1fr; text-align: center; margin-bottom: 10px; }
-  .seller-stats b { display: block; font-size: 16px; }
-  .seller-stats span { color: var(--muted); font-size: 12px; }
-  .seller-bars { display: flex; flex-wrap: wrap; gap: 0 6px; font-size: 11px; color: var(--muted); white-space: nowrap; }
-  .seller-bars b { color: var(--ink); font-weight: 700; }
+  .seller-meta { margin-top: 5px; font-size: 12px; color: var(--muted); }
+  .seller-meta b { color: var(--ink); font-weight: 700; }
+  .seller-bars { grid-column: 1 / -1; display: flex; height: 8px; margin-top: 10px; border-radius: 4px; overflow: hidden; gap: 1px; background: var(--line); }
+  .seller-bars span { display: block; height: 100%; }
+  .seller-bars .s5 { background: #2e9e44; }
+  .seller-bars .s4 { background: #8cc63f; }
+  .seller-bars .s3 { background: #f2c31b; }
+  .seller-bars .s2 { background: var(--accent); }
+  .seller-bars .s1 { background: #d9342b; }
   .howto-body code, .card li code, .card .reward code { font-family: "SFMono-Regular", Consolas, Menlo, monospace; color: var(--accent); font-weight: 700; }
   .howto-body img {
     display: block;
@@ -396,159 +398,110 @@
   <div class="howto-body">
     <div class="sellers">
       <div class="seller">
-        <div class="seller-head">
-          <img class="seller-avatar" src="img/fc55b73b.webp" alt="">
-          <div>
-            <a href="https://www.temu.com/mall.html?mall_id=741070853378563" target="_blank" rel="noopener">Summit Chain Co</a>
-            <div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛 Local warehouse</div> <div class="seller-badge star" title="Ranked among the top sellers in its main category over the past 30 days">🌟 Star store</div>
-          </div>
+        <img class="seller-avatar" src="img/fc55b73b.webp" alt="">
+        <div class="seller-body">
+          <a href="https://www.temu.com/mall.html?mall_id=741070853378563" target="_blank" rel="noopener">Summit Chain Co</a>
+          <div class="seller-badges"><div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛</div> <div class="seller-badge star" title="Ranked among the top sellers in its main category over the past 30 days">🌟</div> <div class="seller-badge pack-good" title="Orders from this seller have shown up well protected">📦</div></div>
+          <div class="seller-meta"><b>30K+</b> sold <span>·</span> <b>4.7 ★</b> 3,727 reviews <span>·</span> Free shipping, no min</div>
         </div>
-        <div class="seller-stats">
-          <div><b>30K+</b><span>sold</span></div>
-          <div><b>4.7 ★</b><span>3,727 reviews</span></div>
-        </div>
-        <div class="seller-row"><span>Shipping</span><b>Free, no minimum</b></div>
-        <div class="seller-bars"><b>5★</b> 90% <span>·</span> <b>4★</b> 3% <span>·</span> <b>3★</b> 1% <span>·</span> <b>2★</b> 1% <span>·</span> <b>1★</b> 5%</div>
+        <div class="seller-bars" aria-label="5★ 90% · 4★ 3% · 3★ 1% · 2★ 1% · 1★ 5%"><span class="s5" style="flex:90" title="5★ 90%"></span><span class="s4" style="flex:3" title="4★ 3%"></span><span class="s3" style="flex:1" title="3★ 1%"></span><span class="s2" style="flex:1" title="2★ 1%"></span><span class="s1" style="flex:5" title="1★ 5%"></span></div>
       </div>
       <div class="seller">
-        <div class="seller-head">
-          <img class="seller-avatar" src="img/b28882e0.webp" alt="">
-          <div>
-            <a href="https://www.temu.com/mall.html?mall_id=741070852035508" target="_blank" rel="noopener">TCG Empire</a>
-            <div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛 Local warehouse</div> <div class="seller-badge star" title="Ranked among the top sellers in its main category over the past 30 days">🌟 Star store</div>
-          </div>
+        <img class="seller-avatar" src="img/b28882e0.webp" alt="">
+        <div class="seller-body">
+          <a href="https://www.temu.com/mall.html?mall_id=741070852035508" target="_blank" rel="noopener">TCG Empire</a>
+          <div class="seller-badges"><div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛</div> <div class="seller-badge star" title="Ranked among the top sellers in its main category over the past 30 days">🌟</div> <div class="seller-badge pack-good" title="Orders from this seller have shown up well protected">📦</div></div>
+          <div class="seller-meta"><b>150K+</b> sold <span>·</span> <b>4.6 ★</b> 25,795 reviews <span>·</span> $30 min order</div>
         </div>
-        <div class="seller-stats">
-          <div><b>150K+</b><span>sold</span></div>
-          <div><b>4.6 ★</b><span>25,795 reviews</span></div>
-        </div>
-        <div class="seller-row"><span>Shipping</span><b>$30 minimum per order</b></div>
-        <div class="seller-bars"><b>5★</b> 83% <span>·</span> <b>4★</b> 5% <span>·</span> <b>3★</b> 3% <span>·</span> <b>2★</b> 2% <span>·</span> <b>1★</b> 7%</div>
+        <div class="seller-bars" aria-label="5★ 83% · 4★ 5% · 3★ 3% · 2★ 2% · 1★ 7%"><span class="s5" style="flex:83" title="5★ 83%"></span><span class="s4" style="flex:5" title="4★ 5%"></span><span class="s3" style="flex:3" title="3★ 3%"></span><span class="s2" style="flex:2" title="2★ 2%"></span><span class="s1" style="flex:7" title="1★ 7%"></span></div>
       </div>
       <div class="seller">
-        <div class="seller-head">
-          <img class="seller-avatar" src="img/d7c49111.webp" alt="">
-          <div>
-            <a href="https://www.temu.com/mall.html?mall_id=741070851925183" target="_blank" rel="noopener">MEGACARDS</a>
-            <div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛 Local warehouse</div> <div class="seller-badge star" title="Ranked among the top sellers in its main category over the past 30 days">🌟 Star store</div>
-          </div>
+        <img class="seller-avatar" src="img/d7c49111.webp" alt="">
+        <div class="seller-body">
+          <a href="https://www.temu.com/mall.html?mall_id=741070851925183" target="_blank" rel="noopener">MEGACARDS</a>
+          <div class="seller-badges"><div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛</div> <div class="seller-badge star" title="Ranked among the top sellers in its main category over the past 30 days">🌟</div> <div class="seller-badge pack-bad" title="Orders from this seller have shown up damaged or badly packed">💥</div></div>
+          <div class="seller-meta"><b>150K+</b> sold <span>·</span> <b>4.6 ★</b> 20,502 reviews <span>·</span> $30 min order</div>
         </div>
-        <div class="seller-stats">
-          <div><b>150K+</b><span>sold</span></div>
-          <div><b>4.6 ★</b><span>20,502 reviews</span></div>
-        </div>
-        <div class="seller-row"><span>Shipping</span><b>$30 minimum per order</b></div>
-        <div class="seller-bars"><b>5★</b> 84% <span>·</span> <b>4★</b> 5% <span>·</span> <b>3★</b> 3% <span>·</span> <b>2★</b> 2% <span>·</span> <b>1★</b> 6%</div>
+        <div class="seller-bars" aria-label="5★ 84% · 4★ 5% · 3★ 3% · 2★ 2% · 1★ 6%"><span class="s5" style="flex:84" title="5★ 84%"></span><span class="s4" style="flex:5" title="4★ 5%"></span><span class="s3" style="flex:3" title="3★ 3%"></span><span class="s2" style="flex:2" title="2★ 2%"></span><span class="s1" style="flex:6" title="1★ 6%"></span></div>
       </div>
       <div class="seller">
-        <div class="seller-head">
-          <img class="seller-avatar" src="img/594dc3b2.webp" alt="">
-          <div>
-            <a href="https://www.temu.com/mall.html?mall_id=741070851918312" target="_blank" rel="noopener">Larry's Card Mart</a>
-            <div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛 Local warehouse</div> <div class="seller-badge star" title="Ranked among the top sellers in its main category over the past 30 days">🌟 Star store</div>
-          </div>
+        <img class="seller-avatar" src="img/594dc3b2.webp" alt="">
+        <div class="seller-body">
+          <a href="https://www.temu.com/mall.html?mall_id=741070851918312" target="_blank" rel="noopener">Larry's Card Mart</a>
+          <div class="seller-badges"><div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛</div> <div class="seller-badge star" title="Ranked among the top sellers in its main category over the past 30 days">🌟</div> <div class="seller-badge pack-good" title="Orders from this seller have shown up well protected">📦</div></div>
+          <div class="seller-meta"><b>92K+</b> sold <span>·</span> <b>4.8 ★</b> 13,922 reviews <span>·</span> $30 min order</div>
         </div>
-        <div class="seller-stats">
-          <div><b>92K+</b><span>sold</span></div>
-          <div><b>4.8 ★</b><span>13,922 reviews</span></div>
-        </div>
-        <div class="seller-row"><span>Shipping</span><b>$30 minimum per order</b></div>
-        <div class="seller-bars"><b>5★</b> 92% <span>·</span> <b>4★</b> 3% <span>·</span> <b>3★</b> 1% <span>·</span> <b>2★</b> 1% <span>·</span> <b>1★</b> 3%</div>
+        <div class="seller-bars" aria-label="5★ 92% · 4★ 3% · 3★ 1% · 2★ 1% · 1★ 3%"><span class="s5" style="flex:92" title="5★ 92%"></span><span class="s4" style="flex:3" title="4★ 3%"></span><span class="s3" style="flex:1" title="3★ 1%"></span><span class="s2" style="flex:1" title="2★ 1%"></span><span class="s1" style="flex:3" title="1★ 3%"></span></div>
       </div>
       <div class="seller">
-        <div class="seller-head">
-          <img class="seller-avatar" src="img/2b0a6cb3.webp" alt="">
-          <div>
-            <a href="https://www.temu.com/mall.html?mall_id=741070853640394" target="_blank" rel="noopener">manditogonTCG</a>
-            <div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛 Local warehouse</div> <div class="seller-badge star" title="Ranked among the top sellers in its main category over the past 30 days">🌟 Star store</div>
-          </div>
+        <img class="seller-avatar" src="img/2b0a6cb3.webp" alt="">
+        <div class="seller-body">
+          <a href="https://www.temu.com/mall.html?mall_id=741070853640394" target="_blank" rel="noopener">manditogonTCG</a>
+          <div class="seller-badges"><div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛</div> <div class="seller-badge star" title="Ranked among the top sellers in its main category over the past 30 days">🌟</div> <div class="seller-badge pack-good" title="Orders from this seller have shown up well protected">📦</div></div>
+          <div class="seller-meta"><b>3.8K+</b> sold <span>·</span> <b>4.9 ★</b> 450 reviews <span>·</span> Free shipping, no min</div>
         </div>
-        <div class="seller-stats">
-          <div><b>3.8K+</b><span>sold</span></div>
-          <div><b>4.9 ★</b><span>450 reviews</span></div>
-        </div>
-        <div class="seller-row"><span>Shipping</span><b>Free, no minimum</b></div>
-        <div class="seller-bars"><b>5★</b> 94% <span>·</span> <b>4★</b> 2% <span>·</span> <b>3★</b> 0% <span>·</span> <b>2★</b> 1% <span>·</span> <b>1★</b> 3%</div>
+        <div class="seller-bars" aria-label="5★ 94% · 4★ 2% · 3★ 0% · 2★ 1% · 1★ 3%"><span class="s5" style="flex:94" title="5★ 94%"></span><span class="s4" style="flex:2" title="4★ 2%"></span><span class="s2" style="flex:1" title="2★ 1%"></span><span class="s1" style="flex:3" title="1★ 3%"></span></div>
       </div>
       <div class="seller">
-        <div class="seller-head">
-          <img class="seller-avatar" src="img/4634d8c5.webp" alt="">
-          <div>
-            <a href="https://www.temu.com/mall.html?mall_id=741070851660908" target="_blank" rel="noopener">Collectors Emporium</a>
-            <div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛 Local warehouse</div> <div class="seller-badge star" title="Ranked among the top sellers in its main category over the past 30 days">🌟 Star store</div>
-          </div>
+        <img class="seller-avatar" src="img/4634d8c5.webp" alt="">
+        <div class="seller-body">
+          <a href="https://www.temu.com/mall.html?mall_id=741070851660908" target="_blank" rel="noopener">Collectors Emporium</a>
+          <div class="seller-badges"><div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛</div> <div class="seller-badge star" title="Ranked among the top sellers in its main category over the past 30 days">🌟</div> <div class="seller-badge pack-good" title="Orders from this seller have shown up well protected">📦</div></div>
+          <div class="seller-meta"><b>100K+</b> sold <span>·</span> <b>4.7 ★</b> 8,615 reviews <span>·</span> $30 min order</div>
         </div>
-        <div class="seller-stats">
-          <div><b>100K+</b><span>sold</span></div>
-          <div><b>4.7 ★</b><span>8,615 reviews</span></div>
-        </div>
-        <div class="seller-row"><span>Shipping</span><b>$30 minimum per order</b></div>
-        <div class="seller-bars"><b>5★</b> 90% <span>·</span> <b>4★</b> 4% <span>·</span> <b>3★</b> 2% <span>·</span> <b>2★</b> 1% <span>·</span> <b>1★</b> 4%</div>
+        <div class="seller-bars" aria-label="5★ 90% · 4★ 4% · 3★ 2% · 2★ 1% · 1★ 4%"><span class="s5" style="flex:90" title="5★ 90%"></span><span class="s4" style="flex:4" title="4★ 4%"></span><span class="s3" style="flex:2" title="3★ 2%"></span><span class="s2" style="flex:1" title="2★ 1%"></span><span class="s1" style="flex:4" title="1★ 4%"></span></div>
       </div>
       <div class="seller">
-        <div class="seller-head">
-          <img class="seller-avatar" src="img/67dfc197.webp" alt="">
-          <div>
-            <a href="https://www.temu.com/mall.html?mall_id=741070853718556" target="_blank" rel="noopener">MANT TCG</a>
-            <div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛 Local warehouse</div> <div class="seller-badge star" title="Ranked among the top sellers in its main category over the past 30 days">🌟 Star store</div>
-          </div>
+        <img class="seller-avatar" src="img/67dfc197.webp" alt="">
+        <div class="seller-body">
+          <a href="https://www.temu.com/mall.html?mall_id=741070853718556" target="_blank" rel="noopener">MANT TCG</a>
+          <div class="seller-badges"><div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛</div> <div class="seller-badge star" title="Ranked among the top sellers in its main category over the past 30 days">🌟</div> <div class="seller-badge pack-good" title="Orders from this seller have shown up well protected">📦</div></div>
+          <div class="seller-meta"><b>3.5K+</b> sold <span>·</span> <b>4.8 ★</b> 348 reviews <span>·</span> $30 min order</div>
         </div>
-        <div class="seller-stats">
-          <div><b>3.5K+</b><span>sold</span></div>
-          <div><b>4.8 ★</b><span>348 reviews</span></div>
-        </div>
-        <div class="seller-row"><span>Shipping</span><b>$30 minimum per order</b></div>
-        <div class="seller-bars"><b>5★</b> 92% <span>·</span> <b>4★</b> 2% <span>·</span> <b>3★</b> 3% <span>·</span> <b>2★</b> 1% <span>·</span> <b>1★</b> 2%</div>
+        <div class="seller-bars" aria-label="5★ 92% · 4★ 2% · 3★ 3% · 2★ 1% · 1★ 2%"><span class="s5" style="flex:92" title="5★ 92%"></span><span class="s4" style="flex:2" title="4★ 2%"></span><span class="s3" style="flex:3" title="3★ 3%"></span><span class="s2" style="flex:1" title="2★ 1%"></span><span class="s1" style="flex:2" title="1★ 2%"></span></div>
       </div>
       <div class="seller">
-        <div class="seller-head">
-          <img class="seller-avatar" src="img/97b3b7af.webp" alt="">
-          <div>
-            <a href="https://www.temu.com/mall.html?mall_id=741070852380709" target="_blank" rel="noopener">HAUSE of Toys &amp; Collectibles</a>
-            <div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛 Local warehouse</div>
-          </div>
+        <img class="seller-avatar" src="img/97b3b7af.webp" alt="">
+        <div class="seller-body">
+          <a href="https://www.temu.com/mall.html?mall_id=741070852380709" target="_blank" rel="noopener">HAUSE of Toys &amp; Collectibles</a>
+          <div class="seller-badges"><div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛</div> <div class="seller-badge pack-good" title="Orders from this seller have shown up well protected">📦</div></div>
+          <div class="seller-meta"><b>67K+</b> sold <span>·</span> <b>4.8 ★</b> 6,239 reviews <span>·</span> $30 min order</div>
         </div>
-        <div class="seller-stats">
-          <div><b>67K+</b><span>sold</span></div>
-          <div><b>4.8 ★</b><span>6,239 reviews</span></div>
-        </div>
-        <div class="seller-row"><span>Shipping</span><b>$30 minimum per order</b></div>
-        <div class="seller-bars"><b>5★</b> 91% <span>·</span> <b>4★</b> 3% <span>·</span> <b>3★</b> 1% <span>·</span> <b>2★</b> 1% <span>·</span> <b>1★</b> 4%</div>
+        <div class="seller-bars" aria-label="5★ 91% · 4★ 3% · 3★ 1% · 2★ 1% · 1★ 4%"><span class="s5" style="flex:91" title="5★ 91%"></span><span class="s4" style="flex:3" title="4★ 3%"></span><span class="s3" style="flex:1" title="3★ 1%"></span><span class="s2" style="flex:1" title="2★ 1%"></span><span class="s1" style="flex:4" title="1★ 4%"></span></div>
       </div>
       <div class="seller">
-        <div class="seller-head">
-          <img class="seller-avatar" src="img/40f25798.webp" alt="">
-          <div>
-            <a href="https://www.temu.com/mall.html?mall_id=741070853221313" target="_blank" rel="noopener">Turbo TCG inc</a>
-            <div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛 Local warehouse</div>
-          </div>
+        <img class="seller-avatar" src="img/40f25798.webp" alt="">
+        <div class="seller-body">
+          <a href="https://www.temu.com/mall.html?mall_id=741070853221313" target="_blank" rel="noopener">Turbo TCG inc</a>
+          <div class="seller-badges"><div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛</div> <div class="seller-badge pack-bad" title="Orders from this seller have shown up damaged or badly packed">💥</div></div>
+          <div class="seller-meta"><b>6.5K+</b> sold <span>·</span> <b>4.8 ★</b> 774 reviews <span>·</span> $30 min order</div>
         </div>
-        <div class="seller-stats">
-          <div><b>6.5K+</b><span>sold</span></div>
-          <div><b>4.8 ★</b><span>774 reviews</span></div>
-        </div>
-        <div class="seller-row"><span>Shipping</span><b>$30 minimum per order</b></div>
-        <div class="seller-bars"><b>5★</b> 93% <span>·</span> <b>4★</b> 2% <span>·</span> <b>3★</b> 1% <span>·</span> <b>2★</b> 1% <span>·</span> <b>1★</b> 3%</div>
+        <div class="seller-bars" aria-label="5★ 93% · 4★ 2% · 3★ 1% · 2★ 1% · 1★ 3%"><span class="s5" style="flex:93" title="5★ 93%"></span><span class="s4" style="flex:2" title="4★ 2%"></span><span class="s3" style="flex:1" title="3★ 1%"></span><span class="s2" style="flex:1" title="2★ 1%"></span><span class="s1" style="flex:3" title="1★ 3%"></span></div>
       </div>
       <div class="seller">
-        <div class="seller-head">
-          <img class="seller-avatar" src="img/3b1bc2cb.webp" alt="">
-          <div>
-            <a href="https://www.temu.com/mall.html?mall_id=741070852824195" target="_blank" rel="noopener">CBTCG</a>
-            <div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛 Local warehouse</div>
-          </div>
+        <img class="seller-avatar" src="img/1668dc04.webp" alt="">
+        <div class="seller-body">
+          <a href="https://www.temu.com/mall.html?mall_id=741070853026788" target="_blank" rel="noopener">VMG Enterprise</a>
+          <div class="seller-badges"><div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛</div> <div class="seller-badge pack-good" title="Orders from this seller have shown up well protected">📦</div></div>
+          <div class="seller-meta"><b>3.3K+</b> sold <span>·</span> <b>4.8 ★</b> 449 reviews <span>·</span> Free shipping</div>
         </div>
-        <div class="seller-stats">
-          <div><b>1.8K+</b><span>sold</span></div>
-          <div><b>4.9 ★</b><span>187 reviews</span></div>
+        <div class="seller-bars" aria-label="5★ 92% · 4★ 3% · 3★ 0% · 2★ 0% · 1★ 5%"><span class="s5" style="flex:92" title="5★ 92%"></span><span class="s4" style="flex:3" title="4★ 3%"></span><span class="s1" style="flex:5" title="1★ 5%"></span></div>
+      </div>
+      <div class="seller">
+        <img class="seller-avatar" src="img/3b1bc2cb.webp" alt="">
+        <div class="seller-body">
+          <a href="https://www.temu.com/mall.html?mall_id=741070852824195" target="_blank" rel="noopener">CBTCG</a>
+          <div class="seller-badges"><div class="seller-badge" title="Ships from inside your country/region or nearby, so orders tend to show up faster">🚛</div> <div class="seller-badge pack-bad" title="Orders from this seller have shown up damaged or badly packed">💥</div> <div class="seller-badge pack-good" title="Orders from this seller have shown up well protected">📦</div></div>
+          <div class="seller-meta"><b>1.8K+</b> sold <span>·</span> <b>4.9 ★</b> 187 reviews <span>·</span> Free shipping, no min</div>
         </div>
-        <div class="seller-row"><span>Shipping</span><b>Free, no minimum</b></div>
-        <div class="seller-bars"><b>5★</b> 95% <span>·</span> <b>4★</b> 2% <span>·</span> <b>3★</b> 1% <span>·</span> <b>2★</b> 1% <span>·</span> <b>1★</b> 2%</div>
+        <div class="seller-bars" aria-label="5★ 95% · 4★ 2% · 3★ 1% · 2★ 1% · 1★ 2%"><span class="s5" style="flex:95" title="5★ 95%"></span><span class="s4" style="flex:2" title="4★ 2%"></span><span class="s3" style="flex:1" title="3★ 1%"></span><span class="s2" style="flex:1" title="2★ 1%"></span><span class="s1" style="flex:2" title="1★ 2%"></span></div>
       </div>
 </div>
 <p><b>🚛 Local warehouse</b> means the seller ships from inside your country/region or somewhere nearby, so orders tend to show up faster.</p>
 <p><b>🌟 Star store</b> means the store ranked among the top sellers in its main product category over the past 30 days.</p>
-    <p class="stamp">Last updated: September 4, 2026</p>
+<p><b>📦 Great packaging/shipping</b> means orders from this seller have shown up well protected.</p>
+<p><b>💥 Terrible packaging/shipping</b> means orders from this seller have shown up damaged or badly packed.</p>
+    <p class="stamp">Last updated: September 6, 2026</p>
   </div>
 </details>
 <details class="howto">
@@ -737,7 +690,7 @@ const PROMOS = [
     reward: "Open daily gifts to unlock a free Ultimate Gift. The \"$2,000+\" headline is mostly coupon savings with high minimums",
     rules: [
       { t: "Pick your Ultimate Gift, then unlock the calendar by buying the number of items it asks for" },
-      { t: "Open every day's gift on that day. Skip one and you lose that gift AND the Ultimate Gift", warn: true },
+      { t: "Open every day's gift on that day. Skip one and you lose that gift <em>and</em> the Ultimate Gift", warn: true },
       { t: "Free items need an order to ship with, so pick them first, then buy. Shipping and minimums may apply", warn: true },
       { t: "Multiple free items ready at once? Grab them all in one order" },
       { t: "Coins stack up per $ spent (seen: 1,000 per $10) with bonuses for more orders" },
@@ -850,21 +803,12 @@ const PROMOS = [
     ],
   },
   {
-    name: "Hat-Trick Gifts / Gift Party",
-    codes: ["hattrick"],
-    rules: [],
-  },
-  {
-    name: "Invite Friends & Get Free Gifts",
-    codes: ["Free gifts", "Free gift"],
-    rules: [],
-  },
-  {
     name: "Pick One Get ??% Off",
     codes: ["discount777"],
     terms: "Last updated: February 6, 2024\n\nTHE PROMOTION. You agree to enroll as a member of the Promotion (\"Member\") by clicking the \"draw\" button on the wheel as displayed on the Promotion page (expression may vary). Members will receive the designated discount where the wheel lands (as displayed on such Member's Promotion page; such discount, the \"Reward\"). You may purchase multiple items on the Promotion Page, but you can only apply the Reward once for only one item on the Promotion page. Additional terms and conditions may apply to the Reward as displayed on the Promotion page. The Reward cannot be used with any other offers.\n\nTIME LIMIT. A Member may access the Promotion page within a 72-hour period starting from the time such Member receives a push notification for the Promotion on the Temu application. The \"Time Limit\" is displayed on the Promotion pages.",
     reward: "Spin a wheel, get a percentage off one item from the promo page",
     rules: [
+      { t: "Probably discontinued and replaced by <code>double777</code> (unconfirmed)", warn: true },
       { t: "The discount applies to one item only, even if you buy several from the page", warn: true },
       { t: "Can't be stacked with any other offer", warn: true },
       { t: "You can't force this one by searching the code. It only unlocks after Temu sends your account a push notification, and you get 72 hours from then", warn: true },
@@ -876,6 +820,7 @@ const PROMOS = [
   {
     name: "Affiliate",
     codes: ["aff123"],
+    rating: "bad",
     reward: "Referral cash + daily check-in coins",
     rules: [
       { t: "Cash out to PayPal or use as Temu credit" },
@@ -895,6 +840,7 @@ const PROMOS = [
       { t: "Buy the required number of items from the promo page before time's up" },
       { t: "You won't see expiry dates or restrictions until after you get the coupons", warn: true },
       { t: "One tile per day for 14 days. Miss a day and you lose the rest", warn: true },
+      { t: "You can timeskip to get your coupons early. See Tips and tricks" },
       { t: "Most of the tiles are junk with big minimum spends. The ones worth showing up for are the gold days, which are no-minimum coupons", warn: true },
       { t: "Refund anything and all your coupons are revoked", warn: true },
       { t: "Non-Temu-shipped items might have shipping fees" },
@@ -923,22 +869,27 @@ const PROMOS = [
   {
     name: "Place Orders to Win Credits Back",
     codes: ["cccccccc"],
+    rating: "good",
     terms: "Last updated: March 16, 2025\n\nTHE PROMOTION. By clicking on the \"Spin Now\" button (expression may vary), you agree to enroll as a member of the Promotion (\"Member\"). In the Promotion, a Member is entitled to receive the Temu credits back (\"Credit Rewards\") upon completing the following tasks:\n\n1. Unlock Credit Rewards: Place an order exceeding the specified amount on the Promotion page to unlock the Credit Rewards.\n\n2. Collect Credit Passes: Complete the tasks shown on the Promotion page to collect Credit Passes.\n\n3. Withdraw Rewards: Use the Credit Passes to withdraw your unlocked rewards. You may collect up to 99 passes, redeemable for up to $100 in Temu Credits in total. The promotion ends earlier once you have collected 99 passes or redeemed $100 Temu Credits.\n\nThe interface displayed on the Promotion page may simulate a \"treasure box\", \"gift box\" or \"cards\" for illustrative purposes only. These interactive functions do not involve any form of chance, auctions or contests, and their results are based on objective criteria, i.e., everyone will get the best result in such interactive functions.\n\nISSUANCE OF REWARDS. The Temu credits will be issued to your credit balance. The issuance process may take several days to complete but will not exceed 90 days after you confirm receipt of each order. Usage of the reward is subject to the minimum purchase requirement on the Temu platform. In the event that one or more of the products purchased that qualified a Member to receive the Rewards (i) become unavailable, (ii) undergo a price adjustment, (iii) are cancelled or successfully refunded, such that the order amount falls below the amount necessary to qualify for Rewards, Sponsor reserves the rights to refuse to issue or to retrieve any previously issued corresponding Rewards and to reduce the Member's progress proportionately. If a product is cancelled or successfully refunded in said manner, except when the refund is due to product quality issues or incorrect or defective items, Sponsor will revoke the Temu Credits that have been issued to the Member in the Promotion. Members understand that, if they spend Temu Credits before the cancellation or the completion of the refund, their non-reward Credits will be spent first. When the cancellation or refund is completed, Temu will deduct Temu Credits in the amount of the issued Credits from the Member's balance, determined at the point of completion but without counting the refund amount (or all remaining Credits if said balance is below that amount). Such deduction will not cause the balance to become negative and the refund amount will not be impacted.\n\nTIME LIMIT. The \"Time Limit\" for the Promotion is 10 days from the time of a Member's enrollment in the Promotion or as otherwise displayed on the Promotion page.",
     reward: "Order to unlock credit, then grind tasks for Credit Passes to withdraw it (seen: $100–$150)",
     rules: [
-      { t: "Order over the minimum from the promo page to unlock (seen: $12 min)" },
-      { t: "Grind page tasks to collect Credit Passes. You get 10 days from when you join", warn: true },
-      { t: "Only way to get your money: collect passes. 99 max, worth up to $100", warn: true },
-      { t: "Ends early if you hit 99 passes or $100" },
-      { t: "Credits can take up to 90 days and there's a minimum purchase to spend them", warn: true },
-      { t: "Out-of-stock, repricing, or refunds below threshold = credits clawed back, progress reduced", warn: true },
-      { t: "Refunds revoke credits (quality/defective issues excepted). Non-reward credits used first" },
-      { t: "After the first order, a second slot and a time-limited bonus pop up" },
+      { t: "To qualify, order over the minimum from the promo page to unlock (seen: $12 min)" },
+      { t: "Grind page tasks to collect Credit Passes. You get 10 days from when you make your qualifying purchase", warn: true },
+      { t: "To claim the full amount: collect passes. 99 max, worth up to $100* (According to the promo rules, it caps you out early if you reach $100 back, but unconfirmed)", warn: true },
+      { t: "Ends early if you hit 99 passes or $100*" },
+      { t: "Refunds revoke any issued credits unless the refund is quality/defective issues. Non-reward credits are taken first" },
+      { t: "<strong>This promo is designed to be terrible, but we can game it</strong>: For the initial qualifying order, it uses the value of the item before discounts and credits (possibly a bug), and thus you can effectively withdraw enough credits to go positive on your spend immediately", warn: true },
+      { t: "Once you're qualified, scroll through the days and sum the passes to see if you'll get enough by the end. If it doesn't add up to at least 99, then you must make at least one additional purchase to get the full credit amount on one of your claim days", warn: true },
+      { t: "Only make additional purchases on days where the number of bonus passes it offers is substantial (seen: +30 passes, x40 of today's passes). Don't buy any speed up passes <em>unless</em> they also provide a good amount of bonus passes", warn: true },
     ],
     updated: "Rules last updated March 16, 2025",
     images: [
       { src: "img/fda812b0.webp", caption: "$150 version (+$50 bonus)" },
       { src: "img/a69aaedd.webp", caption: "$100 version, no bonus" },
+      { src: "img/08863b14.webp", caption: "Some days prompt an extra order for bonus passes (seen: +43 passes, $15 min)" },
+      { src: "img/32fbb08d.webp", caption: "Some days prompt for pass multipliers (seen: 40x today's check-in passes, $15 min)" },
+      { src: "img/498fd9e0.webp", caption: "Rewards come in increments to keep you coming back" },
+      { src: "img/57ceabe2.webp", caption: "Corresponding pass records" },
     ],
   },
   {
