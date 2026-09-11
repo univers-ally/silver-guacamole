@@ -4,400 +4,46 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
 <title>How to Temu (for cards)</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --wrap: 1200px;
-    --bg: #FFFDFA;
-    --ink: #2B221C;
-    --muted: #7A6E66;
-    --line: #EFE6DE;
-    --accent: #F26A1B;
-    --accent-soft: #FFF1E6;
-    --ok: #2E8B57;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: "Nunito", "Segoe UI", system-ui, sans-serif;
-    font-size: 15px;
-    line-height: 1.45;
-  }
-  header {
-    padding: 28px 20px 12px;
-    max-width: var(--wrap);
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 8px 16px;
-  }
-  h1 {
-    margin: 0;
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: -0.01em;
-  }
-  header span { color: var(--muted); }
-  .search {
-    margin-left: auto;
-    flex: 1 1 200px;
-    max-width: 320px;
-  }
-  .search input {
-    width: 100%;
-    padding: 9px 12px;
-    border: 1.5px solid var(--line);
-    border-radius: 999px;
-    font: inherit;
-    background: #fff;
-    color: var(--ink);
-  }
-  .search input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
-
-  main {
-    max-width: var(--wrap);
-    margin: 0 auto;
-    padding: 8px 20px 60px;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-  }
-  html { overflow-x: hidden; }
-  .card:nth-child(odd):nth-last-child(2) { grid-column: 1 / -1; }
-  [hidden] { display: none !important; }
-  .card {
-    min-width: 0;
-    max-width: 100%;
-    background: #fff;
-    border: 1.5px solid var(--line);
-    border-radius: 18px;
-    padding: 18px 18px 16px;
-  }
-  .card .body { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
-  .card > summary { list-style: none; cursor: pointer; }
-  .card > summary::-webkit-details-marker { display: none; }
-  .card > summary::before { content: "\25BE"; color: var(--muted); font-size: 14px; margin-top: 4px; flex: none; }
-  .card:not([open]) > summary::before { content: "\25B8"; }
-  .card.miss > summary { opacity: .55; }
-  .card h2 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 800;
-  }
-  .title { display: flex; align-items: flex-start; gap: 8px; }
-  .title h2 { flex: 1; }
-  .star { flex: none; font-size: 20px; line-height: 1.2; }
-  .star.good { color: inherit; }
-  .info {
-    flex: none;
-    width: 22px; height: 22px;
-    margin-top: 2px;
-    border-radius: 50%;
-    border: 1.5px solid var(--muted);
-    background: none;
-    color: var(--muted);
-    font: 700 13px/1 Georgia, serif;
-    font-style: italic;
-    cursor: pointer;
-  }
-  .info:hover, .info:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
-  #terms {
-    position: fixed; inset: 0;
-    background: rgba(43,34,28,.55);
-    display: none;
-    align-items: flex-end; justify-content: center;
-    z-index: 11;
-  }
-  #terms.open { display: flex; }
-  .sheet {
-    background: #fff;
-    width: 100%; max-width: 640px;
-    max-height: 85vh;
-    border-radius: 18px 18px 0 0;
-    display: flex; flex-direction: column;
-  }
-  .sheet-head { display: flex; align-items: center; gap: 12px; padding: 16px 18px 10px; border-bottom: 1.5px solid var(--line); }
-  .sheet-head h3 { margin: 0; flex: 1; font-size: 16px; font-weight: 800; }
-  .close { border: 0; background: none; font-size: 18px; color: var(--muted); cursor: pointer; padding: 4px 8px; }
-  .close:focus-visible { outline: 2px solid var(--accent); border-radius: 6px; }
-  .sheet pre {
-    margin: 0; padding: 14px 18px 24px;
-    overflow: auto;
-    white-space: pre-wrap;
-    font: inherit; font-size: 13.5px; line-height: 1.5;
-    color: var(--ink);
-  }
-  @media (min-width: 700px) { #terms { align-items: center; padding: 20px; } .sheet { border-radius: 18px; } }
-  .reward {
-    color: var(--muted);
-    margin: -6px 0 0;
-    font-size: 14px;
-  }
-  .codes { display: flex; flex-direction: column; gap: 6px; }
-  .code {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--accent-soft);
-    border-radius: 12px;
-    padding: 6px 6px 6px 14px;
-  }
-  .code code {
-    flex: 1;
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    color: var(--accent);
-    user-select: all;
-  }
-  .code button {
-    font: inherit;
-    font-weight: 700;
-    font-size: 13px;
-    padding: 7px 14px;
-    border: 0;
-    border-radius: 9px;
-    background: var(--accent);
-    color: #fff;
-    cursor: pointer;
-    min-width: 76px;
-  }
-  .nocode { background: #F5F1EC; padding: 10px 14px; }
-  .nocode code { color: var(--muted); font-weight: 500; user-select: none; }
-  .code button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-  .code button.done { background: var(--ok); }
-  ul {
-    margin: 0;
-    padding-left: 18px;
-  }
-  li { margin: 4px 0; }
-  li.warn::marker { color: var(--accent); }
-  .calc {
-    background: #F7F4F0;
-    border-radius: 12px;
-    padding: 10px 12px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    gap: 8px;
-    font-size: 13px;
-  }
-  .calc p { grid-column: 1 / -1; margin: 0 0 2px; color: var(--muted); }
-  .calc label { display: flex; flex-direction: column; gap: 3px; color: var(--muted); }
-  .calc input {
-    width: 100%; font: inherit; font-size: 14px; padding: 5px 8px;
-    border: 1.5px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink);
-  }
-  .calc input:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
-  .tzcalc { margin: 6px 0 10px; grid-template-columns: 1fr; }
-  .tzcalc button {
-    font: inherit; font-weight: 800; font-size: 15px; padding: 10px 14px; border: 0; border-radius: 10px;
-    background: var(--accent); color: #fff; cursor: pointer;
-  }
-  .tzcalc .tz-zone { font-size: 13px; color: var(--ink); margin: 2px 0 8px; }
-  .tzcalc .tz-zone span { color: var(--muted); }
-  .tzcalc .tz-list div { margin: 4px 0; color: var(--ink); font-size: 14px; }
-  .tzcalc .tz-list span { color: var(--muted); font-size: 12px; }
-  .tzcalc .tz-since { margin-top: 6px; font-size: 12px; }
-  .calc output { grid-column: 1 / -1; color: var(--muted); }
-  .calc output b { color: var(--ink); font-size: 15px; }
-  .legend {
-    max-width: var(--wrap); margin: 0 auto; padding: 0 20px;
-  }
-  .legend > div {
-    background: #fff; border: 1.5px solid var(--line); border-radius: 18px;
-    padding: 14px 18px; display: grid; gap: 6px;
-    font-size: 14px; color: var(--ink);
-  }
-  @media (max-width: 480px) { .legend { padding-left: 14px; padding-right: 14px; } .legend > div { padding: 12px 14px; } }
-  .foot { max-width: var(--wrap); margin: 24px auto 32px; padding: 0 20px; text-align: center; color: var(--muted); font-size: 13px; }
-  .foot p { margin: 4px 0; }
-  .howto-body .stamp { color: var(--muted); font-size: 12px; }
-  .howto {
-    max-width: var(--wrap);
-    margin: 0 auto;
-    padding: 0 20px 4px;
-  }
-  .howto > summary {
-    cursor: pointer;
-    font-weight: 700;
-    color: var(--muted);
-    font-size: 14px;
-    list-style: none;
-    padding: 6px 0;
-  }
-  .howto > summary::before { content: "\25B8  "; }
-  .howto[open] > summary::before { content: "\25BE  "; }
-  .howto summary::-webkit-details-marker { display: none; }
-  .sec { border-top: 1.5px solid var(--line); }
-  .sec:first-child { border-top: 0; }
-  .sec > summary { cursor: pointer; list-style: none; font-weight: 800; font-size: 15px; padding: 10px 0; }
-  .sec > summary::before { content: "\25B8  "; color: var(--muted); }
-  .sec[open] > summary::before { content: "\25BE  "; }
-  .sec-body { padding: 0 0 10px; }
-  .howto-body {
-    background: #fff;
-    border: 1.5px solid var(--line);
-    border-radius: 18px;
-    padding: 2px 18px;
-    margin: 6px 0 10px;
-    font-size: 14.5px;
-  }
-  .howto-body p { margin: 6px 0; }
-  .howto-body > .sellers { margin-top: 12px; }
-  .howto-body > p:last-child { margin-bottom: 12px; }
-  .howto-body ol, .howto-body ul { margin: 4px 0 6px; padding-left: 22px; }
-  .howto-body li { margin: 4px 0; }
-  .sellers { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin: 8px 0; }
-  .sellers { counter-reset: seller; }
-  .seller { border: 1.5px solid var(--line); border-radius: 14px; padding: 12px; font-size: 13px; position: relative; }
-  .seller::before {
-    counter-increment: seller; content: "#" counter(seller);
-    position: absolute; top: 10px; right: 12px;
-    font-size: 12px; font-weight: 800; color: var(--muted);
-  }
-  .seller { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 0 10px; align-items: start; }
-  .howto-body img.seller-avatar, .seller-avatar {
-    display: block; width: 40px; height: 40px; max-width: 40px;
-    border-radius: 50%; border: 1.5px solid var(--line); margin: 0;
-    background: var(--accent-soft); object-fit: cover;
-  }
-  .seller-body { min-width: 0; padding-right: 28px; }
-  .seller a { display: block; color: var(--ink); font-weight: 800; font-size: 15px; text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; }
-  .seller a:hover { text-decoration: underline; }
-  .seller-badges { margin-top: 3px; min-height: 18px; }
-  .seller-badge { display: inline-block; padding: 1px 6px; border-radius: 999px; background: #E8F5EC; font-size: 12px; line-height: 16px; cursor: help; }
-  .seller-badge.star { background: #F3EAFB; }
-  .seller-badge.pack-good { background: #E6F0FB; }
-  .seller-badge.pack-bad { background: #FBE7E5; }
-  .seller.placeholder { border-style: dashed; opacity: .75; }
-  .seller-meta { margin-top: 5px; font-size: 12px; color: var(--muted); }
-  .seller-meta b { color: var(--ink); font-weight: 700; }
-  .seller-bars { grid-column: 1 / -1; display: flex; height: 8px; margin-top: 10px; border-radius: 4px; overflow: hidden; gap: 1px; background: var(--line); }
-  .seller-bars span { display: block; height: 100%; }
-  .seller-bars .s5 { background: #2e9e44; }
-  .seller-bars .s4 { background: #8cc63f; }
-  .seller-bars .s3 { background: #f2c31b; }
-  .seller-bars .s2 { background: var(--accent); }
-  .seller-bars .s1 { background: #d9342b; }
-  .howto-body code, .card li code, .card .reward code { font-family: "SFMono-Regular", Consolas, Menlo, monospace; color: var(--accent); font-weight: 700; }
-  .howto-body img {
-    display: block;
-    max-width: 420px;
-    width: 100%;
-    border-radius: 12px;
-    border: 1.5px solid var(--line);
-    margin: 8px 0;
-  }
-  @media (max-width: 480px) { .howto { padding-left: 14px; padding-right: 14px; } }
-  .tips { border-top: 1.5px solid var(--line); padding-top: 8px; }
-  .tips summary { cursor: pointer; font-weight: 700; color: var(--muted); font-size: 14px; list-style: none; }
-  .tips summary::before { content: "▸ "; }
-  .tips[open] summary::before { content: "▾ "; }
-  .tips summary::-webkit-details-marker { display: none; }
-  .tips ul { margin-top: 6px; }
-  .tips li::marker { color: var(--muted); }
-  .confetti {
-    position: fixed;
-    width: 7px; height: 7px;
-    border-radius: 2px;
-    pointer-events: none;
-    z-index: 20;
-    animation: pop 700ms ease-out forwards;
-  }
-  @keyframes pop {
-    0%   { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-    100% { transform: translate(var(--dx), var(--dy)) rotate(540deg); opacity: 0; }
-  }
-  .todo { margin: 0; color: var(--muted); font-style: italic; }
-  .meta {
-    margin-top: auto;
-    padding-top: 6px;
-    font-size: 12px;
-    color: var(--muted);
-  }
-  .shots { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
-  .shots:has(figure + figure) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .shots:has(figure + figure + figure) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .shots:has(figure + figure + figure + figure) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .shots figure { margin: 0; min-width: 0; }
-  .shots figcaption { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.3; }
-  .shot {
-    display: block;
-    width: 100%;
-    min-width: 0;
-    overflow: hidden;
-    border: 0;
-    padding: 0;
-    background: none;
-    cursor: zoom-in;
-    border-radius: 12px;
-    overflow: hidden;
-  }
-  .shot img {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    overflow: hidden;
-    white-space: normal;
-    font-size: 11px;
-    max-height: 220px;
-    object-fit: cover;
-    object-position: top;
-    border-radius: 12px;
-    border: 1.5px solid var(--line);
-  }
-  .shot:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  #lightbox {
-    position: fixed; inset: 0;
-    background: rgba(43,34,28,.85);
-    display: none;
-    align-items: center; justify-content: center;
-    padding: 20px;
-    cursor: zoom-out;
-    z-index: 10;
-  }
-  #lightbox.open { display: flex; }
-  #lightbox img {
-    max-width: 100%; max-height: 100%;
-    border-radius: 12px;
-  }
-  .empty {
-    grid-column: 1 / -1;
-    color: var(--muted);
-    text-align: center;
-    padding: 40px 0;
-  }
-  @media (min-width: 1900px) { html { zoom: 1.15; } }
-  @media (min-width: 2400px) { html { zoom: 1.3; } }
-  @media (max-width: 700px) { main { grid-template-columns: minmax(0, 1fr); } }
-  @media (max-width: 480px) {
-    header { padding-top: 20px; padding-left: 14px; padding-right: 14px; }
-    .search { flex-basis: 100%; max-width: none; margin-left: 0; }
-    main { grid-template-columns: minmax(0, 1fr); padding-left: 14px; padding-right: 14px; }
-    .card { padding: 16px 14px 14px; }
-  }
-</style>
+<script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;}catch(e){}</script>
+<link rel="stylesheet" href="main.css?v=9">
 </head>
 <body>
-<header>
-  <h1>How to Temu (for cards)</h1>
-  <span id="count"></span>
-  <div class="search">
-    <input id="q" type="search" placeholder="Search promos…" aria-label="Filter promos">
+<div class="top">
+  <div class="bar">
+    <h1>How to Temu (for cards)</h1>
+    <span id="count"></span>
+    <div class="search">
+      <input id="q" type="search" placeholder="Search promos…" aria-label="Filter promos">
+    </div>
+    <button type="button" class="theme" id="theme" aria-label="Switch theme" title="Switch theme">
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
   </div>
-</header>
-<details class="howto">
-  <summary>Trusted (kinda) sellers</summary>
-  <div class="howto-body">
-    <div class="sellers">
-      <div class="seller">
+  <div class="tabs" role="tablist">
+    <button type="button" role="tab" id="tab-promos" aria-controls="promos" aria-selected="true">Promos</button>
+    <button type="button" role="tab" id="tab-sellers" aria-controls="sellers" aria-selected="false">Sellers</button>
+    <button type="button" role="tab" id="tab-tips" aria-controls="tips" aria-selected="false">Tips</button>
+    <button type="button" role="tab" id="tab-farmland" aria-controls="farmland" aria-selected="false">Farmland</button>
+  </div>
+</div>
+
+<section class="panel" id="promos" role="tabpanel" aria-labelledby="tab-promos">
+  <div class="lead legend">
+    <span>🔥 Worth doing if the numbers are good</span>
+    <span>💤 Average or low reward</span>
+    <span>💀 Avoid or not worth your time</span>
+  </div>
+  <div id="list"></div>
+</section>
+
+<section class="panel" id="sellers" role="tabpanel" aria-labelledby="tab-sellers" hidden>
+<p class="lead">While they're top sellers, you still have the chance to get a demolished, weighed, repackaged, resealed set of cards. Shop responsibly.</p>
+<div class="card">
+<ul class="sellers">
+      <li class="seller">
         <img class="seller-avatar" src="img/fc55b73b.webp" alt="">
         <div class="seller-body">
           <a href="https://www.temu.com/mall.html?mall_id=741070853378563" target="_blank" rel="noopener">Summit Chain Co</a>
@@ -405,8 +51,8 @@
           <div class="seller-meta"><b>30K+</b> sold <span>·</span> <b>4.7 ★</b> 3,727 reviews <span>·</span> Free shipping, no min</div>
         </div>
         <div class="seller-bars" aria-label="5★ 90% · 4★ 3% · 3★ 1% · 2★ 1% · 1★ 5%"><span class="s5" style="flex:90" title="5★ 90%"></span><span class="s4" style="flex:3" title="4★ 3%"></span><span class="s3" style="flex:1" title="3★ 1%"></span><span class="s2" style="flex:1" title="2★ 1%"></span><span class="s1" style="flex:5" title="1★ 5%"></span></div>
-      </div>
-      <div class="seller">
+      </li>
+      <li class="seller">
         <img class="seller-avatar" src="img/b28882e0.webp" alt="">
         <div class="seller-body">
           <a href="https://www.temu.com/mall.html?mall_id=741070852035508" target="_blank" rel="noopener">TCG Empire</a>
@@ -414,8 +60,8 @@
           <div class="seller-meta"><b>150K+</b> sold <span>·</span> <b>4.6 ★</b> 25,795 reviews <span>·</span> $30 min order</div>
         </div>
         <div class="seller-bars" aria-label="5★ 83% · 4★ 5% · 3★ 3% · 2★ 2% · 1★ 7%"><span class="s5" style="flex:83" title="5★ 83%"></span><span class="s4" style="flex:5" title="4★ 5%"></span><span class="s3" style="flex:3" title="3★ 3%"></span><span class="s2" style="flex:2" title="2★ 2%"></span><span class="s1" style="flex:7" title="1★ 7%"></span></div>
-      </div>
-      <div class="seller">
+      </li>
+      <li class="seller">
         <img class="seller-avatar" src="img/d7c49111.webp" alt="">
         <div class="seller-body">
           <a href="https://www.temu.com/mall.html?mall_id=741070851925183" target="_blank" rel="noopener">MEGACARDS</a>
@@ -423,8 +69,8 @@
           <div class="seller-meta"><b>150K+</b> sold <span>·</span> <b>4.6 ★</b> 20,502 reviews <span>·</span> $30 min order</div>
         </div>
         <div class="seller-bars" aria-label="5★ 84% · 4★ 5% · 3★ 3% · 2★ 2% · 1★ 6%"><span class="s5" style="flex:84" title="5★ 84%"></span><span class="s4" style="flex:5" title="4★ 5%"></span><span class="s3" style="flex:3" title="3★ 3%"></span><span class="s2" style="flex:2" title="2★ 2%"></span><span class="s1" style="flex:6" title="1★ 6%"></span></div>
-      </div>
-      <div class="seller">
+      </li>
+      <li class="seller">
         <img class="seller-avatar" src="img/594dc3b2.webp" alt="">
         <div class="seller-body">
           <a href="https://www.temu.com/mall.html?mall_id=741070851918312" target="_blank" rel="noopener">Larry's Card Mart</a>
@@ -432,8 +78,8 @@
           <div class="seller-meta"><b>92K+</b> sold <span>·</span> <b>4.8 ★</b> 13,922 reviews <span>·</span> $30 min order</div>
         </div>
         <div class="seller-bars" aria-label="5★ 92% · 4★ 3% · 3★ 1% · 2★ 1% · 1★ 3%"><span class="s5" style="flex:92" title="5★ 92%"></span><span class="s4" style="flex:3" title="4★ 3%"></span><span class="s3" style="flex:1" title="3★ 1%"></span><span class="s2" style="flex:1" title="2★ 1%"></span><span class="s1" style="flex:3" title="1★ 3%"></span></div>
-      </div>
-      <div class="seller">
+      </li>
+      <li class="seller">
         <img class="seller-avatar" src="img/2b0a6cb3.webp" alt="">
         <div class="seller-body">
           <a href="https://www.temu.com/mall.html?mall_id=741070853640394" target="_blank" rel="noopener">manditogonTCG</a>
@@ -441,8 +87,8 @@
           <div class="seller-meta"><b>3.8K+</b> sold <span>·</span> <b>4.9 ★</b> 450 reviews <span>·</span> Free shipping, no min</div>
         </div>
         <div class="seller-bars" aria-label="5★ 94% · 4★ 2% · 3★ 0% · 2★ 1% · 1★ 3%"><span class="s5" style="flex:94" title="5★ 94%"></span><span class="s4" style="flex:2" title="4★ 2%"></span><span class="s2" style="flex:1" title="2★ 1%"></span><span class="s1" style="flex:3" title="1★ 3%"></span></div>
-      </div>
-      <div class="seller">
+      </li>
+      <li class="seller">
         <img class="seller-avatar" src="img/4634d8c5.webp" alt="">
         <div class="seller-body">
           <a href="https://www.temu.com/mall.html?mall_id=741070851660908" target="_blank" rel="noopener">Collectors Emporium</a>
@@ -450,8 +96,8 @@
           <div class="seller-meta"><b>100K+</b> sold <span>·</span> <b>4.7 ★</b> 8,615 reviews <span>·</span> $30 min order</div>
         </div>
         <div class="seller-bars" aria-label="5★ 90% · 4★ 4% · 3★ 2% · 2★ 1% · 1★ 4%"><span class="s5" style="flex:90" title="5★ 90%"></span><span class="s4" style="flex:4" title="4★ 4%"></span><span class="s3" style="flex:2" title="3★ 2%"></span><span class="s2" style="flex:1" title="2★ 1%"></span><span class="s1" style="flex:4" title="1★ 4%"></span></div>
-      </div>
-      <div class="seller">
+      </li>
+      <li class="seller">
         <img class="seller-avatar" src="img/67dfc197.webp" alt="">
         <div class="seller-body">
           <a href="https://www.temu.com/mall.html?mall_id=741070853718556" target="_blank" rel="noopener">MANT TCG</a>
@@ -459,8 +105,8 @@
           <div class="seller-meta"><b>3.5K+</b> sold <span>·</span> <b>4.8 ★</b> 348 reviews <span>·</span> $30 min order</div>
         </div>
         <div class="seller-bars" aria-label="5★ 92% · 4★ 2% · 3★ 3% · 2★ 1% · 1★ 2%"><span class="s5" style="flex:92" title="5★ 92%"></span><span class="s4" style="flex:2" title="4★ 2%"></span><span class="s3" style="flex:3" title="3★ 3%"></span><span class="s2" style="flex:1" title="2★ 1%"></span><span class="s1" style="flex:2" title="1★ 2%"></span></div>
-      </div>
-      <div class="seller">
+      </li>
+      <li class="seller">
         <img class="seller-avatar" src="img/97b3b7af.webp" alt="">
         <div class="seller-body">
           <a href="https://www.temu.com/mall.html?mall_id=741070852380709" target="_blank" rel="noopener">HAUSE of Toys &amp; Collectibles</a>
@@ -468,8 +114,8 @@
           <div class="seller-meta"><b>67K+</b> sold <span>·</span> <b>4.8 ★</b> 6,239 reviews <span>·</span> $30 min order</div>
         </div>
         <div class="seller-bars" aria-label="5★ 91% · 4★ 3% · 3★ 1% · 2★ 1% · 1★ 4%"><span class="s5" style="flex:91" title="5★ 91%"></span><span class="s4" style="flex:3" title="4★ 3%"></span><span class="s3" style="flex:1" title="3★ 1%"></span><span class="s2" style="flex:1" title="2★ 1%"></span><span class="s1" style="flex:4" title="1★ 4%"></span></div>
-      </div>
-      <div class="seller">
+      </li>
+      <li class="seller">
         <img class="seller-avatar" src="img/40f25798.webp" alt="">
         <div class="seller-body">
           <a href="https://www.temu.com/mall.html?mall_id=741070853221313" target="_blank" rel="noopener">Turbo TCG inc</a>
@@ -477,8 +123,8 @@
           <div class="seller-meta"><b>6.5K+</b> sold <span>·</span> <b>4.8 ★</b> 774 reviews <span>·</span> $30 min order</div>
         </div>
         <div class="seller-bars" aria-label="5★ 93% · 4★ 2% · 3★ 1% · 2★ 1% · 1★ 3%"><span class="s5" style="flex:93" title="5★ 93%"></span><span class="s4" style="flex:2" title="4★ 2%"></span><span class="s3" style="flex:1" title="3★ 1%"></span><span class="s2" style="flex:1" title="2★ 1%"></span><span class="s1" style="flex:3" title="1★ 3%"></span></div>
-      </div>
-      <div class="seller">
+      </li>
+      <li class="seller">
         <img class="seller-avatar" src="img/1668dc04.webp" alt="">
         <div class="seller-body">
           <a href="https://www.temu.com/mall.html?mall_id=741070853026788" target="_blank" rel="noopener">VMG Enterprise</a>
@@ -486,8 +132,8 @@
           <div class="seller-meta"><b>3.3K+</b> sold <span>·</span> <b>4.8 ★</b> 449 reviews <span>·</span> Free shipping</div>
         </div>
         <div class="seller-bars" aria-label="5★ 92% · 4★ 3% · 3★ 0% · 2★ 0% · 1★ 5%"><span class="s5" style="flex:92" title="5★ 92%"></span><span class="s4" style="flex:3" title="4★ 3%"></span><span class="s1" style="flex:5" title="1★ 5%"></span></div>
-      </div>
-      <div class="seller">
+      </li>
+      <li class="seller">
         <img class="seller-avatar" src="img/3b1bc2cb.webp" alt="">
         <div class="seller-body">
           <a href="https://www.temu.com/mall.html?mall_id=741070852824195" target="_blank" rel="noopener">CBTCG</a>
@@ -495,20 +141,22 @@
           <div class="seller-meta"><b>1.8K+</b> sold <span>·</span> <b>4.9 ★</b> 187 reviews <span>·</span> Free shipping, no min</div>
         </div>
         <div class="seller-bars" aria-label="5★ 95% · 4★ 2% · 3★ 1% · 2★ 1% · 1★ 2%"><span class="s5" style="flex:95" title="5★ 95%"></span><span class="s4" style="flex:2" title="4★ 2%"></span><span class="s3" style="flex:1" title="3★ 1%"></span><span class="s2" style="flex:1" title="2★ 1%"></span><span class="s1" style="flex:2" title="1★ 2%"></span></div>
-      </div>
-</div>
+      </li>
+</ul>
+<div class="notes">
 <p><b>🚛 Local warehouse</b> means the seller ships from inside your country/region or somewhere nearby, so orders tend to show up faster.</p>
 <p><b>🌟 Star store</b> means the store ranked among the top sellers in its main product category over the past 30 days.</p>
 <p><b>📦 Great packaging/shipping</b> means orders from this seller have shown up well protected.</p>
 <p><b>💥 Terrible packaging/shipping</b> means orders from this seller have shown up damaged or badly packed.</p>
-    <p class="stamp">Last updated: September 6, 2026</p>
-  </div>
-</details>
-<details class="howto">
-  <summary>Tips and tricks</summary>
-  <div class="howto-body">
-    <details class="sec">
-      <summary>How to not get scammed</summary>
+    <p class="meta">Last updated: September 11, 2026</p>
+</div>
+</div>
+</section>
+
+<section class="panel" id="tips" role="tabpanel" aria-labelledby="tab-tips" hidden>
+<div class="stack">
+<details class="card sec">
+      <summary class="title"><h2>How to not get scammed</h2><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
       <div class="sec-body">
         <p>The sellers on Temu are scalpers selling at market price. Buying from them supports scalping. If you're going to do it anyway:</p>
         <ul>
@@ -517,16 +165,16 @@
         </ul>
       </div>
     </details>
-    <details class="sec">
-      <summary>Not every promo will show up for you</summary>
+    <details class="card sec">
+      <summary class="title"><h2>Not every promo will show up for you</h2><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
       <div class="sec-body">
         <p>Which ones you get depends on the rules, your region, and your account. If you recently finished a promo, or got a cash payout, your account can be in a cooloff period and the same code will just not work for you. That can last anywhere from a day to over a month. Searching a code you don't have access to looks like this:</p>
         <img src="img/395c5a9e.webp" alt="Temu page reading Reward Expired, The activity is too hot">
         <p>Nothing to do about it except check back later. The codes still work for other accounts.</p>
       </div>
     </details>
-    <details class="sec">
-      <summary>Getting a promo to show up anyway</summary>
+    <details class="card sec">
+      <summary class="title"><h2>Getting a promo to show up anyway</h2><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
       <div class="sec-body">
         <ol>
           <li>Uninstall the app, wait at least 24 hours without logging in or touching the account from anywhere, then reinstall.</li>
@@ -536,8 +184,8 @@
         </ol>
       </div>
     </details>
-    <details class="sec">
-      <summary>Stacking the same cash promo more than once</summary>
+    <details class="card sec">
+      <summary class="title"><h2>Stacking the same cash promo more than once</h2><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
       <div class="sec-body">
         <p>Some promos have an explicit cooloff after you finish them. During it you either get offered credit instead of cash, or the promo doesn't show at all. Two ways to work around that:</p>
         <ol>
@@ -546,10 +194,10 @@
         </ol>
       </div>
     </details>
-    <details class="sec">
-      <summary>Timeskipping (speeding up daily claims)</summary>
+    <details class="card sec">
+      <summary class="title"><h2>Timeskipping (speeding up daily claims)</h2><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
       <div class="sec-body">
-        <p>Daily-claim promos go by your phone's clock. We can exploit this by changing the phone's time zone to a place where it's already tomorrow and thus Temu thinks a day has passed. You can burn through every day of most daily-claims/calendars in one day, so never ever pay extra to unlock early unless you can't timeskip.</p>
+        <p>Daily-claim promos might go by your phone's clock. We can exploit this by changing the phone's time zone to a place where it's already tomorrow and thus Temu thinks a day has passed. You can burn through every day of most daily-claims/calendars in one day, so never ever pay extra to unlock early unless you can't timeskip.</p>
         <p>For it to work correctly, whatever time zone you switch to needs to have since passed midnight since your last claim, otherwise Temu will still think that it's the same day.</p>
         <p>The calculator below can be used to tell you which zone to switch to, and when, once you claim something.</p>
         <ol>
@@ -561,11 +209,11 @@
           <button type="button" id="tz-claim">I just claimed</button>
           <output id="tz-out"></output>
         </div>
-        <p>Works on <code>GET100</code> and may work on other offers. Be careful if you have other daily-claim promos going at the same time, since jumping the date can screw those up too.</p>
+        <p>Works on <code>GET100</code> and may work on other offers. Be careful if you have other daily-claim promos going at the same time as this may or may not affect them.</p>
       </div>
     </details>
-    <details class="sec">
-      <summary>Price Adjustment(s)</summary>
+    <details class="card sec">
+      <summary class="title"><h2>Price Adjustment(s)</h2><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
       <div class="sec-body">
         <ul>
           <li>This is when the seller you bought something from adjusts the price. This happens a lot, due to the volatility of the market. It's free money for you!</li>
@@ -577,21 +225,21 @@
         <div class="shots">
           <figure><button type="button" class="shot" aria-label="Open screenshot of the order menu"><img src="img/c8f62366.webp" loading="lazy" decoding="async" alt="Order page menu with Price match/adjustment"></button><figcaption>Three dots menu on the order</figcaption></figure>
           <figure><button type="button" class="shot" aria-label="Open screenshot of the request picker"><img src="img/ae2f858d.webp" loading="lazy" decoding="async" alt="Select a request, orange Request a price adjustment button"></button><figcaption>Orange button means that you're eligible!</figcaption></figure>
-          <figure><button type="button" class="shot" aria-label="Open screenshot of the request screen"><img src="img/cdf5f7c8.webp" loading="lazy" decoding="async" alt="Request a price adjustment screen"></button><figcaption>Request screen (seen: est. refund $0.80)</figcaption></figure>
+          <figure><button type="button" class="shot" aria-label="Open screenshot of the request screen"><img src="img/cdf5f7c8.webp" loading="lazy" decoding="async" alt="Request a price adjustment screen"></button><figcaption>Request screen</figcaption></figure>
           <figure><button type="button" class="shot" aria-label="Open screenshot of the refund method"><img src="img/f1a166bd.webp" loading="lazy" decoding="async" alt="Select refund method, Temu credit balance"></button><figcaption>Credit only on this account (Android)</figcaption></figure>
         </div>
       </div>
     </details>
-  </div>
-</details>
-<div class="legend">
-  <div>
-    <span>🔥 Worth doing if the numbers are good</span>
-    <span>💤 Average or low reward</span>
-    <span>💀 Avoid or not worth your time</span>
-  </div>
 </div>
-<main id="list"></main>
+</section>
+
+<section class="panel" id="farmland" role="tabpanel" aria-labelledby="tab-farmland" hidden>
+  <div class="card soon">
+    <img src="img/03ce7a8f.webp" alt="Dog in a hard hat that reads Site Supervisor" width="400" height="420" decoding="async">
+    <h2>Coming soon</h2>
+  </div>
+</section>
+
 <footer class="foot">
   <p>Disclaimer: you might still get scammed.</p>
   <p>Thanks to the Discord frens. Hope this helps! 💚</p>
@@ -605,13 +253,13 @@
 </div>
 
 <script>
-// Add promos here. codes: search code(s) — only list several when they're confirmed to open the same promo. image: one screenshot, or images: [{src, caption}] for several. terms: full rules text shown behind the (i) button. rating: "good" (fire) or "bad" (black star), or leave out. tips: community notes, shown in a collapsible section. calc: {note, fields:[{k,label,value}], out, f} where f is a JS expression over the field keys. rules: [] = placeholder. warn: true = gotcha (orange bullet).
+// Add promos here. codes: search code(s) — only list several when they're confirmed to open the same promo. image: one screenshot, or images: [{src, caption}] for several. terms: full rules text shown behind the (i) button. rating: "good" (fire) or "bad" (black star), or leave out. tips: community tips shown in a collapsed section.
 const PROMOS = [
   {
     name: "Free Gift(s)",
     codes: ["claimgift"],
     terms: "Last updated: July 7, 2024\n\nTHE PROMOTION. By opening the Promotion page, or clicking on the \"Sign in to get\" button (expression may vary), you agree to enroll as a member of the Promotion (\"Member\"). In the Promotion, after placing an order with an actual payment amount over a designated amount as displayed on the Promotion page (the \"Minimum Payment Amount\") within the Time Limit (\"Qualifying Order\"), a Member is entitled to get free item(s), which shall be picked by the Member from the Promotion page before placing the Qualifying Order, as well as a $100.00 (Max) coupon bundle (\"Rewards\"). The actual payment amount aforesaid means the actual payment amount paid by the Member after applying any discounts or other benefits applicable to the transaction, and taxes and shipping fees are excluded. After payment of the Qualifying Order, Members shall visit the Promotion page and click \"grab\" (expression may vary) to manually claim the free item(s) before the expiration date as displayed on the Promotion page. Free item(s) that are not claimed before the expiration date will be forfeited. Only one free item can be claimed per day. All the coupons will expire at 24:00 the day after they are claimed. General rules regarding coupons set by Temu will apply. If a Member cancels or applies for a refund for any Qualifying Order, in whole or in part, and as a result the total price of such Qualifying Order drops below the Minimum Payment Amount, then such Qualifying Order will be canceled and the Rewards will be taken back. If any Rewards are not issued due to Sponsor's reasons (e.g., the free item(s) are out of stock, etc.), Members are entitled to repick the Rewards or, if repicking is not possible, receive a coupon or Temu credits of the same amount as the selling price (not the strikethrough prices) of the unissued Rewards.\n\nThe interface displayed on the Promotion page may simulate interactive functions such as \"jackpot\", \"wheel\", \"gift box\" and \"cards\" for illustrative purposes only. These interactive functions do not involve any form of chance, auctions or contests, and their results are based on objective criteria, i.e., everyone will get the best result in such interactive functions. The number of Rewards a Member can receive is subject to the Promotion page, and the value of the Rewards may vary.",
-    reward: "Pick free items one at a time. The last slot is a coupon bundle, not an item (seen: 3 gifts + $100 in coupons)",
+    reward: "Pick free items one at a time. 3-4 Gifts + Coupons",
     rules: [
       { t: "Pick your gifts on the promo page before you buy anything. Slots open one at a time (seen: 3 picks, then a mystery 4th)" },
       { t: "That last slot is coupons, not a gift. Worth 100% of a qualifying order (seen: $20 min spend, $100 max)" },
@@ -638,7 +286,7 @@ const PROMOS = [
     name: "Buy and Get Coupon Bundle",
     codes: ["rebate100"],
     terms: "Last updated: November 12, 2024\n\nTHE PROMOTION. By clicking the \"Spin\" button (expression may vary) or entering the Promotion page, you agree to enroll as a member of the Promotion (\"Member\"). In the Promotion, a Member can earn the coupon bundle described on the Promotion page (\"Rewards\") by purchasing over a certain number of products as displayed on the Promotion page within the Time Limit. The products purchased must be selected from the Promotion page. The combinations of the coupons included in the Rewards will be displayed on the Promotion page. The Member will get one of the combinations as displayed on the Promotion page. The conditions of Rewards (such as the expiration time and application scope) for each coupon will be displayed on it after receipt. General rules about the Rewards set by Temu will also apply. If a Member cancels or applies for a refund for any item in the order placed in the Promotion, the Rewards will be taken back. Members may be subject to shipping fees if purchasing items not shipped from Temu.\n\nThe interface displayed on the Promotion page (if any) may simulate a \"jackpot\", \"wheel\", \"gift box\" or \"cards\", the functions of which are for illustrative purposes only. This Promotion does not involve any form of chance, auctions, or contests and is based on objective criteria, i.e., everyone will get the best result in such functions.",
-    reward: "Coupon bundle. Looks huge, read the fine print (seen: $422 for 1 item, $602 for 2)",
+    reward: "It's just 2-3 Coupon bundles.",
     rules: [
       { t: "Buy however many items the page says (seen: 1 or 2) before time runs out" },
       { t: "Has to be from the promo page" },
@@ -648,9 +296,8 @@ const PROMOS = [
       { t: "Doesn't work on local-warehouse items", warn: true },
       { t: "After you qualify, it will nag you to place another order for a \"boost\" (seen: one more 2-item order for +$300). Same deal, tap the ⓘ first" },
       { t: "Whether the boost is worth it depends on the order minimums. $300 in coupons that need $140 to $420 orders is not $300", warn: true },
-      { t: "Boost coupons had a 7-day expiry (seen), so plan the follow-up orders before you chase them", warn: true },
+      { t: "Boost coupons usually have a 7-day expiry (seen)", warn: true },
       { t: "Refund anything in the order and all coupons are gone", warn: true },
-      { t: "Non-Temu-shipped items might have shipping fees" },
     ],
     updated: "Rules last updated November 12, 2024",
     images: [
@@ -666,18 +313,17 @@ const PROMOS = [
     codes: ["star gift000"],
     rating: "bad",
     terms: "Last updated: January 15, 2026\n\nBy clicking on the \"Spin\" button (expression may vary), you agree to enroll as a member of the Promotion (\"Member\"). In the Promotion, a Member is entitled to take a certain number of items picked from the Promotion page for free (\"Rewards\") when the Member has successfully accumulated enough \"stars\" within the Time Limit. The number of stars required for each Reward will be clearly displayed next to the item on the Promotion page. Once the Member picks the Reward(s), they cannot change them. In addition, for the first order, the Members may receive a coupon bundle worth 100% of their first order value (excluding taxes, shipping fees, or any additional charges) (the \"Coupon Bundle\"). Members can earn stars based on the following rules: For each order that meets the minimum spend requirement shown on the Promotion page (a \"Qualifying Order\"), the Member will receive stars equal to a certain percentage of the price shown on the list of items in each subsequent order. The order amount refers to the total selling price of the items in the Qualifying Order, as displayed on the Promotion page, and excludes applicable taxes, shipping fees, and any additional charges. For certain order(s), Members may receive stars at a higher percentage rate, subject to a maximum cap on the total stars that can be earned from such order(s). When the stars earned from a Qualifying Order are sufficient to redeem a Reward, the redeemed Reward will be shipped together with that Qualifying Order.\n\nThe total value of the Coupon Bundle for the first order is capped at $100. The combinations of the coupons included in the Rewards will be displayed on the Promotion page. The number of the coupons in the Reward as well as the conditions of use, which may include purchase amount thresholds and coupon values, will be displayed on the Promotion page. Other conditions (such as the expiration time) for each coupon will be displayed on it after receipt. For the avoidance of doubt, to get the Rewards, the Member shall first pick the free item(s) and then include the free item(s) in the Qualifying Order before the Member places such Qualifying Order. When the stars earned from a Qualifying Order are sufficient to redeem a Reward, the redeemed Reward will be shipped together with that Qualifying Order. If a Member cancels or applies for a refund for any Qualifying Order, in whole or in part, and as a result the total price of such Qualifying Order drops below the minimum requirement or reduces the stars earned such that they are no longer sufficient for the redeemed Reward(s), then such Qualifying Order will no longer qualify for the Promotion and the Reward(s) will be canceled. If the canceled Reward has not yet been shipped, it will be removed from the order. If the canceled Reward has already been shipped, the Member may be charged the full price of the Reward.\n\nThe interface displayed on the Promotion page (if any) may simulate a \"jackpot\", \"wheel\", \"gift box\" or \"cards\", the functions of which are for illustrative purposes only. This Promotion does not involve any form of chance, auctions or contests and is based on objective criteria, i.e., everyone will get the best result in such functions.",
-    reward: "Earn stars by ordering, trade them for free stuff (seen: 5 gifts up to $385). First order also gets coupons, max $100",
+    reward: "Earn stars by ordering, \"trade\" them for free stuff (seen: 5 gifts up to $385). First order also gets coupons, max $100",
     rules: [
       { t: "Pick what you want on the promo page, then add it to your cart before checkout" },
-      { t: "No take-backs once you pick", warn: true },
-      { t: "Orders above the minimum earn stars, a % of the items' listed price" },
+      { t: "Chosen items cannot be changed once picked.", warn: true },
+      { t: "Orders above the minimum earn stars, a stated % of the items' listed price" },
       { t: "Stars come from the item price only, not tax/shipping", warn: true },
-      { t: "Some orders give a boosted star rate (capped)" },
-      { t: "Star cost is listed next to each item. Earn enough before time's up" },
+      { t: "Some orders may give a boosted star rate (capped)" },
       { t: "Your free item ships with the order that earned it" },
-      { t: "First order also gets a coupon bundle matching its value, up to $100" },
+      { t: "First order also gets a coupon bundle matching its value, up to $100, mostly garbage" },
       { t: "Coupon details are on the page, but expiry dates only show up after you get them", warn: true },
-      { t: "Refund enough to drop below the minimum or the stars needed? Reward canceled", warn: true },
+      { t: "If you refund enough to drop below the minimum, all provided rewards are cancelled.", warn: true },
       { t: "If the free item already shipped and you cancel, they can charge you full price for it", warn: true },
     ],
     updated: "Rules last updated January 15, 2026",
@@ -687,17 +333,16 @@ const PROMOS = [
     name: "TEMU Gift Calendar",
     codes: ["calendar1000", "QQQQ"],
     terms: "Last updated: April 3, 2026\n\nTHE PROMOTION. By clicking on the \"Pick your ultimate gift\" button (expression may vary), you agree to enroll as a member of the Promotion (\"Member\"). In the Promotion, a Member can pick an item from the Promotion page as the \"Ultimate Gift\" and earn it for free within the Time Limit after the Member (i) unlocks the Gift Calendar by placing an order over the minimum number of items required as displayed on the Promotion page; and (ii) claims all the \"Daily Gifts\" after the Gift Calendar is unlocked. The Ultimate Gift and the Daily Gifts will be referred to collectively as \"Rewards\" hereunder.\n\nThe Daily Gifts include:\n(i) Temu Credits collectively worth up to $1;\n(ii) Temu Coupons collectively worth up to $1,000 in savings; and\n(iii) A total of 7 reward items, the value of which varies depending on the Member's selection.\n\nPlease note that the displayed value of Temu Coupons awarded in the Promotion is the sum of the potential savings that a Member can realize if they use all of the Temu Coupons they receive during the Promotion after meeting the applicable requirements. For example, if a Member receives a Temu Coupon that entitles them to a $20 discount off a qualifying purchase of $50+ and a Temu Coupon that entitles them to a $40 discount off a qualifying purchase of $80+ and no other Temu Coupons, the Temu Coupons received in the Promotion will be shown to be worth $60 in savings.\n\nAll the Temu Coupons can only be used where the terms and conditions shown on the coupon are met. For example, some coupons may expire 24 hours after receipt and can only be used before the expiration time; some coupons are only applicable to items shipped from local warehouses. This is not an exhaustive list of possible limitations on using Temu Coupons; please refer to the coupons' actual instructions. Only one Temu Coupon can be used per order. Members can check the details of the coupons after receipt. Find more rules regarding Temu coupons in \"Coupons & Offers\" \u2192 \"Q&A\".\n\nTo receive the reward items, Members are required to place orders. Members may select the reward item(s) before placing order(s) on the Promotion page, so that the reward item(s) can be shipped with the order. A shipping fee and a minimum order amount may apply, as displayed on the Promotion page.\n\nMembers must claim the Daily Gift for each day within that day. If the Member fails to claim the Daily Gift for a given day, both that day's Daily Gift and the Ultimate Gift will become invalid.\n\nSome versions of the Promotion allow reclaiming previously missed Daily Gifts and pre-claiming future Daily Gifts using \"coins\" collected in the Promotion, subject to the instructions and limitations shown on the Promotion page. This feature is only available if expressly shown on the Promotion page. If applicable, coins can be collected by completing the following daily tasks as specified on the Promotion page:\n(i) Browsing designated page(s) within the Promotion for a specified period;\n(ii) Placing qualifying order(s) exceeding the required order amount within the Promotion;\n(iii) Other tasks as displayed on the Promotion page.\n\nSaid coins have no monetary value and can only be used in this Promotion to pre-claim or reclaim Daily Gifts.\n\nIf Members cancel or successfully request a refund for any order placed in the Promotion, any Gifts, Rewards, and/or coins (if applicable) earned in connection with the order, in whole or in part, will be forfeited.",
-    reward: "Open daily gifts to unlock a free Ultimate Gift. The \"$2,000+\" headline is mostly coupon savings with high minimums",
+    reward: "Open daily gifts to unlock a free Ultimate Gift. The headline number is mostly coupons.",
     rules: [
       { t: "Pick your Ultimate Gift, then unlock the calendar by buying the number of items it asks for" },
       { t: "Open every day's gift on that day. Skip one and you lose that gift <em>and</em> the Ultimate Gift", warn: true },
-      { t: "Free items need an order to ship with, so pick them first, then buy. Shipping and minimums may apply", warn: true },
-      { t: "Multiple free items ready at once? Grab them all in one order" },
+      { t: "Free items need an order to ship with, so pick them first, then buy.", warn: true },
+      { t: "If multiple free items are ready at once, try to grab them all in one order. You can use coins to force this." },
       { t: "Coins stack up per $ spent (seen: 1,000 per $10) with bonuses for more orders" },
-      { t: "That big coupon number assumes you'd max out every single coupon's spend threshold", warn: true },
       { t: "Coupon restrictions (24h expiry, local-only, etc.) hidden until you get them. One per order", warn: true },
       { t: "Some versions let you recover missed days or pre-claim future ones using coins from daily tasks" },
-      { t: "Refund any order and everything tied to it (gifts, rewards, coins) is gone", warn: true },
+      { t: "Refund any order and everything tied to it (gifts, rewards, coins) is reclaimed", warn: true },
     ],
     images: [
       { src: "img/bd93fb47.webp", caption: "Just started, calendar locked" },
@@ -710,18 +355,17 @@ const PROMOS = [
     name: "Full Reimbursement",
     codes: ["rewardsback"],
     terms: "Last updated: February 21, 2025\n\nTHE PROMOTION. The \"Reimbursement\" feature provides up to 100% value back through allowances, Temu credits, coupons, or items of equal value for eligible Promotion purchases. By clicking on the \"Spin Now\" button (expression may vary), you agree to enroll as a member of the Promotion (\"Member\"). In the Promotion, a Member can earn the following rewards (\"Rewards\"): (1) Temu Credits, (2) Temu Coupon or Coupon Bundles, and (3) Allowance (as defined below) by purchasing selected items in the Promotion page over a designated amount within the Time Limit (the \"Qualifying Orders\"). The total value of the Rewards is the same value as the Qualifying Order and is composed of the following components: 50% in Temu Coupon or Coupon Bundles, 50% in Allowance, and an extra 30% in Temu Credits. The amount of the Rewards for each order is capped at US$130 or other amount as displayed on the Promotion page, with (1) the Temu Credits included in the Rewards capped at US$30, (2) Allowance included in the Rewards capped at US$50, and (3) Coupon Bundle included in the Rewards capped at US$50. Temu Credits may not be available instantly after placing the orders and may be subject to a delay in issuance as displayed on the Promotion page. Issuance of PayPal Cashback may be subject to additional review and delay where applicable. The coupons of a Coupon Bundle are subject to spending thresholds and time limitations as displayed on the Promotion page.\n\nCoupons and Allowance will be distributed automatically. To claim the Credits, Members shall visit the Promotion page and click on the \"Claim now\" button (expression may vary) to manually claim the Temu Credits. Credits must be claimed manually each day over 7 consecutive days, starting from 12 AM on [the day of enrollment]. Claims must be made before use. Any credits not claimed by 12 AM on [7 days after enrollment] will be forfeited.\n\nYou cannot redeem Temu Credits for cash. Temu Credits will automatically apply to your next order unless you decide not to use them. Your statutory right of withdrawal remains unaffected. Temu credits will be revoked if you cancel the orders you made to receive the Temu credits. Otherwise, the Temu credits you have claimed have no expiration date.\n\nExtra Rewards. After completing payment for the first Qualifying Order and obtaining the Rewards in accordance with the applicable Rules, a Member may be offered an opportunity to upgrade the remaining value of the Rewards to a new total value of $100, consisting of: (1) Temu Credits, (2) Temu Coupons, and (3) Promotion-page Coupons (collectively, the \"Extra Rewards\"). The Extra Rewards will be distributed as follows: 50% in Temu Coupons, 50% in Promotion-page Coupons, and 30% in Temu Credits. Except as otherwise expressly provided below for the Extra Rewards, the applicable terms and conditions governing the corresponding type of Reward set forth above in these Rules will apply to the Extra Rewards. To obtain the Extra Rewards, the Member must, within the applicable Time Limit, place and complete payment for a second Qualifying Order through the Promotion page, which must meet the applicable minimum spend requirement displayed on the Promotion page.\n\n\u2022 If a refund is issued, any unclaimed rewards and any claimed but unused rewards will be forfeited and cannot be redeemed.\n\nThe interface displayed on the Promotion page may simulate a \"treasure box\", \"gift box\" or \"cards\" for illustrative purposes only. These interactive functions do not involve any form of chance, auctions or contests, and their results are based on objective criteria, i.e., everyone will get the best result in such interactive functions.\n\n\u2022 Shipping fees may apply to products shipped from third-party providers, the amount of which will be displayed when the corresponding product is checked out.\n\n\u2022 Allowance. Allowance is a type of promotional voucher that can be used to reduce the payment amount when placing orders over designated products on the Promotion page. The Allowance is applicable only within the designated Promotion page and cannot be used for general purchases across the platform. For this promotion, the Allowance is valid for 2 hours from the time it is issued to the Member. If the Allowance is not used within this period, it will expire and cannot be redeemed or reissued. Allowance cannot be transferred, sold, or exchanged for cash. Only one Allowance can be used per order. Allowance cannot be combined with other discounts or promotions unless explicitly stated.\n\n\u2022 TIME LIMIT. The \"Time Limit\" for the Promotion is 24 hours from the time of a Member's enrollment in the Promotion or as otherwise displayed on the Promotion page.",
-    reward: "100% back on your order, split across allowances, credits and coupons (seen: $100 max)",
+    reward: "Upt to 100$ back on your order, split across allowances, credits and coupons",
     rules: [
       { t: "Buy from the promo page above the minimum within 24h of joining (or whatever time the page shows)" },
       { t: "The 100% is split: 50% coupons + 50% allowance + 30% credits. Each part has its own cap" },
       { t: "Coupons and allowance show up automatically. Coupons have spend thresholds and time limits" },
-      { t: "Allowance is promo-page only, one per order, and dies in 2 hours", warn: true },
+      { t: "Allowance is promo-page only, one per order, and expires in 2 hours", warn: true },
       { t: "Credits: you have to go back and claim them every single day for 7 days straight. Miss a day, lose it", warn: true },
       { t: "Credits might be delayed, can't be cashed out, and auto-apply to your next order" },
       { t: "The page says 8 daily installments, and the type you get each day (credits, allowance, or coupons) is random", warn: true },
       { t: "After your first order they might offer an upgrade to $100 total if you buy again in time" },
-      { t: "Refund = lose all unclaimed rewards and any claimed ones you haven't used yet", warn: true },
-      { t: "Third-party seller items might have shipping fees (shown at checkout)" },
+      { t: "Refunding removes all rewards and locks the promo for a cool off period.", warn: true },
     ],
     images: [
       { src: "img/e8dbb81f.webp", caption: "Before picking an item" },
@@ -734,16 +378,16 @@ const PROMOS = [
     codes: ["claimcredit", "credit777"],
     rating: "good",
     terms: "Last updated: July 14, 2025\n\nTHE PROMOTION. By clicking on the \"Grab Now\" button (expression may vary), you agree to enroll as a member of the Promotion (\"Member\"). A Member can obtain a specified amount (as displayed on the Promotion page) of Temu credits (\"Rewards\") according to such Member's payment amount (excluding taxes, coupons or Temu credits applied to such order, as well as shipping costs) according to the following rules:\n\nOrder Amount (X) \u2192 The Value of Rewards Back (Y)\n\u2022 X \u2264 $10 \u2192 Y = 10% \u00d7 X\n\u2022 $10 < X \u2264 $280 \u2192 Y = 50% \u00d7 (X \u2212 $10) + $1\n\u2022 X > $280 \u2192 Normally: Y = 135% \u00d7 (X \u2212 $280) + $136. Limited-time offer: Y = 220% \u00d7 (X \u2212 $280) + $136\n\nThe rate of the Rewards is as displayed on the Promotion page.\n\nThe value of the Rewards is capped at a certain amount as displayed on the Promotion page.\n\nA Member is eligible to claim the Rewards for the order upon successful payment for such order.\n\nIf a Member cancels or applies for a refund for any item in the order placed in the Promotion, then the Rewards will be taken back.\n\nFollowing a qualifying purchase, a Member may be presented with a limited-time opportunity to place an additional qualifying order. This additional qualifying order allows the Member to unlock the remaining Rewards not yet earned under the Promotion, if it is completed within the applicable time limit and meets the minimum purchase amount requirement displayed on the Promotion page. Upon successful completion of the additional qualifying order, the Member's total Rewards will include both the Rewards earned from the initial qualifying order and the Rewards unlocked through the additional qualifying order, up to the maximum eligible reward amount under the Promotion, with instalment amounts adjusted accordingly. Participation in this additional opportunity is optional and will not affect the Rewards already earned from the initial qualifying order. The Rewards are issued as Temu credits. A Member is eligible to claim the Temu credits for the order upon successful payment for such order. Temu credits cannot be redeemed for cash. Temu credits will automatically apply to the Member's next order unless the Member decides not to use them. Temu credits will be revoked if the Member cancels the orders the Member made to receive the Temu credits. Otherwise, the Temu credits the Member has claimed have no expiration date.\n\nIf one or more products in an order that has qualified a Member for the reward are cancelled or successfully refunded such that the order(s) no longer meet(s) the amount necessary to qualify for the Rewards, except when the refund is due to product quality issues or incorrect or defective items, Sponsor will revoke the Temu Credits that have been issued to the Member in the Promotion. Members understand that, if they spend Temu Credits before the cancellation or the completion of the refund, their non-reward Credits will be spent first. When the cancellation or refund is completed, Temu will deduct Temu Credits in the amount of the issued Credits from the Member's balance, determined at the point of completion but without counting the refund amount (or all remaining Credits if said balance is below that amount). Such deduction will not cause the balance to become negative and the refund amount will not be impacted.\n\nMembers become eligible to claim Rewards upon confirmation of successful payment for Qualifying Orders. The confirmation of the Rewards will take a few days to proceed, no longer than 90 days. To collect the Rewards, Members must manually claim Rewards in 10 consecutive daily instalments by visiting the Promotion page and clicking \"Claim Now\" (or similar wording). A Member can collect only one instalment per day for each order, the amount of which is displayed on the Promotion page. Any instalment of the Rewards that is not claimed on the corresponding date as displayed on the Promotion page will be void. If a Member applies for a refund of any order placed in the Promotion, then all the unclaimed Rewards for such order will be void. The interface displayed on the Promotion page (if any) may simulate a \"jackpot\", \"wheel\", \"gift box\" or \"cards\", the functions of which are for illustrative purposes only. This Promotion does not involve any form of chance, auctions or contests and is based on objective criteria, i.e., everyone will get the best result in such functions.",
-    reward: "Get back a % of what you spend, paid out in 10 daily installments. Can be cash via PayPal (seen: $180 max, tiered rates)",
+    reward: "Get back a % of what you spend, paid out in 10 daily installments. Can be cash",
     rules: [
       { t: "Tiered rates. Each % only applies to the dollars in that bracket, not your whole order" },
       { t: "Tax, shipping, coupons and credits don't count toward the total", warn: true },
       { t: "Capped at whatever max the page shows. Rates and caps change between offers", warn: true },
       { t: "Officially it's \"credits,\" but the page often lets you take cash to PayPal instead" },
       { t: "Can take up to 90 days to confirm after you pay", warn: true },
-      { t: "You have to come back 10 days in a row to claim each installment. One per day per order", warn: true },
-      { t: "Miss a day, that installment is gone", warn: true },
-      { t: "They might offer a second order to unlock whatever's left. Totally optional" },
+      { t: "You have to come back 7-10 days in a row to claim each installment.", warn: true },
+      { t: "Miss a day, that installment is gone. There are no mechanisms to recover missed days in this promo!", warn: true },
+      { t: "They might offer a second order to unlock whatever's left if your initial order wasn't the full amount. Totally random" },
       { t: "Refund anything and they claw back unclaimed installments plus already-issued credits (quality/defective issues are the exception)", warn: true },
       { t: "If you spend credits before a refund goes through, your non-reward credits get used first" },
     ],
@@ -776,17 +420,17 @@ const PROMOS = [
     codes: ["wincredit", "wincash"],
     rating: "good",
     terms: "Last updated: November 17, 2025\n\nTHE PROMOTION. By clicking on the \"Spin Now\" button (expression may vary), you agree to enroll as a member of the Promotion (\"Member\"). In the Promotion, a Member is entitled to receive the Temu credits back (\"Credit Rewards\") or cash back (\"Cash Rewards\", together with the Credit Reward, the \"Rewards\") as designated on the Promotion page by making sufficient progress to fill the progress bar. The value required to fill the progress bar may vary. A Member will make progress equal to a certain percentage as displayed on the Promotion page of the payment amount (excluding any taxes and shipping fees) of any Qualifying Order after the Member has completed the payment. A \"Qualifying Order\" means an order placed by a Member for products selected by the Member from the Promotion page within the Time Limit. The progress that can be made with respect to a Qualifying Order may be capped as indicated on the Promotion page. A Member may also make progress through certain activities that do not require purchases. The Member is entitled to claim the Rewards when the progress bar is filled within the Time Limit. The interface displayed on the Promotion page may simulate a \"treasure box\", \"gift box\" or \"cards\" for illustrative purposes only. These interactive functions do not involve any form of chance, auctions or contests and are based on objective criteria, i.e., everyone will get the best result in such interactive functions.\n\nISSUANCE OF REWARDS. The Temu credits will be issued to your credit balance. The issuance process may take several days to complete but will not exceed 90 days after you confirm receipt of each order.\n\nIn the event that one or more of the products purchased that qualified a Member to receive the Rewards (i) become unavailable, (ii) undergo a price adjustment, (iii) are cancelled or successfully refunded, such that the order amount falls below the amount necessary to qualify for Rewards, Sponsor reserves the rights to refuse to issue or to retrieve any previously issued corresponding Rewards and to reduce the Member's progress proportionately. If a product is cancelled or successfully refunded in said manner, except when the refund is due to product quality issues or incorrect or defective items, Sponsor will revoke the Temu Credits that have been issued to the Member in the Promotion. Members understand that, if they spend Temu Credits before the cancellation or the completion of the refund, their non-reward Credits will be spent first. When the cancellation or refund is completed, Temu will deduct Temu Credits in the amount of the issued Credits from the Member's balance, determined at the point of completion but without counting the refund amount (or all remaining Credits if said balance is below that amount). Such deduction will not cause the balance to become negative and the refund amount will not be impacted.\n\nAfter receiving the cash reward, Members will be eligible to participate in the Promotion only for rewards in Temu Credits during a designated cooling period.",
-    reward: "Fill a progress bar to unlock cash or credit. Page picks which you get (seen: $350, 0.20% per order + an extra bump)",
+    reward: "Fill a progress bar to unlock cash or credit. Page picks a random minspend",
     rules: [
       { t: "Buy from the promo page. Each order adds a % to the progress bar" },
-      { t: "Progress = what you pay, minus tax and shipping", warn: true },
-      { t: "Single-order progress can be capped. Some free activities also add a little" },
-      { t: "Fill the bar before time runs out, then claim" },
-      { t: "The page has a Remaining spent ⓘ that shows roughly how much more you need" },
+      { t: "If you don't qualfy with a single order, the next one might have a worse \"Cash Balance\" rate! (The opposite is also true)", warn: true },
+      { t: "Extremely rare flavors: Single-order progress can be capped, but usually aren't. Some free activities also add a little but are almost never seen." },
+      { t: "Fill the bar before time runs out, then claim. The timer may or may not be real." },
+      { t: "The page has a Remaining spent ⓘ that shows roughly how much more you need. If you can't find it, leave and re-enter the promo." },
       { t: "Credits can take up to 90 days after you confirm receipt to land", warn: true },
-      { t: "Items going out of stock, repricing, or refunds below threshold = rewards clawed back and progress cut", warn: true },
-      { t: "Refunds revoke issued credits (unless it's a quality/defective issue). They deduct from your balance later", warn: true },
-      { t: "Got cash once? You're stuck with credit-only for a while after (cash version only). Cooloffs people have hit: 24h, 48h, 1 week, 3 weeks" },
+      { t: "Items going out of stock, repricing, or refunds below threshold may mean that rewards are cancelled and progress is cut, but this really only applies when multiple orders are used to qualify.", warn: true },
+      { t: "Refunds revoke issued credits (unless it's a quality/defective issue). Cash is exempt by nature, but don't try to literally scam Temu please.", warn: true },
+      { t: "If you complete the promo, you're stuck with one of two states: credit-only versions (cash version only), or being temporarily banned from the promo entirely. Cooloffs people have hit: 1h, 24h, 48h, 1 week, 3 weeks" },
     ],
     calc: {
       note: "How much do I need to spend? (remaining − extra) ÷ rate",
@@ -811,7 +455,7 @@ const PROMOS = [
       { t: "Probably discontinued and replaced by <code>double777</code> (unconfirmed)", warn: true },
       { t: "The discount applies to one item only, even if you buy several from the page", warn: true },
       { t: "Can't be stacked with any other offer", warn: true },
-      { t: "You can't force this one by searching the code. It only unlocks after Temu sends your account a push notification, and you get 72 hours from then", warn: true },
+      { t: "You can't force this one by searching the code. It only unlocks after Temu sends your account a push notification, and you get 72 hours from then. This is why I've never seen it ):", warn: true },
       { t: "If the promo isn't available, tap the banner on the page to get redirected to <code>double777</code>" },
     ],
     updated: "Rules last updated February 6, 2024",
@@ -842,8 +486,7 @@ const PROMOS = [
       { t: "One tile per day for 14 days. Miss a day and you lose the rest", warn: true },
       { t: "You can timeskip to get your coupons early. See Tips and tricks" },
       { t: "Most of the tiles are junk with big minimum spends. The ones worth showing up for are the gold days, which are no-minimum coupons", warn: true },
-      { t: "Refund anything and all your coupons are revoked", warn: true },
-      { t: "Non-Temu-shipped items might have shipping fees" },
+      { t: "Refund anything and all your coupons are revoked. Price adjustments don't count.", warn: true },
     ],
     image: "img/bd4cc1dc.webp",
     updated: "Rules last updated November 12, 2024",
@@ -859,7 +502,7 @@ const PROMOS = [
       { t: "First qualifying order unlocks the first picked item" },
       { t: "Discount toward the 2nd item is capped. Overflow rolls to the 3rd and 4th" },
       { t: "Each order after that adds a capped amount. Full discount needs the total spend shown on the page", warn: true },
-      { t: "Refund the qualifying items and leave only the discounted picks? Whole order canceled, you're out of the promo", warn: true },
+      { t: "Refunding the qualifying items to try to get only the discounted picks bans you from the promo and cancels all related orders.", warn: true },
       { t: "Drop below 70% of the milestone via refunds and orders with your 3rd/4th picks get canceled", warn: true },
       { t: "Partial refunds shrink or claw back discounts on whatever's left", warn: true },
     ],
@@ -874,9 +517,8 @@ const PROMOS = [
     reward: "Order to unlock credit, then grind tasks for Credit Passes to withdraw it (seen: $100–$150)",
     rules: [
       { t: "To qualify, order over the minimum from the promo page to unlock (seen: $12 min)" },
-      { t: "Grind page tasks to collect Credit Passes. You get 10 days from when you make your qualifying purchase", warn: true },
+      { t: "Grind page tasks to collect Credit Passes. You get ~10 days from when you make your qualifying purchase", warn: true },
       { t: "To claim the full amount: collect passes. 99 max, worth up to $100* (According to the promo rules, it caps you out early if you reach $100 back, but unconfirmed)", warn: true },
-      { t: "Ends early if you hit 99 passes or $100*" },
       { t: "Refunds revoke any issued credits unless the refund is quality/defective issues. Non-reward credits are taken first" },
       { t: "<strong>This promo is designed to be terrible, but we can game it</strong>: For the initial qualifying order, it uses the value of the item before discounts and credits (possibly a bug), and thus you can effectively withdraw enough credits to go positive on your spend immediately", warn: true },
       { t: "Once you're qualified, scroll through the days and sum the passes to see if you'll get enough by the end. If it doesn't add up to at least 99, then you must make at least one additional purchase to get the full credit amount on one of your claim days", warn: true },
@@ -982,8 +624,34 @@ const PROMOS = [
 ];
 
 const list = document.getElementById("list");
+const farm = p => p.codes.includes("farmland");
 const count = document.getElementById("count");
 const q = document.getElementById("q");
+
+// theme
+(() => {
+  const btn = document.getElementById("theme"), root = document.documentElement;
+  const dark = () => root.dataset.theme === "dark" || (!root.dataset.theme && matchMedia("(prefers-color-scheme: dark)").matches);
+  btn.addEventListener("click", () => {
+    const next = dark() ? "light" : "dark";
+    root.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch {}
+  });
+})();
+
+// tabs
+const TABS = ["promos", "sellers", "tips", "farmland"];
+function showTab(id, push) {
+  if (!TABS.includes(id)) id = "promos";
+  for (const t of TABS) {
+    document.getElementById(t).hidden = t !== id;
+    document.getElementById("tab-" + t).setAttribute("aria-selected", t === id);
+  }
+  if (push) { try { history.replaceState(null, "", id === "promos" ? location.pathname : "#" + id); } catch {} }
+}
+for (const t of TABS) document.getElementById("tab-" + t).addEventListener("click", () => showTab(t, true));
+addEventListener("hashchange", () => showTab(location.hash.slice(1)));
+showTab(location.hash.slice(1));
 
 function confetti(el) {
   const r = el.getBoundingClientRect(), colors = ["#F26A1B", "#E8A700", "#2E8B57", "#3B82F6", "#E11D48"];
@@ -1001,6 +669,17 @@ function confetti(el) {
   }
 }
 
+function wireCopy(root) {
+  for (const btn of root.querySelectorAll(".code button")) btn.addEventListener("click", async () => {
+    const code = btn.dataset.code;
+    try { await navigator.clipboard.writeText(code); }
+    catch { const r = document.createRange(); r.selectNodeContents(btn.previousElementSibling); getSelection().removeAllRanges(); getSelection().addRange(r); document.execCommand("copy"); }
+    confetti(btn);
+    btn.textContent = "Copied";
+    btn.classList.add("done");
+    setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("done"); }, 1500);
+  });
+}
 function shots(p) { return p.images || (p.image ? [{ src: p.image }] : []); }
 
 const matches = (p, term) =>
@@ -1020,19 +699,21 @@ function render() {
   empty.hidden = n > 0;
   count.textContent = `${n} of ${PROMOS.length}`;
 }
+const CHEV = `<span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>`;
 function build() {
   for (const p of PROMOS) {
     const card = document.createElement("details");
     card.className = "card"; card.open = true;
+    const label = p.rating === "good" ? "Worth doing" : p.rating === "bad" ? "Bad deal / scammy" : "Average or low reward";
     card.innerHTML = `
-      <summary class="title"><span class="star ${p.rating || "meh"}" title="${p.rating === "good" ? "Worth doing" : p.rating === "bad" ? "Bad deal / scammy" : "Average or low reward"}" aria-label="${p.rating === "good" ? "Worth doing" : p.rating === "bad" ? "Bad deal" : "Average"}">${p.rating === "good" ? "🔥" : p.rating === "bad" ? "💀" : "💤"}</span><h2>${p.name}</h2>${p.terms ? `<button type="button" class="info" aria-label="Show full terms for ${p.name}">i</button>` : ""}</summary>
+      <summary class="title"><span class="star ${p.rating || "meh"}" title="${label}" aria-label="${label}">${p.rating === "good" ? "🔥" : p.rating === "bad" ? "💀" : "💤"}</span><h2>${p.name}</h2>${p.terms ? `<button type="button" class="info" aria-label="Show full rules for ${p.name}" title="Full rules">i</button>` : ""}${CHEV}</summary>
       <div class="body">
       ${p.reward ? `<p class="reward">${p.reward}</p>` : ""}
       ${p.codes.length ? `<div class="codes">${p.codes.map(c => `<div class="code">
         <code>${c}</code>
         <button type="button" data-code="${c}" aria-label="Copy code ${c}">Copy</button>
       </div>`).join("")}</div>` : `<div class="code nocode"><code>code unknown</code></div>`}
-      ${shots(p).length ? `<div class="shots">${shots(p).map((im, i) => `<figure><button type="button" class="shot" data-i="${i}" aria-label="Open screenshot of ${p.name}"><img src="${im.src}" loading="lazy" decoding="async" alt="Screenshot of ${p.name} promo page" loading="lazy"></button>${im.caption ? `<figcaption>${im.caption}</figcaption>` : ""}</figure>`).join("")}</div>` : ""}
+      ${shots(p).length ? `<div class="shots">${shots(p).map((im, i) => `<figure><button type="button" class="shot" data-i="${i}" aria-label="Open screenshot of ${p.name}"><img src="${im.src}" loading="lazy" decoding="async" alt="Screenshot of ${p.name} promo page"></button>${im.caption ? `<figcaption>${im.caption}</figcaption>` : ""}</figure>`).join("")}</div>` : ""}
       ${p.calc ? `<div class="calc">
         <p>${p.calc.note}</p>
         ${p.calc.fields.map(f => `<label>${f.label} <input type="number" step="0.01" data-k="${f.k}" value="${f.value}"></label>`).join("")}
@@ -1043,15 +724,7 @@ function build() {
       ${p.updated ? `<div class="meta">${p.updated}</div>` : ""}
       </div>
     `;
-    for (const btn of card.querySelectorAll(".code button")) btn.addEventListener("click", async () => {
-      const code = btn.dataset.code;
-      try { await navigator.clipboard.writeText(code); }
-      catch { const r = document.createRange(); r.selectNodeContents(btn.previousElementSibling); getSelection().removeAllRanges(); getSelection().addRange(r); document.execCommand("copy"); }
-      confetti(btn);
-      btn.textContent = "Copied";
-      btn.classList.add("done");
-      setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("done"); }, 1500);
-    });
+    wireCopy(card);
     const info = card.querySelector(".info");
     if (info) info.addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); openTerms(p); });
     const calc = card.querySelector(".calc");
@@ -1067,6 +740,20 @@ function build() {
       calc.addEventListener("input", upd); upd();
     }
     for (const shot of card.querySelectorAll(".shot")) shot.addEventListener("click", () => openLightbox(shots(p)[+shot.dataset.i].src));
+    if (farm(p)) {
+      const a = document.createElement("div");
+      a.className = "card link";
+      a.innerHTML = `<div class="title"><span class="star ${p.rating || "meh"}" title="${label}" aria-label="${label}">${p.rating === "good" ? "🔥" : p.rating === "bad" ? "💀" : "💤"}</span><h2>${p.name}</h2></div>
+        ${p.reward ? `<p class="reward">${p.reward}</p>` : ""}
+        <div class="codes">${p.codes.map(c => `<div class="code"><code>${c}</code><button type="button" data-code="${c}" aria-label="Copy code ${c}">Copy</button></div>`).join("")}</div>
+        <button type="button" class="go">Click here</button>
+        ${p.updated ? `<div class="meta">${p.updated}</div>` : ""}`;
+      a.querySelector(".go").addEventListener("click", () => { showTab("farmland", true); scrollTo(0, 0); });
+      wireCopy(a);
+      cards.push({ p, card: a });
+      list.appendChild(a);
+      continue;
+    }
     cards.push({ p, card });
     list.appendChild(card);
   }
@@ -1085,9 +772,9 @@ const lb = document.getElementById("lightbox");
 function openLightbox(src) { lb.querySelector("img").src = src; lb.classList.add("open"); lb.setAttribute("aria-hidden","false"); }
 function closeLightbox() { lb.classList.remove("open"); lb.setAttribute("aria-hidden","true"); }
 lb.addEventListener("click", closeLightbox);
-for (const b of document.querySelectorAll(".howto-body .shot")) b.addEventListener("click", () => openLightbox(b.querySelector("img").src));
+for (const b of document.querySelectorAll("#tips .shot")) b.addEventListener("click", () => openLightbox(b.querySelector("img").src));
 document.addEventListener("keydown", e => { if (e.key === "Escape") { closeLightbox(); closeTerms(); } });
-let rt; q.addEventListener("input", () => { clearTimeout(rt); rt = setTimeout(render, 80); });
+let rt; q.addEventListener("input", () => { if (document.getElementById("promos").hidden) showTab("promos", true); clearTimeout(rt); rt = setTimeout(render, 80); });
 build();
 render();
 
