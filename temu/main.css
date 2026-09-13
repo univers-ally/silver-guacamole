@@ -297,13 +297,13 @@ li.warn::before { content: ""; position: absolute; left: 4px; top: 5px; bottom: 
 @media (min-width: 900px) { .sellers { columns: 2; column-gap: 40px; } .seller { break-inside: avoid; } .seller:nth-child(1) { border-top: 0; } }
 
 /* tips */
-.sec-body { margin-top: 12px; max-width: 72ch; }
+.sec-body { margin-top: 12px; }
 .sec-body p { margin: 6px 0 10px; }
 .sec-body h3 { margin: 16px 0 4px; font-size: 15px; }
 .sec-body > h3:first-child { margin-top: 0; }
 .sec-body ol, .sec-body ul { margin: 4px 0 10px; }
-.sec-body > img { display: block; max-width: 420px; width: 100%; border-radius: 8px; border: 1px solid var(--line); margin: 8px 0 12px; }
-.sec-body .shots { max-width: 640px; }
+.sec-body > img { display: block; max-width: 420px; width: 100%; border-radius: 8px; border: 1px solid var(--line); margin: 8px auto 12px; }
+.sec-body .shots { max-width: 640px; margin-inline: auto; }
 .tzcalc { margin: 6px 0 12px; grid-template-columns: 1fr; }
 .tzcalc button { font-weight: 600; font-size: 15px; padding: 10px 14px; border: 0; border-radius: 8px; background: var(--accent); color: var(--accent-ink); cursor: pointer; }
 .tzcalc .tz-zone { font-size: 13px; color: var(--ink); margin: 2px 0 8px; }

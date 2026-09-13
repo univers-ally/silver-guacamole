@@ -843,7 +843,7 @@ render();
     const ready = list.filter(z => z.roll <= t), soon = list.filter(z => z.roll > t);
     html += "<div class=\"tz-list\">";
     if (ready.length) { const z = ready[ready.length - 1]; html += `<div><b>Now</b> switch to <b>${gmt(z.o)} ${ZONES[z.o]}</b></div>`; }
-    html += soon.slice(0, 4).map(z => `<div>In <b>${rel(z.roll - t)}</b> at (${clock(z.roll)}) switch to <b>${gmt(z.o)} ${ZONES[z.o]}</b></div>`).join("");
+    html += soon.slice(0, 4).map(z => `<div>In <b>${rel(z.roll - t)}</b> (at ${clock(z.roll)}) switch to <b>${gmt(z.o)} ${ZONES[z.o]}</b></div>`).join("");
     html += "</div>";
     html += `<div class="tz-since"><span>Last claim ${clock(claim)} (${shortTz()})</span></div>`;
     out.innerHTML = html;
