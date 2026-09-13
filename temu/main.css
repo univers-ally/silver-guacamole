@@ -9,6 +9,8 @@
   --accent: #E8641A;
   --accent-ink: #FFFFFF;
   --ok: #2E8B57;
+  --pc-b: #2F7BD0;
+  --pc-y: #C8891F;
   --scrim: rgba(20, 20, 20, .5);
   --r: 10px;
   --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
@@ -19,12 +21,12 @@ html[data-theme="dark"] { color-scheme: dark; }
 /* dark palette: applied when the toggle says dark, or the system says dark and the toggle hasn't said light */
 html[data-theme="dark"] {
   --paper: #131313; --surface: #1B1B1B; --sunk: #222221; --ink: #F2F0EB; --muted: #9A9891;
-  --line: #2C2C2A; --accent: #FF8A47; --accent-ink: #1A1A1A; --ok: #4CAF7A; --scrim: rgba(0, 0, 0, .65);
+  --line: #2C2C2A; --accent: #FF8A47; --accent-ink: #1A1A1A; --ok: #4CAF7A; --scrim: rgba(0, 0, 0, .65); --pc-b: #5AA0F0; --pc-y: #E8B355;
 }
 @media (prefers-color-scheme: dark) {
   html:not([data-theme="light"]) {
     --paper: #131313; --surface: #1B1B1B; --sunk: #222221; --ink: #F2F0EB; --muted: #9A9891;
-    --line: #2C2C2A; --accent: #FF8A47; --accent-ink: #1A1A1A; --ok: #4CAF7A; --scrim: rgba(0, 0, 0, .65);
+    --line: #2C2C2A; --accent: #FF8A47; --accent-ink: #1A1A1A; --ok: #4CAF7A; --scrim: rgba(0, 0, 0, .65); --pc-b: #5AA0F0; --pc-y: #E8B355;
   }
 }
 
@@ -202,7 +204,17 @@ li.warn::before { content: ""; position: absolute; left: 4px; top: 5px; bottom: 
   gap: 8px;
   font-size: 13px;
 }
+.calc.rows { grid-template-columns: auto 1fr 1fr; align-items: center; }
+.calc.rows label { flex-direction: row; align-items: center; gap: 6px; }
+.calc.rows .rl, .calc.rows .tag { color: var(--muted); }
+.calc.rows .rl { white-space: nowrap; }
+.calc.rows .tag { font-size: 12px; }
+.calc .pc { font-size: 15px; line-height: 1; flex: none; }
+.calc .pc.b { color: var(--pc-b); }
+.calc .pc.y { color: var(--pc-y); }
 .calc p { grid-column: 1 / -1; margin: 0 0 2px; color: var(--muted); }
+.calc p.f { font-family: var(--mono); font-size: 12px; line-height: 1.6; margin: 0 0 4px; }
+.calc p.f sub { font-size: .8em; }
 .calc label { display: flex; flex-direction: column; gap: 3px; color: var(--muted); }
 .calc input {
   width: 100%; font: inherit; font-size: 14px; padding: 5px 8px;
@@ -287,6 +299,8 @@ li.warn::before { content: ""; position: absolute; left: 4px; top: 5px; bottom: 
 /* tips */
 .sec-body { margin-top: 12px; max-width: 72ch; }
 .sec-body p { margin: 6px 0 10px; }
+.sec-body h3 { margin: 16px 0 4px; font-size: 15px; }
+.sec-body > h3:first-child { margin-top: 0; }
 .sec-body ol, .sec-body ul { margin: 4px 0 10px; }
 .sec-body > img { display: block; max-width: 420px; width: 100%; border-radius: 8px; border: 1px solid var(--line); margin: 8px 0 12px; }
 .sec-body .shots { max-width: 640px; }

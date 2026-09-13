@@ -7,7 +7,7 @@
 <meta name="color-scheme" content="light dark">
 <title>How to Temu (for cards)</title>
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;}catch(e){}</script>
-<link rel="stylesheet" href="main.css?v=9">
+<link rel="stylesheet" href="main.css?v=3">
 </head>
 <body>
 <div class="top">
@@ -166,16 +166,13 @@
       </div>
     </details>
     <details class="card sec">
-      <summary class="title"><h2>Not every promo will show up for you</h2><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+      <summary class="title"><h2>Promos and their availability</h2><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
       <div class="sec-body">
+        <h3>Not every promo will show up for you</h3>
         <p>Which ones you get depends on the rules, your region, and your account. If you recently finished a promo, or got a cash payout, your account can be in a cooloff period and the same code will just not work for you. That can last anywhere from a day to over a month. Searching a code you don't have access to looks like this:</p>
         <img src="img/395c5a9e.webp" alt="Temu page reading Reward Expired, The activity is too hot">
         <p>Nothing to do about it except check back later. The codes still work for other accounts.</p>
-      </div>
-    </details>
-    <details class="card sec">
-      <summary class="title"><h2>Getting a promo to show up anyway</h2><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span></summary>
-      <div class="sec-body">
+        <h3>Getting a promo to show up anyway</h3>
         <ol>
           <li>Uninstall the app, wait at least 24 hours without logging in or touching the account from anywhere, then reinstall.</li>
           <li>Make a new account from a different IP (VPN) and a different device (different MAC address).</li>
@@ -253,7 +250,6 @@
 </div>
 
 <script>
-// Add promos here. codes: search code(s) — only list several when they're confirmed to open the same promo. image: one screenshot, or images: [{src, caption}] for several. terms: full rules text shown behind the (i) button. rating: "good" (fire) or "bad" (black star), or leave out. tips: community tips shown in a collapsed section.
 const PROMOS = [
   {
     name: "Free Gift(s)",
@@ -265,13 +261,9 @@ const PROMOS = [
       { t: "That last slot is coupons, not a gift. Worth 100% of a qualifying order (seen: $20 min spend, $100 max)" },
       { t: "Check the ⓘ before you buy. The \"$100\" is really a pile of coupons with high minimums (seen: 3×$15 off $135, 4×$10 off $100, 3×$5 off $60)", warn: true },
       { t: "Place an order above the minimum before time runs out" },
-      { t: "The minimum is what you actually pay after discounts. Tax and shipping don't count", warn: true },
-      { t: "After you pay, go back and hit Grab to claim your gift" },
-      { t: "Unclaimed gifts expire on the date shown, so don't sit on it", warn: true },
-      { t: "One gift claim per day" },
-      { t: "Coupons die at midnight the next day", warn: true },
+      { t: "The minimum is what you actually pay after discounts. Tax and shipping explictly don't count", warn: true },
+      { t: "One gift claim per day. Coupons are 24h expiry." },
       { t: "Refunding below the minimum kills the order and all your rewards", warn: true },
-      { t: "Out of stock? You can repick, or they give you a coupon/credit for the item's selling price (not the strikethrough)" },
     ],
     updated: "Rules last updated July 7, 2024",
     images: [
@@ -289,14 +281,12 @@ const PROMOS = [
     reward: "It's just 2-3 Coupon bundles.",
     rules: [
       { t: "Buy however many items the page says (seen: 1 or 2) before time runs out" },
-      { t: "Has to be from the promo page" },
       { t: "Tap the ? on the bundle first to see what you're actually getting" },
       { t: "The big number is misleading. It's mostly coupons like $50 off a $300+ order (seen: $50 off $300, $30 off $200, etc.)", warn: true },
       { t: "You won't see expiry dates or restrictions until after you get the coupons", warn: true },
-      { t: "Doesn't work on local-warehouse items", warn: true },
       { t: "After you qualify, it will nag you to place another order for a \"boost\" (seen: one more 2-item order for +$300). Same deal, tap the ⓘ first" },
       { t: "Whether the boost is worth it depends on the order minimums. $300 in coupons that need $140 to $420 orders is not $300", warn: true },
-      { t: "Boost coupons usually have a 7-day expiry (seen)", warn: true },
+      { t: "Boost coupons usually have a 7-day expiry (seen)" },
       { t: "Refund anything in the order and all coupons are gone", warn: true },
     ],
     updated: "Rules last updated November 12, 2024",
@@ -320,11 +310,9 @@ const PROMOS = [
       { t: "Orders above the minimum earn stars, a stated % of the items' listed price" },
       { t: "Stars come from the item price only, not tax/shipping", warn: true },
       { t: "Some orders may give a boosted star rate (capped)" },
-      { t: "Your free item ships with the order that earned it" },
       { t: "First order also gets a coupon bundle matching its value, up to $100, mostly garbage" },
       { t: "Coupon details are on the page, but expiry dates only show up after you get them", warn: true },
       { t: "If you refund enough to drop below the minimum, all provided rewards are cancelled.", warn: true },
-      { t: "If the free item already shipped and you cancel, they can charge you full price for it", warn: true },
     ],
     updated: "Rules last updated January 15, 2026",
     image: "img/1743e09b.webp",
@@ -336,11 +324,10 @@ const PROMOS = [
     reward: "Open daily gifts to unlock a free Ultimate Gift. The headline number is mostly coupons.",
     rules: [
       { t: "Pick your Ultimate Gift, then unlock the calendar by buying the number of items it asks for" },
-      { t: "Open every day's gift on that day. Skip one and you lose that gift <em>and</em> the Ultimate Gift", warn: true },
       { t: "Free items need an order to ship with, so pick them first, then buy.", warn: true },
       { t: "If multiple free items are ready at once, try to grab them all in one order. You can use coins to force this." },
       { t: "Coins stack up per $ spent (seen: 1,000 per $10) with bonuses for more orders" },
-      { t: "Coupon restrictions (24h expiry, local-only, etc.) hidden until you get them. One per order", warn: true },
+      { t: "Coupon restrictions (24h expiry, local-only, etc.) are hidden until you get them. One per order", warn: true },
       { t: "Some versions let you recover missed days or pre-claim future ones using coins from daily tasks" },
       { t: "Refund any order and everything tied to it (gifts, rewards, coins) is reclaimed", warn: true },
     ],
@@ -357,13 +344,12 @@ const PROMOS = [
     terms: "Last updated: February 21, 2025\n\nTHE PROMOTION. The \"Reimbursement\" feature provides up to 100% value back through allowances, Temu credits, coupons, or items of equal value for eligible Promotion purchases. By clicking on the \"Spin Now\" button (expression may vary), you agree to enroll as a member of the Promotion (\"Member\"). In the Promotion, a Member can earn the following rewards (\"Rewards\"): (1) Temu Credits, (2) Temu Coupon or Coupon Bundles, and (3) Allowance (as defined below) by purchasing selected items in the Promotion page over a designated amount within the Time Limit (the \"Qualifying Orders\"). The total value of the Rewards is the same value as the Qualifying Order and is composed of the following components: 50% in Temu Coupon or Coupon Bundles, 50% in Allowance, and an extra 30% in Temu Credits. The amount of the Rewards for each order is capped at US$130 or other amount as displayed on the Promotion page, with (1) the Temu Credits included in the Rewards capped at US$30, (2) Allowance included in the Rewards capped at US$50, and (3) Coupon Bundle included in the Rewards capped at US$50. Temu Credits may not be available instantly after placing the orders and may be subject to a delay in issuance as displayed on the Promotion page. Issuance of PayPal Cashback may be subject to additional review and delay where applicable. The coupons of a Coupon Bundle are subject to spending thresholds and time limitations as displayed on the Promotion page.\n\nCoupons and Allowance will be distributed automatically. To claim the Credits, Members shall visit the Promotion page and click on the \"Claim now\" button (expression may vary) to manually claim the Temu Credits. Credits must be claimed manually each day over 7 consecutive days, starting from 12 AM on [the day of enrollment]. Claims must be made before use. Any credits not claimed by 12 AM on [7 days after enrollment] will be forfeited.\n\nYou cannot redeem Temu Credits for cash. Temu Credits will automatically apply to your next order unless you decide not to use them. Your statutory right of withdrawal remains unaffected. Temu credits will be revoked if you cancel the orders you made to receive the Temu credits. Otherwise, the Temu credits you have claimed have no expiration date.\n\nExtra Rewards. After completing payment for the first Qualifying Order and obtaining the Rewards in accordance with the applicable Rules, a Member may be offered an opportunity to upgrade the remaining value of the Rewards to a new total value of $100, consisting of: (1) Temu Credits, (2) Temu Coupons, and (3) Promotion-page Coupons (collectively, the \"Extra Rewards\"). The Extra Rewards will be distributed as follows: 50% in Temu Coupons, 50% in Promotion-page Coupons, and 30% in Temu Credits. Except as otherwise expressly provided below for the Extra Rewards, the applicable terms and conditions governing the corresponding type of Reward set forth above in these Rules will apply to the Extra Rewards. To obtain the Extra Rewards, the Member must, within the applicable Time Limit, place and complete payment for a second Qualifying Order through the Promotion page, which must meet the applicable minimum spend requirement displayed on the Promotion page.\n\n\u2022 If a refund is issued, any unclaimed rewards and any claimed but unused rewards will be forfeited and cannot be redeemed.\n\nThe interface displayed on the Promotion page may simulate a \"treasure box\", \"gift box\" or \"cards\" for illustrative purposes only. These interactive functions do not involve any form of chance, auctions or contests, and their results are based on objective criteria, i.e., everyone will get the best result in such interactive functions.\n\n\u2022 Shipping fees may apply to products shipped from third-party providers, the amount of which will be displayed when the corresponding product is checked out.\n\n\u2022 Allowance. Allowance is a type of promotional voucher that can be used to reduce the payment amount when placing orders over designated products on the Promotion page. The Allowance is applicable only within the designated Promotion page and cannot be used for general purchases across the platform. For this promotion, the Allowance is valid for 2 hours from the time it is issued to the Member. If the Allowance is not used within this period, it will expire and cannot be redeemed or reissued. Allowance cannot be transferred, sold, or exchanged for cash. Only one Allowance can be used per order. Allowance cannot be combined with other discounts or promotions unless explicitly stated.\n\n\u2022 TIME LIMIT. The \"Time Limit\" for the Promotion is 24 hours from the time of a Member's enrollment in the Promotion or as otherwise displayed on the Promotion page.",
     reward: "Upt to 100$ back on your order, split across allowances, credits and coupons",
     rules: [
-      { t: "Buy from the promo page above the minimum within 24h of joining (or whatever time the page shows)" },
+      { t: "Buy from the promo page above the minimum within 24h of joining" },
       { t: "The 100% is split: 50% coupons + 50% allowance + 30% credits. Each part has its own cap" },
       { t: "Coupons and allowance show up automatically. Coupons have spend thresholds and time limits" },
-      { t: "Allowance is promo-page only, one per order, and expires in 2 hours", warn: true },
-      { t: "Credits: you have to go back and claim them every single day for 7 days straight. Miss a day, lose it", warn: true },
-      { t: "Credits might be delayed, can't be cashed out, and auto-apply to your next order" },
-      { t: "The page says 8 daily installments, and the type you get each day (credits, allowance, or coupons) is random", warn: true },
+      { t: "Allowance is promo-page only, one per order, and expires in ~2 hours", warn: true },
+      { t: "Daily claim for the credits over ~week. If you miss a day, the rest of the days are invalidated.", warn: true },
+      { t: "The page varies the number of daily installments, and the type you get each day (credits, allowance, or coupons) is random", warn: true },
       { t: "After your first order they might offer an upgrade to $100 total if you buy again in time" },
       { t: "Refunding removes all rewards and locks the promo for a cool off period.", warn: true },
     ],
@@ -383,13 +369,11 @@ const PROMOS = [
       { t: "Tiered rates. Each % only applies to the dollars in that bracket, not your whole order" },
       { t: "Tax, shipping, coupons and credits don't count toward the total", warn: true },
       { t: "Capped at whatever max the page shows. Rates and caps change between offers", warn: true },
-      { t: "Officially it's \"credits,\" but the page often lets you take cash to PayPal instead" },
-      { t: "Can take up to 90 days to confirm after you pay", warn: true },
+      { t: "Officially it's \"credits,\" but the page often lets you take cash to PayPal instead." },
       { t: "You have to come back 7-10 days in a row to claim each installment.", warn: true },
       { t: "Miss a day, that installment is gone. There are no mechanisms to recover missed days in this promo!", warn: true },
-      { t: "They might offer a second order to unlock whatever's left if your initial order wasn't the full amount. Totally random" },
-      { t: "Refund anything and they claw back unclaimed installments plus already-issued credits (quality/defective issues are the exception)", warn: true },
-      { t: "If you spend credits before a refund goes through, your non-reward credits get used first" },
+      { t: "They might offer a second order to unlock whatever's left if your initial order wasn't the full amount. Totally random." },
+      { t: "Refund anything and they invalidate all installments plus already-issued credits (quality/defective issues exempt)", warn: true },
     ],
     calc: {
       note: "Plug in your numbers: reward = tier 1 rate × amount up to cap 1 + tier 2 rate × next bracket + tier 3 rate × the rest, capped at your max",
@@ -424,10 +408,9 @@ const PROMOS = [
     rules: [
       { t: "Buy from the promo page. Each order adds a % to the progress bar" },
       { t: "If you don't qualfy with a single order, the next one might have a worse \"Cash Balance\" rate! (The opposite is also true)", warn: true },
-      { t: "Extremely rare flavors: Single-order progress can be capped, but usually aren't. Some free activities also add a little but are almost never seen." },
-      { t: "Fill the bar before time runs out, then claim. The timer may or may not be real." },
+      { t: "Extremely rare flavors: Single-order progress can be capped, but usually aren't. Some \"free activities\" also add a little but are almost never seen." },
+      { t: "Fill the bar before time runs out, then claim. The timer may or may not be real. If it's fake, it'll run out and then refresh to be the duration of the entire promo." },
       { t: "The page has a Remaining spent ⓘ that shows roughly how much more you need. If you can't find it, leave and re-enter the promo." },
-      { t: "Credits can take up to 90 days after you confirm receipt to land", warn: true },
       { t: "Items going out of stock, repricing, or refunds below threshold may mean that rewards are cancelled and progress is cut, but this really only applies when multiple orders are used to qualify.", warn: true },
       { t: "Refunds revoke issued credits (unless it's a quality/defective issue). Cash is exempt by nature, but don't try to literally scam Temu please.", warn: true },
       { t: "If you complete the promo, you're stuck with one of two states: credit-only versions (cash version only), or being temporarily banned from the promo entirely. Cooloffs people have hit: 1h, 24h, 48h, 1 week, 3 weeks" },
@@ -453,8 +436,8 @@ const PROMOS = [
     reward: "Spin a wheel, get a percentage off one item from the promo page",
     rules: [
       { t: "Probably discontinued and replaced by <code>double777</code> (unconfirmed)", warn: true },
-      { t: "The discount applies to one item only, even if you buy several from the page", warn: true },
-      { t: "Can't be stacked with any other offer", warn: true },
+      { t: "The discount applies to one item only, even if you buy several from the page" },
+      { t: "Can't be stacked with any other offer"},
       { t: "You can't force this one by searching the code. It only unlocks after Temu sends your account a push notification, and you get 72 hours from then. This is why I've never seen it ):", warn: true },
       { t: "If the promo isn't available, tap the banner on the page to get redirected to <code>double777</code>" },
     ],
@@ -484,8 +467,8 @@ const PROMOS = [
       { t: "Buy the required number of items from the promo page before time's up" },
       { t: "You won't see expiry dates or restrictions until after you get the coupons", warn: true },
       { t: "One tile per day for 14 days. Miss a day and you lose the rest", warn: true },
-      { t: "You can timeskip to get your coupons early. See Tips and tricks" },
-      { t: "Most of the tiles are junk with big minimum spends. The ones worth showing up for are the gold days, which are no-minimum coupons", warn: true },
+      { t: "You can <b>timeskip</b> to get your coupons early. See Tips and tricks" },
+      { t: "Most of the tiles are junk with big minimum spends. The ones worth showing up for are the gold days, which are no-minimum spend coupons", warn: true },
       { t: "Refund anything and all your coupons are revoked. Price adjustments don't count.", warn: true },
     ],
     image: "img/bd4cc1dc.webp",
@@ -497,14 +480,14 @@ const PROMOS = [
     terms: "Last updated: May 28, 2026\n\nTHE PROMOTION. By clicking on the \"Spin\" button (expression may vary), you agree to enroll as a member of the Promotion (\"Member\"). In the Promotion, after picking a certain number of items from the designated pool on the Promotion page, the Member is entitled to receive additional sequential discounts on these items (\"Rewards\"), subject to specific maximum discount caps as detailed on the Promotion page, within the applicable Time Limits (defined below). Subject to the Sponsor's unavailability policy set forth below, once the Members select the Rewards, they cannot change them.\n\nThe additional discounts are calculated and applied according to the following rules:\n\nEach time a Member places an order meeting the general minimum order amount requirement (as expressly detailed on the Promotion page) via the Promotion page (\"Qualifying Order\"), the selling prices of the Rewards will be further reduced at a ratio of $1 off for every $1 spent in the Qualifying Order and are applied exclusively pursuant to the mechanics of this Promotion. Discounts are automatically applied sequentially, starting from the lowest-priced selected Reward.\n\nPurchasing the first Reward requires the Member to place their first Qualifying Order. The portion of the discount generated by the first Qualifying Order that is applied specifically toward the second Reward is strictly capped at a designated amount displayed on the Promotion page; any generated discount value exceeding this single-item cap automatically rolls over to the third and fourth Rewards. Each subsequent Qualifying Order generates a strictly capped discount amount towards the remaining Rewards (unlocking maximum discounts requires a specific cumulative spend displayed on the Promotion page, subject to the specific selling prices of the selected items).\n\nIf a Member cancels or applies for a refund for any qualifying item in the first or second Qualifying Order, or in any order containing the third or fourth Rewards, leaving only the promotional Reward(s), this will result in full cancellation of that specific order and immediate termination of the Member's participation in the entire Promotion. Furthermore, if post-purchase refunds cause the Member's cumulative qualifying spend to drop below 70% of the required milestone, any order containing the discounted third or fourth Rewards will be fully canceled. Other partial refunds will proportionally reduce or fully roll back (claw back) the promotional discounts previously applied to the remaining Rewards.\n\nThe interface displayed on the Promotion page may simulate interactive functions such as \"jackpot\", \"wheel\", \"gift box\", \"cards\" and \"scratch card\" for illustrative purposes only. These interactive functions do not involve any form of chance, auctions or contests, and their results are based on objective criteria, i.e., everyone will get the best result in such interactive functions.\n\nTIME LIMIT. The \"Time Limit\" for the Promotion is displayed on the Promotion page.",
     reward: "Pick items, then spend on other stuff from the page to slash their prices, up to 99% off",
     rules: [
-      { t: "Pick your items from the pool. No changing your mind after", warn: true },
+      { t: "Pick your items from the page's pool. Once picked, items cannot be changed!", warn: true },
       { t: "Every qualifying order knocks $1 off your picks per $1 spent, starting from the cheapest item" },
       { t: "First qualifying order unlocks the first picked item" },
       { t: "Discount toward the 2nd item is capped. Overflow rolls to the 3rd and 4th" },
       { t: "Each order after that adds a capped amount. Full discount needs the total spend shown on the page", warn: true },
       { t: "Refunding the qualifying items to try to get only the discounted picks bans you from the promo and cancels all related orders.", warn: true },
       { t: "Drop below 70% of the milestone via refunds and orders with your 3rd/4th picks get canceled", warn: true },
-      { t: "Partial refunds shrink or claw back discounts on whatever's left", warn: true },
+      { t: "Partial refunds shrink or remove discounts on whatever's left", warn: true },
     ],
     updated: "Rules last updated May 28, 2026",
     image: "img/8389a61f.webp",
@@ -540,10 +523,10 @@ const PROMOS = [
     terms: "Last updated: 2026/7/3\n\nTHE PROMOTION. By clicking on the \"Shop now\" button (expression may vary) or entering the Promotion page, you agree to enroll as a member of the Promotion (\"Member\"). In the Promotion, a Member is entitled to place orders and enjoy discount savings as displayed on the Promotion page.\n\nThe Promotion consists of two rounds and each offers items with discount savings (\"Rewards\").\n\nIn the first round, a Member may place one order before 11:59 PM (local time) on the calendar day the Promotion begins. The amount a Member saves through their first eligible order shall not exceed the Promotion page.\n\nFollowing an eligible first order, a Member may become eligible to receive a $3-value Promotion-page Coupon. The Promotion-page Coupon entitles Members to a reduction on the Member's second eligible order placed during the first round of the Promotion and will be automatically applied to that order, subject to the applicable terms and conditions shown on the coupon. The Promotion-page Coupon awarded in the Promotion will expire at 11:59 PM (local time) on the calendar day it is issued, as recorded in Temu's system. The Promotion-page Coupon can only be redeemed on a purchase that exceeds the indicated threshold (if any) or the minimum value requirement as required by the Promotion (if any), whichever is higher. It cannot be used for general purchases across the platform.\n\nThe maximum discount savings available in the second round will depend on the actual savings achieved from the Member's first eligible order in the first round, as displayed on the Promotion page. The more a Member saves on their first eligible order in the first round, the greater the potential discount savings that may become available in the second round.\n\nThe second round will start at 12:00 AM (local time) the following day and will expire 24 hours after it becomes available, as recorded in Temu's system. Only one order can be placed in the second round by each Member.\n\nPlease notice that each order placed within the Promotion should exceed the minimum order amount requirement as displayed on the Promotion page.\n\nIf a Member cancels or requests a refund for any order placed in the Promotion, whether in whole or in part, the Member may be disqualified from the Promotion. Rewards cannot be enjoyed together with other offers or promotions. Rewards can only be delivered to a deliverable address within the country/region where the Member participated in this Promotion through the corresponding Temu site for such country/region. Members shall ensure that the address provided by them to receive the Rewards is correct. Delivery failure due to incorrect address will be borne by the Members.\n\nThe interface displayed on the Promotion page (if any) may simulate a \"wheel\", \"gift box\" or \"cards\", the functions of which are for illustrative purposes only. This Promotion does not involve any form of chance, auctions or contests and is based on objective criteria, i.e., everyone will get the best result in such functions.",
     reward: "Two rounds of discounted items. Save more on day one and day two's discounts get bigger (seen: save $50, earn $100 extra)",
     rules: [
-      { t: "Round 1: make a single qualifying order from the promo page before 11:59 PM local time. How much you \"save\" in Round 2 depends on how much you saved on this order, denoted by the cash number on the left" },
+      { t: "<b>Round 1:</b> make a single qualifying order from the promo page before 11:59 PM local time. How much you \"save\" in Round 2 depends on how much you saved on this order, denoted by the cash number on the left" },
       { t: "While adding items to your cart to finish Round 1, you may be offered a \"bonus\" to your total savings (seen: $20, on a 15-minute timer)" },
       { t: "You may be immediately offered a partial \"bonus\" after completing Round 1 which actually takes away from your Round 2 bonus (seen: $3 off $15 min spend, expiring in 6h)", warn: true },
-      { t: "Round 2 opens at 12:00 AM local time the next day and lasts 24 hours. One order only" },
+      { t: "<b>Round 2</b> opens at 12:00 AM local time the next day and lasts 24 hours. One order only" },
       { t: "Cancel or refund any promo order, even partly, and you are invalidated. <em>This may or may not include price adjustments!</em>", warn: true },
       { t: "Can't be combined with other offers or credit", warn: true },
     ],
@@ -564,12 +547,8 @@ const PROMOS = [
       { t: "Claim within 24h or they vanish. $100/day cap from orders", warn: true },
       { t: "Daily check-in gives coins with a streak bonus. Miss a day and the streak resets", warn: true },
       { t: "Coins expire after 30 days", warn: true },
-      { t: "Cancel or return something and they claw back coins proportional to the refund", warn: true },
-      { t: "Prizes cost coins. Order within 24h or the coins are gone. One per day. Coins refunded if you cancel" },
       { t: "Discounts: 10 coins = $1 off, capped at $50/item and 20% of the listed price. Can't stack" },
-      { t: "Check-in gifts are free (no coins) but you need to order within 24h. One-time only" },
-      { t: "No cashing out, no transfers, promo-only. Shipping might apply" },
-      { t: "Prizes rotate, and out-of-stock ones get swapped" },
+      { t: "Prizes rotate, and out-of-stock ones get swapped daily" },
       { t: "You can also turn coins into credit ($5, needs 14 consecutive check-ins) or grab daily instant coupons (one per order)" },
     ],
     updated: "Rules last updated March 13, 2026",
@@ -578,6 +557,43 @@ const PROMOS = [
       { src: "img/a971d584.webp", caption: "10% Tcoins back on everything" },
       { src: "img/de4a36f9.webp", caption: "Free prizes (cost coins)" },
       { src: "img/8a3ca2db.webp", caption: "Redeem coins for credit or coupons" },
+    ],
+  },
+  {
+    name: "Collect Puzzle Pieces to Get Rewards",
+    codes: ["puzzleJJJJ"],
+    terms: "Last updated: 2026/07/07\n\nTHE PROMOTION. By clicking on the \"Spin\" button (expression may vary) or entering the Promotion page, you agree to enroll as a member of the Promotion (\"Member\"). To unlock the Promotion, a Member should first place a qualifying order on the Promotion page. Once the Promotion is unlocked, a Member is entitled to collect a certain number of puzzle pieces and redeem the reward(s) on the Promotion page within the time limit.\n\nPuzzle pieces vary by color. The available methods for collecting each type of puzzle piece will be displayed on the Promotion page and may include: (i) completing daily check-in tasks; or (ii) placing qualifying orders on the Promotion page. The number of puzzle pieces a Member can collect per day is subject to a daily cap as displayed on the Promotion page.\n\nThe number and type of puzzle pieces required to redeem each reward are shown on the Promotion page. Rewards must be redeemed and claimed in sequence as displayed. Rewards include Temu Coupon(s), Temu Credit(s) and free gift(s) (collectively, \"Rewards\"). Please note that:\n\n(i) Temu Credit Reward(s) will be automatically credited to your account after you collect the required number of the corresponding puzzle pieces and redeem the corresponding Reward. The issuance of the Temu Credit Reward(s) will take a few days to proceed, but in no event longer than 90 days. Temu Credits will automatically be applied to the Member's future orders unless the Member decides not to use them. Temu Credits cannot be redeemed for cash.\n\n(ii) Temu Coupon Reward(s) will be automatically credited to the Member's account after the Member collects the required number of the corresponding puzzle pieces and redeem the corresponding Reward. Temu Coupons can be applied to the Member's future orders placed on Temu that meet the terms and conditions shown on the Temu Coupons to reduce the payment amount but cannot be used within this Promotion. Temu Coupons awarded in the Promotion will expire at 23:59 local time on the day after being claimed by the Member from the Promotion page. Each Temu Coupon can only be redeemed on a purchase that exceeds the indicated threshold (if any) or Temu's minimum order amount requirement (if applicable), whichever is higher.\n\n(iii) For free gift Reward(s), after collecting all required puzzle pieces, the Member must place an additional qualifying order on the Promotion page for each gift to claim it. Certain taxes and shipping fees may apply.\n\nEach order placed within this Promotion is subject to the minimum order amount requirement as displayed on the Promotion page. If a Member cancels or applies for a refund for any qualifying order, in whole or in part, the puzzle pieces collected by the Member with respect to such qualifying order will be taken back. If, as a result, the Member's total puzzle pieces become insufficient for any Reward that has already been redeemed, that Reward will be canceled and taken back. Additionally, if a Member cancels or applies for a refund for the additional qualifying order used to claim a free gift Reward, that free gift Reward will also be canceled and taken back.\n\nThe interface displayed on the Promotion page (if any) may simulate a \"wheel\", \"gift box\", \"cards\" or \"gold eggs\", the functions of which are for illustrative purposes only. This Promotion does not involve any form of chance, auctions, or contests and is based on objective criteria, i.e., everyone will get the best result in such functions.\n\nTIME LIMIT. The \"Time Limit\" for the Promotion will be displayed on the Promotion page.",
+    pending: true,
+    rules: [
+      { t: "Seems like: Spend 50$ to get 50$ in credits. Requires an initial 10$, plus an extra 20$ for the missing blue pieces, plus a final 20$ to claim the 50$ credit." },
+      { t: "The qualifying purchase uses the order amount before reductions, so a $0 purchase can qualify", warn: true },
+      { t: "Bonus purchases use the final amount as the qualifying number, taxes included", warn: true },
+    ],
+    calc: {
+      note: "How to calculate if you'll finish the promo:",
+      formula: `p<sub>target</sub> \u2212 (p<sub>initial</sub> + p<sub>bonus</sub> + (d<sub>total</sub> \u2212 d<sub>missed</sub>) \u00d7 r<sub>daily</sub>)`,
+      rows: true,
+      fields: [
+        { k: "ib", label: "Initial blue", value: "5", row: "Initial", icon: "b" },
+        { k: "iy", label: "Initial yellow", value: "5", icon: "y" },
+        { k: "bb", label: "Bonus blue", value: "0", row: "Bonus", icon: "b" },
+        { k: "by", label: "Bonus yellow", value: "3", icon: "y" },
+        { k: "db", label: "Daily blue", value: "1", row: "Daily", icon: "b" },
+        { k: "dy", label: "Daily yellow", value: "2", icon: "y" },
+        { k: "d", label: "Total days", value: "20", row: "Days", tag: "total" },
+        { k: "md", label: "Days missed", value: "0", tag: "missed" },
+      ],
+      out: "remaining",
+      f: `(() => { const n = [ib, iy, bb, by, db, dy, d, md]; if (n.some(v => !isFinite(v))) return "\u2014"; const dd = Math.max(0, d - md), b = Math.max(0, Math.ceil(27 - ib - bb - db * dd)), y = Math.max(0, Math.ceil(18 - iy - by - dy * dd)); if (y > 0) return "\u221e (Impossible!)"; if (b) return b + " blue (" + Math.ceil(b / 6) + " additional 20$+ order(s))"; return "0! Make a final $20 purchase to get your credit!"; })()`,
+    },
+    updated: "Rules last updated July 7, 2026",
+    images: [
+      { src: "img/108d1aac.webp", caption: "The initial page, before unlocking" },
+      { src: "img/2ed348a3.webp", caption: "The initial order pays pieces to start" },
+      { src: "img/ee09a3f3.webp", caption: "Bonus missions pay extra pieces, like this quiz" },
+      { src: "img/cd612a50.webp", caption: "Once you qualify it turns into a daily claim" },
+      { src: "img/c1f23b15.webp", caption: "The initial order qualifies on the pre-credit total" },
+      { src: "img/d3fc731b.webp", caption: "A bonus order qualifies on the final total" },
     ],
   },
   {
@@ -700,6 +716,7 @@ function render() {
   count.textContent = `${n} of ${PROMOS.length}`;
 }
 const CHEV = `<span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>`;
+const PIECE = c => `<span class="pc ${c}" aria-hidden="true">◆</span>`;
 function build() {
   for (const p of PROMOS) {
     const card = document.createElement("details");
@@ -714,12 +731,13 @@ function build() {
         <button type="button" data-code="${c}" aria-label="Copy code ${c}">Copy</button>
       </div>`).join("")}</div>` : `<div class="code nocode"><code>code unknown</code></div>`}
       ${shots(p).length ? `<div class="shots">${shots(p).map((im, i) => `<figure><button type="button" class="shot" data-i="${i}" aria-label="Open screenshot of ${p.name}"><img src="${im.src}" loading="lazy" decoding="async" alt="Screenshot of ${p.name} promo page"></button>${im.caption ? `<figcaption>${im.caption}</figcaption>` : ""}</figure>`).join("")}</div>` : ""}
-      ${p.calc ? `<div class="calc">
-        <p>${p.calc.note}</p>
-        ${p.calc.fields.map(f => `<label>${f.label} <input type="number" step="0.01" data-k="${f.k}" value="${f.value}"></label>`).join("")}
+      ${p.calc ? `<div class="calc${p.calc.rows ? " rows" : ""}">
+        ${p.calc.note ? `<p>${p.calc.note}</p>` : ""}
+        ${p.calc.formula ? `<p class="f">${p.calc.formula}</p>` : ""}
+        ${p.calc.fields.map(f => `${f.row ? `<span class="rl">${f.row}</span>` : ""}<label>${f.icon ? PIECE(f.icon) : f.tag ? `<span class="tag">${f.tag}</span>` : f.row ? "" : `${f.label} `}<input type="number" step="0.01" data-k="${f.k}" value="${f.value}" aria-label="${f.label}"></label>`).join("")}
         <output>= ${p.calc.out} <b></b></output>
       </div>` : ""}
-      ${p.rules.length ? `<ul>${p.rules.map(r => `<li${r.warn ? ' class="warn"' : ""}>${r.t}</li>`).join("")}</ul>` : `<p class="todo">Rules not added yet</p>`}
+      ${p.rules.length ? `<ul>${p.rules.map(r => `<li${r.warn ? ' class="warn"' : ""}>${r.t}</li>`).join("")}</ul>` : ""}${p.pending || !p.rules.length ? `<p class="todo">Not finished yet - Coming soon!</p>` : ""}
       ${p.tips ? `<details class="tips"><summary>Community tips</summary><ul>${p.tips.map(t => `<li>${t}</li>`).join("")}</ul></details>` : ""}
       ${p.updated ? `<div class="meta">${p.updated}</div>` : ""}
       </div>
