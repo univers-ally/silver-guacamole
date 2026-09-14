@@ -584,14 +584,14 @@ const PROMOS = [
       formula: `p<sub>target</sub> \u2212 (p<sub>initial</sub> + p<sub>bonus</sub> + (d<sub>total</sub> \u2212 d<sub>missed</sub>) \u00d7 r<sub>daily</sub>)`,
       rows: true,
       fields: [
-        { k: "ib", label: "Initial blue", value: "5", row: "Initial", icon: "b" },
-        { k: "iy", label: "Initial yellow", value: "5", icon: "y" },
-        { k: "bb", label: "Bonus blue", value: "0", row: "Bonus", icon: "b" },
-        { k: "by", label: "Bonus yellow", value: "3", icon: "y" },
-        { k: "db", label: "Daily blue", value: "1", row: "Daily", icon: "b" },
-        { k: "dy", label: "Daily yellow", value: "2", icon: "y" },
-        { k: "d", label: "Total days", value: "20", row: "Days", tag: "total" },
-        { k: "md", label: "Days missed", value: "0", tag: "missed" },
+        { k: "ib", label: "Initial blue", value: "5", row: "Initial", icon: "b", step: "1" },
+        { k: "iy", label: "Initial yellow", value: "5", icon: "y", step: "1" },
+        { k: "bb", label: "Bonus blue", value: "0", row: "Bonus", icon: "b", step: "1" },
+        { k: "by", label: "Bonus yellow", value: "3", icon: "y", step: "1" },
+        { k: "db", label: "Daily blue", value: "1", row: "Daily", icon: "b", step: "1" },
+        { k: "dy", label: "Daily yellow", value: "2", icon: "y", step: "1" },
+        { k: "d", label: "Total days", value: "20", row: "Days", tag: "total", step: "1" },
+        { k: "md", label: "Days missed", value: "0", tag: "missed", step: "1" },
       ],
       out: "remaining",
       f: `(() => { const n = [ib, iy, bb, by, db, dy, d, md]; if (n.some(v => !isFinite(v))) return "\u2014"; const dd = Math.max(0, d - md), b = Math.max(0, Math.ceil(27 - ib - bb - db * dd)), y = Math.max(0, Math.ceil(18 - iy - by - dy * dd)); if (y > 0) return "\u221e (Impossible!)"; if (b) return b + " blue (" + Math.ceil(b / 6) + " additional 20$+ order(s))"; return "0! Make a final $20 purchase to get your credit!"; })()`,
@@ -744,8 +744,8 @@ function build() {
       ${p.calc ? `<div class="calc${p.calc.rows ? " rows" : ""}${p.calc.tpl ? " tpl" : ""}">
         ${p.calc.note ? `<p>${p.calc.note}</p>` : ""}
         ${p.calc.formula ? `<p class="f">${p.calc.formula}</p>` : ""}
-        ${p.calc.tpl ? p.calc.tpl.map(line => `<div class="tl">${line.replace(/\{(\w+)\}/g, (_, k) => { const f = p.calc.fields.find(f => f.k === k); return `<input type="number" step="0.01" data-k="${f.k}" value="${f.value}" aria-label="${f.label}" title="${f.label}">`; })}</div>`).join("")
-        : p.calc.fields.map(f => `${f.row ? `<span class="rl">${f.row}</span>` : ""}<label>${f.icon ? PIECE(f.icon) : f.tag ? `<span class="tag">${f.tag}</span>` : f.row ? "" : `${f.label} `}<input type="number" step="0.01" data-k="${f.k}" value="${f.value}" aria-label="${f.label}"></label>`).join("")}
+        ${p.calc.tpl ? p.calc.tpl.map(line => `<div class="tl">${line.replace(/\{(\w+)\}/g, (_, k) => { const f = p.calc.fields.find(f => f.k === k); return `<input type="number" min="0" step="${f.step || "0.01"}" data-k="${f.k}" value="${f.value}" aria-label="${f.label}" title="${f.label}">`; })}</div>`).join("")
+        : p.calc.fields.map(f => `${f.row ? `<span class="rl">${f.row}</span>` : ""}<label>${f.icon ? PIECE(f.icon) : f.tag ? `<span class="tag">${f.tag}</span>` : f.row ? "" : `${f.label} `}<input type="number" min="0" step="${f.step || "0.01"}" data-k="${f.k}" value="${f.value}" aria-label="${f.label}"></label>`).join("")}
         <output>= ${p.calc.out} <b></b></output>
       </div>` : ""}
       ${p.rules.length ? `<ul>${p.rules.map(r => `<li${r.warn ? ' class="warn"' : ""}>${r.t}</li>`).join("")}</ul>` : ""}${p.pending || !p.rules.length ? `<p class="todo">Not finished yet - Coming soon!</p>` : ""}
