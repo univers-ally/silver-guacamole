@@ -18,7 +18,7 @@
 }
 html[data-theme="dark"] { color-scheme: dark; }
 @media (prefers-color-scheme: dark) { html:not([data-theme="light"]) { color-scheme: dark; } }
-/* dark palette: applied when the toggle says dark, or the system says dark and the toggle hasn't said light */
+/* dark palette */
 html[data-theme="dark"] {
   --paper: #131313; --surface: #1B1B1B; --sunk: #222221; --ink: #F2F0EB; --muted: #9A9891;
   --line: #2C2C2A; --accent: #FF8A47; --accent-ink: #1A1A1A; --ok: #4CAF7A; --scrim: rgba(0, 0, 0, .65); --pc-b: #5AA0F0; --pc-y: #E8B355;
@@ -223,6 +223,9 @@ li.warn::before { content: ""; position: absolute; left: 4px; top: 5px; bottom: 
 .calc input:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
 .calc output { grid-column: 1 / -1; color: var(--muted); }
 .calc output b { color: var(--ink); font-size: 15px; font-weight: 600; }
+.calc.tpl { grid-template-columns: 1fr; gap: 4px; }
+.calc.tpl .tl { color: var(--muted); line-height: 2.2; white-space: nowrap; overflow-x: auto; }
+.calc.tpl .tl input { display: inline-block; width: 5.5em; padding: 3px 6px; margin: 0 2px; text-align: right; vertical-align: middle; }
 
 .tips { border-top: 1px solid var(--line); padding-top: 8px; }
 .tips summary { cursor: pointer; font-weight: 600; color: var(--muted); font-size: 14px; list-style: none; display: flex; align-items: center; gap: 8px; }

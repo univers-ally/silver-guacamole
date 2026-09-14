@@ -7,7 +7,7 @@
 <meta name="color-scheme" content="light dark">
 <title>How to Temu (for cards)</title>
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;}catch(e){}</script>
-<link rel="stylesheet" href="main.css?v=3">
+<link rel="stylesheet" href="main.css?v=4">
 </head>
 <body>
 <div class="top">
@@ -416,10 +416,20 @@ const PROMOS = [
       { t: "If you complete the promo, you're stuck with one of two states: credit-only versions (cash version only), or being temporarily banned from the promo entirely. Cooloffs people have hit: 1h, 24h, 48h, 1 week, 3 weeks" },
     ],
     calc: {
-      note: "How much do I need to spend? (remaining − extra) ÷ rate",
-      fields: [ { k: "x", label: "Remaining", value: "3.43" }, { k: "y", label: "Extra", value: "2.24" }, { k: "r", label: "Rate %", value: "0.20" } ],
-      out: "min spend",
-      f: "(x-y)/(r/100)",
+      note: "Total Spend Calculator:",
+      formula: `C<sub>total</sub> \u2212 C<sub>confirmed</sub> = C<sub>remaining</sub> | (C<sub>remaining</sub> \u2212 B<sub>extra</sub>) \u00f7 P<sub>back</sub> = $$$`,
+      tpl: [
+        "${c} confirmed | ${x} in cash/credit back to withdraw all",
+        "\ud83e\ude99 {r}% Balance Back + EXTRA ${y}",
+      ],
+      fields: [
+        { k: "c", label: "Confirmed", value: "346.50" },
+        { k: "x", label: "To withdraw all", value: "3.50" },
+        { k: "r", label: "Balance Back %", value: "0.20" },
+        { k: "y", label: "Extra", value: "2.34" },
+      ],
+      out: "",
+      f: `(() => { const need = (x - y) / (r / 100); return !isFinite(need) ? "\u2014" : need <= 0 ? "$0.00 (claim it!)" : "$" + need.toFixed(2); })()`,
     },
     updated: "Rules last updated November 17, 2025",
     images: [
@@ -731,10 +741,11 @@ function build() {
         <button type="button" data-code="${c}" aria-label="Copy code ${c}">Copy</button>
       </div>`).join("")}</div>` : `<div class="code nocode"><code>code unknown</code></div>`}
       ${shots(p).length ? `<div class="shots">${shots(p).map((im, i) => `<figure><button type="button" class="shot" data-i="${i}" aria-label="Open screenshot of ${p.name}"><img src="${im.src}" loading="lazy" decoding="async" alt="Screenshot of ${p.name} promo page"></button>${im.caption ? `<figcaption>${im.caption}</figcaption>` : ""}</figure>`).join("")}</div>` : ""}
-      ${p.calc ? `<div class="calc${p.calc.rows ? " rows" : ""}">
+      ${p.calc ? `<div class="calc${p.calc.rows ? " rows" : ""}${p.calc.tpl ? " tpl" : ""}">
         ${p.calc.note ? `<p>${p.calc.note}</p>` : ""}
         ${p.calc.formula ? `<p class="f">${p.calc.formula}</p>` : ""}
-        ${p.calc.fields.map(f => `${f.row ? `<span class="rl">${f.row}</span>` : ""}<label>${f.icon ? PIECE(f.icon) : f.tag ? `<span class="tag">${f.tag}</span>` : f.row ? "" : `${f.label} `}<input type="number" step="0.01" data-k="${f.k}" value="${f.value}" aria-label="${f.label}"></label>`).join("")}
+        ${p.calc.tpl ? p.calc.tpl.map(line => `<div class="tl">${line.replace(/\{(\w+)\}/g, (_, k) => { const f = p.calc.fields.find(f => f.k === k); return `<input type="number" step="0.01" data-k="${f.k}" value="${f.value}" aria-label="${f.label}" title="${f.label}">`; })}</div>`).join("")
+        : p.calc.fields.map(f => `${f.row ? `<span class="rl">${f.row}</span>` : ""}<label>${f.icon ? PIECE(f.icon) : f.tag ? `<span class="tag">${f.tag}</span>` : f.row ? "" : `${f.label} `}<input type="number" step="0.01" data-k="${f.k}" value="${f.value}" aria-label="${f.label}"></label>`).join("")}
         <output>= ${p.calc.out} <b></b></output>
       </div>` : ""}
       ${p.rules.length ? `<ul>${p.rules.map(r => `<li${r.warn ? ' class="warn"' : ""}>${r.t}</li>`).join("")}</ul>` : ""}${p.pending || !p.rules.length ? `<p class="todo">Not finished yet - Coming soon!</p>` : ""}
