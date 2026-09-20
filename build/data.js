@@ -1,124 +1,124 @@
 const SELLERS = [{
-        name: "Summit Chain Co",
-        url: "https://www.temu.com/mall.html?mall_id=741070853378563",
-        avatar: "img/sellers/fc55b73b.webp",
-        badges: ["local", "star", "packGood"],
-        sold: "30K+",
-        rating: 4.7,
-        reviews: 3727,
-        shipping: "Free",
-        bars: [90, 3, 1, 1, 5]
-    },
-    {
-        name: "TCG Empire",
-        url: "https://www.temu.com/mall.html?mall_id=741070852035508",
-        avatar: "img/sellers/b28882e0.webp",
-        badges: ["local", "star", "packGood"],
-        sold: "150K+",
-        rating: 4.6,
-        reviews: 25795,
-        shipping: "$30 min order",
-        bars: [83, 5, 3, 2, 7]
-    },
-    {
-        name: "MEGACARDS",
-        url: "https://www.temu.com/mall.html?mall_id=741070851925183",
-        avatar: "img/sellers/d7c49111.webp",
-        badges: ["local", "star", "packBad"],
-        sold: "150K+",
-        rating: 4.6,
-        reviews: 20502,
-        shipping: "$30 min order",
-        bars: [84, 5, 3, 2, 6]
-    },
-    {
-        name: "Larry's Card Mart",
-        url: "https://www.temu.com/mall.html?mall_id=741070851918312",
-        avatar: "img/sellers/594dc3b2.webp",
-        badges: ["local", "star", "packGood"],
-        sold: "92K+",
-        rating: 4.8,
-        reviews: 13922,
-        shipping: "$30 min order",
-        bars: [92, 3, 1, 1, 3]
-    },
-    {
-        name: "manditogonTCG",
-        url: "https://www.temu.com/mall.html?mall_id=741070853640394",
-        avatar: "img/sellers/2b0a6cb3.webp",
-        badges: ["local", "star", "packGood"],
-        sold: "3.8K+",
-        rating: 4.9,
-        reviews: 450,
-        shipping: "Free",
-        bars: [94, 2, 0, 1, 3]
-    },
-    {
-        name: "Collectors Emporium",
-        url: "https://www.temu.com/mall.html?mall_id=741070851660908",
-        avatar: "img/sellers/4634d8c5.webp",
-        badges: ["local", "star", "packGood"],
-        sold: "100K+",
-        rating: 4.7,
-        reviews: 8615,
-        shipping: "$30 min order",
-        bars: [90, 4, 2, 1, 4]
-    },
-    {
-        name: "MANT TCG",
-        url: "https://www.temu.com/mall.html?mall_id=741070853718556",
-        avatar: "img/sellers/67dfc197.webp",
-        badges: ["local", "star", "packGood"],
-        sold: "3.5K+",
-        rating: 4.8,
-        reviews: 348,
-        shipping: "$30 min order",
-        bars: [92, 2, 3, 1, 2]
-    },
-    {
-        name: "HAUSE of Toys & Collectibles",
-        url: "https://www.temu.com/mall.html?mall_id=741070852380709",
-        avatar: "img/sellers/97b3b7af.webp",
-        badges: ["local", "packGood"],
-        sold: "67K+",
-        rating: 4.8,
-        reviews: 6239,
-        shipping: "$30 min order",
-        bars: [91, 3, 1, 1, 4]
-    },
-    {
-        name: "Turbo TCG inc",
-        url: "https://www.temu.com/mall.html?mall_id=741070853221313",
-        avatar: "img/sellers/40f25798.webp",
-        badges: ["local", "packBad"],
-        sold: "6.5K+",
-        rating: 4.8,
-        reviews: 774,
-        shipping: "$30 min order",
-        bars: [93, 2, 1, 1, 3]
-    },
-    {
-        name: "VMG Enterprise",
-        url: "https://www.temu.com/mall.html?mall_id=741070853026788",
-        avatar: "img/sellers/1668dc04.webp",
-        badges: ["local", "packGood"],
-        sold: "3.3K+",
-        rating: 4.8,
-        reviews: 449,
-        shipping: "Free",
-        bars: [92, 3, 0, 0, 5]
-    },
-    {
-        name: "CBTCG",
-        url: "https://www.temu.com/mall.html?mall_id=741070852824195",
-        avatar: "img/sellers/3b1bc2cb.webp",
-        badges: ["local", "packGood", "packBad"],
-        sold: "1.8K+",
-        rating: 4.9,
-        reviews: 187,
-        shipping: "Free",
-        bars: [95, 2, 1, 1, 2]
-    },
+  name: "Summit Chain Co",
+  url: "https://www.temu.com/mall.html?mall_id=741070853378563",
+  avatar: "img/sellers/fc55b73b.webp",
+  badges: ["local", "star", "packGood"],
+  sold: "30K+",
+  rating: 4.7,
+  reviews: 3727,
+  shipping: "Free",
+  bars: [90, 3, 1, 1, 5]
+},
+{
+  name: "TCG Empire",
+  url: "https://www.temu.com/mall.html?mall_id=741070852035508",
+  avatar: "img/sellers/b28882e0.webp",
+  badges: ["local", "star", "packGood"],
+  sold: "150K+",
+  rating: 4.6,
+  reviews: 25795,
+  shipping: "$30 min order",
+  bars: [83, 5, 3, 2, 7]
+},
+{
+  name: "MEGACARDS",
+  url: "https://www.temu.com/mall.html?mall_id=741070851925183",
+  avatar: "img/sellers/d7c49111.webp",
+  badges: ["local", "star", "packBad"],
+  sold: "150K+",
+  rating: 4.6,
+  reviews: 20502,
+  shipping: "$30 min order",
+  bars: [84, 5, 3, 2, 6]
+},
+{
+  name: "Larry's Card Mart",
+  url: "https://www.temu.com/mall.html?mall_id=741070851918312",
+  avatar: "img/sellers/594dc3b2.webp",
+  badges: ["local", "star", "packGood"],
+  sold: "92K+",
+  rating: 4.8,
+  reviews: 13922,
+  shipping: "$30 min order",
+  bars: [92, 3, 1, 1, 3]
+},
+{
+  name: "manditogonTCG",
+  url: "https://www.temu.com/mall.html?mall_id=741070853640394",
+  avatar: "img/sellers/2b0a6cb3.webp",
+  badges: ["local", "star", "packGood"],
+  sold: "3.8K+",
+  rating: 4.9,
+  reviews: 450,
+  shipping: "Free",
+  bars: [94, 2, 0, 1, 3]
+},
+{
+  name: "Collectors Emporium",
+  url: "https://www.temu.com/mall.html?mall_id=741070851660908",
+  avatar: "img/sellers/4634d8c5.webp",
+  badges: ["local", "star", "packGood"],
+  sold: "100K+",
+  rating: 4.7,
+  reviews: 8615,
+  shipping: "$30 min order",
+  bars: [90, 4, 2, 1, 4]
+},
+{
+  name: "MANT TCG",
+  url: "https://www.temu.com/mall.html?mall_id=741070853718556",
+  avatar: "img/sellers/67dfc197.webp",
+  badges: ["local", "star", "packGood"],
+  sold: "3.5K+",
+  rating: 4.8,
+  reviews: 348,
+  shipping: "$30 min order",
+  bars: [92, 2, 3, 1, 2]
+},
+{
+  name: "HAUSE of Toys & Collectibles",
+  url: "https://www.temu.com/mall.html?mall_id=741070852380709",
+  avatar: "img/sellers/97b3b7af.webp",
+  badges: ["local", "packGood"],
+  sold: "67K+",
+  rating: 4.8,
+  reviews: 6239,
+  shipping: "$30 min order",
+  bars: [91, 3, 1, 1, 4]
+},
+{
+  name: "Turbo TCG inc",
+  url: "https://www.temu.com/mall.html?mall_id=741070853221313",
+  avatar: "img/sellers/40f25798.webp",
+  badges: ["local", "packBad"],
+  sold: "6.5K+",
+  rating: 4.8,
+  reviews: 774,
+  shipping: "$30 min order",
+  bars: [93, 2, 1, 1, 3]
+},
+{
+  name: "VMG Enterprise",
+  url: "https://www.temu.com/mall.html?mall_id=741070853026788",
+  avatar: "img/sellers/1668dc04.webp",
+  badges: ["local", "packGood"],
+  sold: "3.3K+",
+  rating: 4.8,
+  reviews: 449,
+  shipping: "Free",
+  bars: [92, 3, 0, 0, 5]
+},
+{
+  name: "CBTCG",
+  url: "https://www.temu.com/mall.html?mall_id=741070852824195",
+  avatar: "img/sellers/3b1bc2cb.webp",
+  badges: ["local", "packGood", "packBad"],
+  sold: "1.8K+",
+  rating: 4.9,
+  reviews: 187,
+  shipping: "Free",
+  bars: [95, 2, 1, 1, 2]
+},
 ];
 
 const PROMOS = [
@@ -259,14 +259,14 @@ const PROMOS = [
   },
   {
     id: "claimcredit",
-    name: "Cash Back / Credit Back",
+    name: "Cash Bonus / Credit Back",
     codes: ["claimcredit", "credit777"],
     accepts: ["Credit", "Discounts"],
     rating: "good",
     payout: ["Cash*", "Credit"],
     type: ["Daily claim"],
     date: "2025-07-14",
-    terms: "THE PROMOTION. By clicking on the \"Grab Now\" button (expression may vary), you agree to enroll as a member of the Promotion (\"Member\"). A Member can obtain a specified amount (as displayed on the Promotion page) of Temu credits (\"Rewards\") according to such Member's payment amount (excluding taxes, coupons or Temu credits applied to such order, as well as shipping costs) according to the following rules:\n\n** AMOUNTS IN THIS TABLE CHANGE, EXAMPLE ONLY **\n<table><thead><tr><th>Order Amount (X)</th><th>The Value of Rewards Back (Y)</th></tr></thead><tbody><tr><td>X ≤ $10</td><td>Y=10%*X</td></tr><tr><td>$10 ≤ X ≤ $280</td><td>Y=50%*(X-$10)+$1</td></tr><tr><td>X > $280</td><td>Normally:<br>Y=135%*(X-$280)+$136<br>Limited-time offer:<br>Y=220%*(X-$280)+$136</td></tr><tr><td colspan=2>The rate of the Rewards is as displayed on the Promotion page.<br>The value of the Rewards is capped at a certain amount as displayed on the Promotion page.<br>A Member is eligible to claim the Rewards for the order upon successful payment for such order.<br>If a Member cancels or applies for a refund for any item in the order placed in the Promotion, then the Rewards will be taken back.</td></tr></tbody></table>\n\nFollowing a qualifying purchase, a Member may be presented with a limited-time opportunity to place an additional qualifying order. This additional qualifying order allows the Member to unlock the remaining Rewards not yet earned under the Promotion, if it is completed within the applicable time limit and meets the minimum purchase amount requirement displayed on the Promotion page. Upon successful completion of the additional qualifying order, the Member's total Rewards will include both the Rewards earned from the initial qualifying order and the Rewards unlocked through the additional qualifying order, up to the maximum eligible reward amount under the Promotion, with instalment amounts adjusted accordingly. Participation in this additional opportunity is optional and will not affect the Rewards already earned from the initial qualifying order. The Rewards are issued as Temu credits. A Member is eligible to claim the Temu credits for the order upon successful payment for such order. Temu credits cannot be redeemed for cash. Temu credits will automatically apply to the Member's next order unless the Member decides not to use them. Temu credits will be revoked if the Member cancels the orders the Member made to receive the Temu credits. Otherwise, the Temu credits the Member has claimed have no expiration date.\n\nIf one or more products in an order that has qualified a Member for the reward are cancelled or successfully refunded such that the order(s) no longer meet(s) the amount necessary to qualify for the Rewards, except when the refund is due to product quality issues or incorrect or defective items, Sponsor will revoke the Temu Credits that have been issued to the Member in the Promotion. Members understand that, if they spend Temu Credits before the cancellation or the completion of the refund, their non-reward Credits will be spent first. When the cancellation or refund is completed, Temu will deduct Temu Credits in the amount of the issued Credits from the Member's balance, determined at the point of completion but without counting the refund amount (or all remaining Credits if said balance is below that amount). Such deduction will not cause the balance to become negative and the refund amount will not be impacted.\n\nMembers become eligible to claim Rewards upon confirmation of successful payment for Qualifying Orders. The confirmation of the Rewards will take a few days to proceed, no longer than 90 days. To collect the Rewards, Members must manually claim Rewards in 10 consecutive daily instalments by visiting the Promotion page and clicking \"Claim Now\" (or similar wording). A Member can collect only one instalment per day for each order, the amount of which is displayed on the Promotion page. Any instalment of the Rewards that is not claimed on the corresponding date as displayed on the Promotion page will be void. If a Member applies for a refund of any order placed in the Promotion, then all the unclaimed Rewards for such order will be void. The interface displayed on the Promotion page (if any) may simulate a \"jackpot\", \"wheel\", \"gift box\" or \"cards\", the functions of which are for illustrative purposes only. This Promotion does not involve any form of chance, auctions or contests and is based on objective criteria, i.e., everyone will get the best result in such functions.",
+    terms: "THE PROMOTION. By clicking on the \"Grab Now\" button (expression may vary), you agree to enroll as a member of the Promotion (\"Member\"). A Member can obtain a specified amount (as displayed on the Promotion page) of PayPal Cash / Temu credits (\"Rewards\") according to such Member's payment amount (excluding taxes, coupons or Temu credits applied to such order, as well as shipping costs) according to the following rules:\n\n** AMOUNTS IN THIS TABLE CHANGE, EXAMPLE ONLY **\n<table><thead><tr><th>Order Amount (X)</th><th>The Value of Rewards Back (Y)</th></tr></thead><tbody><tr><td>X ≤ $10</td><td>Y=10%*X</td></tr><tr><td>$10 ≤ X ≤ $280</td><td>Y=50%*(X-$10)+$1</td></tr><tr><td>X > $280</td><td>Normally:<br>Y=135%*(X-$280)+$136<br>Limited-time offer:<br>Y=220%*(X-$280)+$136</td></tr><tr><td colspan=2>The rate of the Rewards is as displayed on the Promotion page.<br>The value of the Rewards is capped at a certain amount as displayed on the Promotion page.<br>A Member is eligible to claim the Rewards for the order upon successful payment for such order.<br>If a Member cancels or applies for a refund for any item in the order placed in the Promotion, then the Rewards will be taken back.</td></tr></tbody></table>\n\nTIME LIMIT. The \"Time Limit\" for the Promotion is displayed on the Promotion page.\n\n** CREDIT VERSION **\n\nThe Rewards are issued as Temu credits. A Member is eligible to claim the Temu credits for the order upon successful payment for such order. Temu credits cannot be redeemed for cash. Temu credits will automatically apply to the Member's next order unless the Member decides not to use them. Temu credits will be revoked if the Member cancels the orders the Member made to receive the Temu credits. Otherwise, the Temu credits the Member has claimed have no expiration date.\n\nIf one or more products in an order that has qualified a Member for the reward are cancelled or successfully refunded such that the order(s) no longer meet(s) the amount necessary to qualify for the Rewards, except when the refund is due to product quality issues or incorrect or defective items, Sponsor will revoke the Temu Credits that have been issued to the Member in the Promotion. Members understand that, if they spend Temu Credits before the cancellation or the completion of the refund, their non-reward Credits will be spent first. When the cancellation or refund is completed, Temu will deduct Temu Credits in the amount of the issued Credits from the Member's balance, determined at the point of completion but without counting the refund amount (or all remaining Credits if said balance is below that amount). Such deduction will not cause the balance to become negative and the refund amount will not be impacted.\n\nMembers become eligible to claim Rewards upon confirmation of successful payment for Qualifying Orders. The confirmation of the Rewards will take a few days to proceed, no longer than 90 days. To collect the Rewards, Members must manually claim Rewards in 10 consecutive daily instalments by visiting the Promotion page and clicking \"Claim Now\" (or similar wording). A Member can collect only one instalment per day for each order, the amount of which is displayed on the Promotion page. Any instalment of the Rewards that is not claimed on the corresponding date as displayed on the Promotion page will be void. If a Member applies for a refund of any order placed in the Promotion, then all the unclaimed Rewards for such order will be void. The interface displayed on the Promotion page (if any) may simulate a \"jackpot\", \"wheel\", \"gift box\" or \"cards\", the functions of which are for illustrative purposes only. This Promotion does not involve any form of chance, auctions or contests and is based on objective criteria, i.e., everyone will get the best result in such functions.\n\n** CASH VERSION **\n\nThe Rewards can be received in cash via PayPal, a Member thus needs to sign in their PayPal account by verifying their account with a verification code through SMS or email, depending on the settings of their PayPal account. A Member who does not have a PayPal account will not be able to receive the Rewards in cash but will have a choice to replace the Rewards with Temu Credit of an equal value on the Promotion page. A Member must sign in to their PayPal account that is in the same location in which the Member is located in order to receive cash Rewards. It may take up to fourteen (14) business days for Sponsor to review and verify a Member's eligibility. Please be aware that Sponsor will not use Members' PayPal account for any other purpose. The PayPal account used by a Member to receive the payment of any cash reward earned in any promotion or program on Temu (including this Promotion) can only be changed once per year.\n\nIf one or more products in an order that has qualified a Member for the reward are cancelled or successfully refunded such that the order(s) no longer meet(s) the amount necessary to qualify for the Rewards, except when the refund is due to product quality issues or incorrect or defective items, Sponsor will revoke the Temu Credits that have been issued to the Member in the Promotion. Members understand that, if they spend Temu Credits before the cancellation or the completion of the refund, their non-reward Credits will be spent first. When the cancellation or refund is completed, Temu will deduct Temu Credits in the amount of the issued Credits from the Member's balance, determined at the point of completion but without counting the refund amount (or all remaining Credits if said balance is below that amount). Such deduction will not cause the balance to become negative and the refund amount will not be impacted.\n\nMembers become eligible to claim Rewards upon confirmation of successful payment for Qualifying Orders. The confirmation of the Rewards will take a few days to proceed, no longer than 90 days. To collect the Rewards, Members must manually claim Rewards in 7 consecutive daily instalments by visiting the Promotion Page and clicking \"Claim Now\" (or similar wording). Each day's instalment amount- displayed on the Promotion Page- increases progressively, and only one instalment can be claimed per day per order. Claims must follow strict sequence: if an instalment is missed on its designated date (as shown on the Promotion Page), that opportunity expires, and the Member must claim the missed instalment before proceeding to subsequent days (e.g., claiming Day 2's instalment on Day 3 before accessing Day 3's reward). Any instalment not claimed within the 7-day period is void, and if a refund is requested for the qualifying order, all unclaimed Rewards for that order are voided. The total Reward received depends solely on the number of instalments successfully claimed, and Members must claim all 7 installments to receive the full Reward amount.\nThe interface displayed on the Promotion page (if any) may simulate a \"jackpot\", \"wheel\", \"gift box\" or \"cards\", the functions are for illustrative purposes only. This Promotion does not involve any form of chance, auctions or contests and is based on objective criteria, i.e., everyone will get the best result in such functions.",
     reward: "Get back a % of what you spend, paid out in 10 daily installments. Can be cash",
     rules: [
       { t: "Tiered rates. Each % only applies to the dollars in that bracket, not your whole order" },
@@ -279,20 +279,32 @@ const PROMOS = [
       { t: "Refund anything and they invalidate all installments plus already-issued credits (quality/defective issues exempt)", warn: true },
     ],
     calc: {
-      note: "Plug in your numbers: reward = tier 1 rate × amount up to cap 1 + tier 2 rate × next bracket + tier 3 rate × the rest, capped at your max",
-      fields: [
-        { k: "cap", label: "Max reward", value: "180" },
-        { k: "x", label: "Order amount", value: "300" },
-        { k: "c1", label: "Tier 1 up to", value: "10" }, { k: "r1", label: "Tier 1 %", value: "10" },
-        { k: "c2", label: "Tier 2 up to", value: "280" }, { k: "r2", label: "Tier 2 %", value: "50" },
-        { k: "r3", label: "Tier 3 %", value: "220" },
+      note: "Rewards Back Calculator:<br>NUMBERS VARY! Find your numbers by scrolling through the Rules. You can see this by clicking the \"Rules\" label (if it exists), or by clicking the (?) under the 50% tier in the disclaimer text.",
+      // tier 1 ($0-$10 at 10%) and the 50% tier-2 rate have never varied, so they
+      // are baked in. only the tier-2 ceiling and the tier-3 rates get inputs.
+      tpl: [
+        "${cap} Pending",
+        ["10%", "50%", "👑 {=r3:n}%"],
+        ["$0-$10", "$10-${c2}", "${c2}+"],
       ],
-      out: "reward",
-      f: `(() => {
-        const y = v => Math.min(v,c1)*r1/100 + Math.max(0, Math.min(v,c2)-c1)*r2/100 + Math.max(0, v-c2)*r3/100;
-        const t1 = c1*r1/100, t2 = t1 + (c2-c1)*r2/100;
-        const need = cap <= t1 ? cap/(r1/100) : cap <= t2 ? c1 + (cap-t1)/(r2/100) : c2 + (cap-t2)/(r3/100);
-        return "$" + Math.min(y(x), cap).toFixed(2) + " · full $" + cap + " needs $" + need.toFixed(2) + " spend";
+      fields: [
+        { k: "cap", label: "Max reward (Z)", value: "180.00" },
+        { k: "c2", label: "Tier 2 up to", value: "280" },
+        { k: "r3n", label: "Tier 3, normally %", value: "135", step: "1" },
+        { k: "r3l", label: "Tier 3, limited-time %", value: "220", step: "1" },
+        { k: "x", label: "Order Amount (X)", value: "300.00", dp: "2" },
+        { k: "lt", label: "Limited-time offer active", value: "1", type: "check" },
+      ],
+      derived: { r3: "lt ? r3l : r3n" },
+      out: "Rewards Back (Y):",
+      fmt: "money2",
+      f: `(() => { const R = lt ? r3l : r3n; return Math.min(Math.min(x,10)*0.1 + Math.max(0, Math.min(x,c2)-10)*0.5 + Math.max(0, x-c2)*R/100, cap); })()`,
+      hint: `(() => {
+        const R = lt ? r3l : r3n;
+        const t1 = 1, t2 = t1 + (c2-10)*0.5;
+        const need = cap <= t1 ? cap/0.1 : cap <= t2 ? 10 + (cap-t1)/0.5 : c2 + (cap-t2)/(R/100);
+        if (!(cap > 0) || !isFinite(need)) return "";
+        return "Reward caps out with a <b>" + $$(need) + "</b> purchase.";
       })()`,
     },
     updated: "Rules last updated July 14, 2025",
@@ -323,25 +335,31 @@ const PROMOS = [
     ],
     calc: {
       note: "Credit Back Calculator:<br>NUMBERS VARY! Find your numbers from the \"Rules\" in the top right of the page!",
+      // tier 1 ($0-$10 at 10%) and tier 2 (40%, +$1) have never varied, so they are
+      // baked in. the "+$" on the tier 3 line is typed rather than derived: the one
+      // other seen of this promo had $8.50 there, which $10/10%/40% cannot produce
       tpl: [
-        "CAP ${cap} Credit back × 20 Chances",
-        "$0 ≤ X ≤ ${c1} → Y = {r1}% × X",
-        "${c1} < X ≤ ${c2} → Y = {r2}% × (X − ${c1}) + {=t1}",
-        "X > ${c2} → Y = {r3}% × (X − ${c2}) + {=t2}",
-        "Order Amount (X): ${x}",
+        "$50.00 Credit back x 20 Chances",
+        ["Order Amount (X)", "Rewards Back (Y)"],
+        ["$0 ≤ X ≤ $10", "Y = 10%*X"],
+        ["$10 ≤ X ≤ ${c2}", "Y = 40%*(X-$10)+$1"],
+        ["X > ${c2}", "Y = {r3}%*(X-${c2})+${t2}"],
       ],
       fields: [
-        { k: "cap", label: "Max credit back per order", value: "50.00" },
-        { k: "c1", label: "Tier 1 up to", value: "10.00" },
-        { k: "r1", label: "Tier 1 rate %", value: "10", step: "1" },
-        { k: "c2", label: "Tier 2 up to", value: "60.00" },
-        { k: "r2", label: "Tier 2 rate %", value: "40", step: "1" },
+        { k: "c2", label: "Tier 3 starts at", value: "60" },
         { k: "r3", label: "Tier 3 rate %", value: "100", step: "1" },
-        { k: "x", label: "Order Amount (X)", value: "6.99" },
+        { k: "t2", label: "Tier 3 base credit", value: "21" },
+        { k: "x", label: "Order Amount (X)", value: "50.00", dp: "2" },
       ],
-      derived: { t1: "c1*r1/100", t2: "c1*r1/100 + (c2-c1)*r2/100" },
       out: "Rewards Back (Y):",
-      f: `(() => { const y = Math.min(x,c1)*r1/100 + Math.max(0, Math.min(x,c2)-c1)*r2/100 + Math.max(0, x-c2)*r3/100; const t1 = c1*r1/100, t2 = t1 + (c2-c1)*r2/100; const need = cap <= t1 ? cap/(r1/100) : cap <= t2 ? c1 + (cap-t1)/(r2/100) : c2 + (cap-t2)/(r3/100); return !isFinite(y) ? "—" : "$" + Math.min(y, cap).toFixed(2) + (y >= cap ? " (capped at CAP)" : isFinite(need) ? " (an order of $" + need.toFixed(2) + " hits CAP)" : ""); })()`,
+      fmt: "money2",
+      f: `Math.min(x <= 10 ? x*0.1 : x <= c2 ? (x-10)*0.4 + 1 : (x-c2)*r3/100 + t2, 50)`,
+      hint: `(() => {
+        const top2 = 1 + (c2-10)*0.4;
+        const need = 50 <= top2 ? 10 + 49/0.4 : c2 + (50-t2)/(r3/100);
+        if (!isFinite(need)) return "";
+        return "Reward caps out with a <b>" + $$(need) + "</b> purchase.";
+      })()`,
     },
     updated: "Rules last updated September 4, 2026",
     images: [
@@ -370,20 +388,27 @@ const PROMOS = [
       { t: "If you complete the promo, you're stuck with one of two states: credit-only versions (cash version only), or being temporarily banned from the promo entirely. Cooloffs people have hit: 1h, 24h, 48h, 1 week, 3 weeks" },
     ],
     calc: {
-      note: "Total Spend Calculator:",
-      formula: `C<sub>total</sub> − C<sub>confirmed</sub> = C<sub>remaining</sub> | (C<sub>remaining</sub> − B<sub>extra</sub>) ÷ P<sub>back</sub> = $$$`,
+      note: "Total Spend Calculator:<br>( You can also view your min spend in the \"Remaining spent ⓘ\" tooltip. )",
+      formula: `(C<sub>remaining</sub> − B<sub>extra</sub>) ÷ P<sub>back</sub> = spend still needed`,
       tpl: [
-        "${c} confirmed | ${x} in cash/credit back to withdraw all",
-        "🪙 {r}% Balance Back + EXTRA ${y}",
+        "Total event balance: {=total:2}",
+        "${c} confirmed + ${x} remaining in cash back to withdraw all",
+        "🪙 {r}% Cash Balance Back + EXTRA ${y}",
       ],
       fields: [
         { k: "c", label: "Confirmed", value: "346.50" },
-        { k: "x", label: "To withdraw all", value: "3.50" },
+        { k: "x", label: "Remaining", value: "3.50" },
         { k: "r", label: "Balance Back %", value: "0.20" },
         { k: "y", label: "Extra", value: "2.34" },
       ],
-      out: "",
-      f: `(() => { const need = (x - y) / (r / 100); return !isFinite(need) ? "—" : need <= 0 ? "$0.00 (claim it!)" : "$" + need.toFixed(2); })()`,
+      derived: { total: "c + x" },
+      out: "Total Spend:",
+      f: `(() => { const need = (x - y) / (r / 100); return !isFinite(need) ? "—" : Math.max(0, need); })()`,
+      hint: `(() => {
+        const need = (x - y) / (r / 100);
+        if (!isFinite(need)) return "";
+        return "<b>" + $$(Math.max(0, need) - (c + x)) + "</b> total spend after returns";
+      })()`,
     },
     updated: "Rules last updated November 17, 2025",
     images: [
@@ -406,7 +431,7 @@ const PROMOS = [
     rules: [
       { t: "Probably discontinued and replaced by <code>double777</code> (unconfirmed)", warn: true },
       { t: "The discount applies to one item only, even if you buy several from the page" },
-      { t: "Can't be stacked with any other offer"},
+      { t: "Can't be stacked with any other offer" },
       { t: "You can't force this one by searching the code. It only unlocks after Temu sends your account a push notification, and you get 72 hours from then. This is why I've never seen it ):", warn: true },
       { t: "If the promo isn't available, tap the banner on the page to get redirected to <code>double777</code>" },
     ],
@@ -575,6 +600,8 @@ const PROMOS = [
       formula: `p<sub>target</sub> − (p<sub>initial</sub> + p<sub>bonus</sub> + (d<sub>total</sub> − d<sub>missed</sub>) × r<sub>daily</sub>)`,
       rows: true,
       fields: [
+        { k: "tb", label: "Target blue", value: "27", row: "Target", icon: "b", step: "1" },
+        { k: "ty", label: "Target yellow", value: "18", icon: "y", step: "1" },
         { k: "ib", label: "Initial blue", value: "5", row: "Initial", icon: "b", step: "1" },
         { k: "iy", label: "Initial yellow", value: "5", icon: "y", step: "1" },
         { k: "bb", label: "Bonus blue", value: "0", row: "Bonus", icon: "b", step: "1" },
@@ -583,9 +610,27 @@ const PROMOS = [
         { k: "dy", label: "Daily yellow", value: "2", icon: "y", step: "1" },
         { k: "d", label: "Total days", value: "20", row: "Days", tag: "total", step: "1" },
         { k: "md", label: "Days missed", value: "0", tag: "missed", step: "1" },
+        { k: "po", label: "Blue per extra order", value: "6", row: "Order", icon: "b", step: "1" },
+        { k: "mo", label: "Minimum order", value: "20.00", tag: "min $" },
       ],
-      out: "remaining",
-      f: `(() => { const n = [ib, iy, bb, by, db, dy, d, md]; if (n.some(v => !isFinite(v))) return "—"; const dd = Math.max(0, d - md), b = Math.max(0, Math.ceil(27 - ib - bb - db * dd)), y = Math.max(0, Math.ceil(18 - iy - by - dy * dd)); if (y > 0) return "∞ (Impossible!)"; if (b) return b + " blue (" + Math.ceil(b / 6) + " additional 20$+ order(s))"; return "0! Make a final $20 purchase to get your credit!"; })()`,
+      out: "Still short:",
+      f: `(() => {
+        const dd = Math.max(0, d - md);
+        const b = Math.max(0, Math.ceil(tb - ib - bb - db * dd));
+        const y = Math.max(0, Math.ceil(ty - iy - by - dy * dd));
+        if (y > 0) return "∞ IMPOSSIBLE :(";
+        if (!b) return "Nothing";
+        return num(b) + " Blue";
+      })()`,
+      hint: `(() => {
+        const dd = Math.max(0, d - md);
+        const b = Math.max(0, Math.ceil(tb - ib - bb - db * dd));
+        const y = Math.max(0, Math.ceil(ty - iy - by - dy * dd));
+        if (y > 0) return "Yellow only comes from check-ins, so <b>" + num(y) + "</b> short cannot be bought back.";
+        if (!b) return "<b>COMPLETE!</b> Finish your daily claims!";
+        if (!(po > 0)) return "Set how many blue pieces one qualifying order pays.";
+        return "<b>" + num(Math.ceil(b / po)) + " more</b> " + $(mo) + "+ order(s)";
+      })()`,
     },
     updated: "Rules last updated July 7, 2026",
     images: [
@@ -600,6 +645,9 @@ const PROMOS = [
   {
     id: "farmland",
     name: "Farmland",
+    // too sprawling for a card: the detail renders into the Farmland tab instead,
+    // and the card links there. temporary, Farmland is due a full rewrite
+    tab: "farmland",
     codes: ["farmland"],
     accepts: ["Credit", "Coupons", "Discounts"],
     rating: "bad",
@@ -644,3 +692,5 @@ const PROMOS = [
     ],
   },
 ];
+
+export { SELLERS, PROMOS };
