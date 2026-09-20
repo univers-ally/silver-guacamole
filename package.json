@@ -1,0 +1,20 @@
+{
+  "name": "how-to-temu",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "node build/build.js",
+    "build:fast": "node build/build.js --no-minify",
+    "build:preview": "node build/build.js --out preview",
+    "serve": "node build/serve.js",
+    "start": "npm run build && npm run serve"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  },
+  "engines": {
+    "node": ">=18.17"
+  }
+}

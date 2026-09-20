@@ -1,0 +1,367 @@
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { SELLERS, PROMOS } from "./data.js";
+
+const BUILD = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.resolve(BUILD, "..");
+const RESOURCES = path.join(BUILD, "resources");
+
+const argv = process.argv.slice(2);
+const flag = name => {
+  const at = argv.indexOf(name);
+  return at === -1 ? null : (argv[at + 1] ?? "");
+};
+const outArg = flag("--out") ?? process.env.OUT;
+const DEFAULT_OUT = path.join(ROOT, "site");
+const OUT = outArg ? path.resolve(ROOT, outArg) : DEFAULT_OUT;
+
+// hand-written, shipped through the minifier. the value is esbuild's loader name
+const SOURCES = { "main.css": "css", "app.js": "js", "calc.js": "js" };
+// only meaningful at the domain root, and the repo root is no longer it
+const ROOT_FILES = ["CNAME", "robots.txt"];
+// the marker that says a folder is safe to wipe. OUT is user-settable, and a
+// clean build that rm -rf's whatever it is pointed at is one typo from disaster
+const STAMP = ".build-output";
+
+// everything from data.js goes through esc() except the fields that are documented as
+// taking HTML: a rule's `t`, a promo's `reward`, and a calc's `note`, `formula` and `hint`.
+// single quotes are left alone because every attribute emitted here is double-quoted.
+const esc = text => String(text)
+  .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+const RATING = {
+  good: { emoji: "🔥", label: "Worth doing" },
+  meh: { emoji: "💤", label: "Average or low reward" },
+  bad: { emoji: "💀", label: "Bad deal / scammy" },
+};
+
+const FACETS = {
+  rating: {
+    label: "Rating",
+    options: [["good", "🔥 Worth it"], ["meh", "💤 Meh"], ["bad", "💀 Avoid"]],
+  },
+  payout: {
+    label: "Payout",
+    options: ["Cash", "Credit", "Coupons", "Discount", "Gift"].map(v => [v, v]),
+  },
+  accepts: {
+    label: "Accepts",
+    options: ["Credit", "Coupons", "Discounts", "None"].map(v => [v, v]),
+  },
+  type: {
+    label: "Type",
+    options: ["Daily claim", "Cashout", "Coupon Bundle"].map(v => [v, v]),
+  },
+};
+
+const ATTR = { rating: "r", payout: "p", accepts: "a", type: "t" };
+
+const SELLER_BADGE = {
+  local: { emoji: "🚛", title: "Ships from inside your country/region or nearby, so orders tend to show up faster" },
+  star: { emoji: "🌟", title: "Ranked among the top sellers in its main category over the past 30 days" },
+  packGood: { emoji: "📦", title: "Orders from this seller have shown up well protected" },
+  packBad: { emoji: "💥", title: "Orders from this seller have shown up damaged or badly packed" },
+};
+const BAR_CLASSES = ["s5", "s4", "s3", "s2", "s1"];
+
+const icon = name => `<svg class="i-${name}" aria-hidden="true"><use href="#i-${name}"/></svg>`;
+// an unrecognised rating would otherwise crash on RATING[x].label, or ship a
+// data-r that app.js cannot look up, which breaks search on every keystroke
+const ratingOf = promo => RATING[promo.rating] ? promo.rating : "meh";
+const shotsOf = promo => promo.images || (promo.image ? [{ src: promo.image }] : []);
+const clean = values => (values || []).map(value => String(value).replace(/\*$/, ""));
+const hasCalc = promo => !!promo.calc;
+
+const TAB_LABEL = { farmland: "Farmland" };
+
+const hiddenWords = promo => [
+  ...promo.rules.map(rule => rule.t),
+  ...shotsOf(promo).map(shot => shot.caption || ""),
+].join(" ").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim().toLowerCase();
+
+/* ---------- promo cards ---------- */
+
+function factHtml(label, values) {
+  const known = values && values.length;
+  return `<div class="fact"><span>${label}</span><b${known ? "" : ' class="unk"'}>${known ? esc(values.join(", ")) : "Unknown"}</b></div>`;
+}
+
+function codesHtml(promo) {
+  return promo.codes.map(code => `
+        <div class="code">
+          <code>${esc(code)}</code>
+          <button type="button" data-code="${esc(code)}" aria-label="Copy code ${esc(code)}">Copy</button>
+        </div>`).join("");
+}
+
+function shotsHtml(promo) {
+  const shots = shotsOf(promo);
+  if (!shots.length) return "";
+  const figures = shots.map(shot => `
+          <figure>
+            <button type="button" class="shot" aria-label="Open screenshot: ${esc(shot.caption || promo.name)}">
+              <img src="${esc(shot.src)}" loading="lazy" decoding="async" alt="">
+            </button>
+            ${shot.caption ? `<figcaption>${esc(shot.caption)}</figcaption>` : ""}
+          </figure>`).join("");
+  return `
+        <div class="shots">${figures}
+        </div>`;
+}
+
+function rulesHtml(promo) {
+  const list = promo.rules.length
+    ? `
+        <ul class="rules">${promo.rules.map(rule => `
+          <li${rule.warn ? ' class="warn"' : ""}>${rule.t}</li>`).join("")}
+        </ul>`
+    : "";
+  const pending = promo.pending || !promo.rules.length
+    ? `
+        <p class="todo">Not finished yet - Coming soon!</p>`
+    : "";
+  return list + pending;
+}
+
+function cardHtml(promo) {
+  const rating = ratingOf(promo);
+  const name = esc(promo.name);
+  const id = esc(promo.id);
+  const starred = [promo.type, promo.accepts, promo.payout]
+    .some(values => (values || []).some(value => String(value).endsWith("*")));
+  const detail = promo.tab
+    ? `
+        <button type="button" class="go">Open the ${esc(TAB_LABEL[promo.tab] || promo.tab)} tab</button>`
+    : shotsHtml(promo) + rulesHtml(promo);
+  const foot = promo.terms || hasCalc(promo)
+    ? `
+        <div class="foot-row">${promo.terms ? `
+          <button type="button" class="info">${icon("rules")}Rules</button>` : ""}${hasCalc(promo) ? `
+          <button type="button" class="info calcbtn">${icon("calc")}Calculator</button>` : ""}
+        </div>`
+    : "";
+
+  const data = Object.entries(ATTR)
+    .map(([facet, attr]) => {
+      if (facet === "rating") return ` data-${attr}="${rating}"`;
+      const values = clean(promo[facet]);
+      const allowed = FACETS[facet].options.map(([option]) => option);
+      for (const value of values) {
+        if (!allowed.includes(value)) {
+          throw Error(`${promo.id}: ${facet} "${value}" is not one of ${allowed.join(", ")}`);
+        }
+      }
+      return values.length ? ` data-${attr}="${esc(values.join(","))}"` : "";
+    }).join("");
+
+  // the card shows a tab link instead of its detail, so search still needs the words
+  const unlisted = promo.tab ? ` data-s="${esc(hiddenWords(promo))}"` : "";
+
+  return `
+    <article class="card promo" id="p-${id}" data-id="${id}"${data}${unlisted}>
+      <div class="head">
+        <span class="star ${rating}" title="${RATING[rating].label}" aria-label="${RATING[rating].label}">${RATING[rating].emoji}</span>
+        <h2><button type="button" class="toggle" aria-expanded="false" aria-controls="b-${id}">${name}</button></h2>
+        <button type="button" class="icon fav" aria-pressed="false" aria-label="Add ${name} to favorites">${icon("star")}</button>
+        <button type="button" class="icon share" aria-label="Share link to ${name}" title="Share link">${icon("share")}${icon("link")}</button>
+        <button type="button" class="icon chevbtn" tabindex="-1" aria-hidden="true"><span class="chev">${icon("chev")}</span></button>
+      </div>
+      <div class="codes">${codesHtml(promo)}
+      </div>
+      <div class="facts">${factHtml("Type", promo.type)}${factHtml("Accepts", promo.accepts)}${factHtml("Payout", promo.payout)}${starred ? `<p class="fact-note">* not always offered</p>` : ""}</div>
+      <div class="body" id="b-${id}">${promo.reward ? `
+        <p class="reward">${promo.reward}</p>` : ""}${detail}${foot}
+      </div>
+    </article>`;
+}
+
+// the panel body for a promo whose detail lives in its own tab. deliberately made
+// of the promo card's own pieces rather than a layout of its own: Farmland is due
+// a proper rewrite, and anything invented here would only be thrown away
+function tabPanelHtml(promo) {
+  return `
+      <div class="card">
+        <h2>${esc(promo.name)}</h2>${promo.reward ? `
+        <p class="reward">${promo.reward}</p>` : ""}${shotsHtml(promo)}${rulesHtml(promo)}${promo.updated ? `
+        <p class="fact-note">${esc(promo.updated)}</p>` : ""}
+      </div>`;
+}
+
+/* ---------- sellers ---------- */
+
+function sellerHtml(seller) {
+  const number = value => value.toLocaleString("en-US");
+  const badges = seller.badges.map(key =>
+    `<span class="seller-badge" title="${esc(SELLER_BADGE[key].title)}" aria-label="${esc(SELLER_BADGE[key].title)}">${SELLER_BADGE[key].emoji}</span>`
+  ).join("");
+  const barSummary = seller.bars.map((percent, i) => `${5 - i}★ ${percent}%`).join(" · ");
+  const barSegments = seller.bars.map((percent, i) =>
+    percent ? `<span class="${BAR_CLASSES[i]}" style="flex:${percent}" title="${5 - i}★ ${percent}%"></span>` : ""
+  ).join("");
+  const legend = seller.bars.map((percent, i) =>
+    `<span><i class="${BAR_CLASSES[i]}"></i>${5 - i}★ <b>${percent}%</b></span>`
+  ).join("");
+  // "30K+" -> 30000, for the Most sold sort only. without the M branch a 1.2M
+  // seller would sort below every K seller
+  const scale = /M/i.test(seller.sold) ? 1e6 : /K/i.test(seller.sold) ? 1e3 : 1;
+  const sold = parseFloat(seller.sold) * scale;
+
+  return `
+    <article class="seller card" data-badges="${seller.badges.join(" ")}" data-free="${seller.shipping === "Free" ? 1 : 0}" data-rating="${seller.rating}" data-reviews="${seller.reviews}" data-sold="${sold}">
+      <img class="seller-avatar" src="${esc(seller.avatar)}" alt="" loading="lazy" decoding="async">
+      <div class="seller-main">
+        <div class="seller-top">
+          <a href="${esc(seller.url)}" target="_blank" rel="noopener noreferrer">${esc(seller.name)}</a>
+          <span class="seller-rating">${seller.rating.toFixed(1)} <b>★</b> <small>${number(seller.reviews)} reviews</small></span>
+        </div>
+        <div class="seller-badges">${badges}</div>
+      </div>
+      <div class="seller-ship">
+        <span class="lbl lbl-m">Shipping:</span><span class="lbl lbl-d">Shipping minimum</span><b>${esc(seller.shipping)}</b>
+      </div>
+      <div class="seller-sold">
+        <span class="lbl lbl-d">Sold</span><b>${esc(seller.sold)}</b><span class="sold-m"> sold <i>·</i> <b>${number(seller.reviews)}</b> reviews</span>
+      </div>
+      <div class="seller-ratings">
+        <span class="lbl lbl-d">Ratings</span>
+        <div class="seller-bars" role="img" aria-label="${barSummary}">${barSegments}</div>
+        <div class="seller-legend">${legend}</div>
+      </div>
+    </article>`;
+}
+
+/* ---------- facet chips ---------- */
+
+function facetsHtml() {
+  const group = (label, chips) =>
+    `<fieldset class="facet"><legend>${label}</legend><div class="chips">${chips}</div></fieldset>`;
+  const chip = (key, label, extra = "") =>
+    `<button type="button" class="chip${extra}" aria-pressed="false" data-key="${esc(key)}">${label}</button>`;
+
+  let html = "";
+  for (const [facet, entry] of Object.entries(FACETS)) {
+    html += group(entry.label, entry.options.map(([value, label]) => chip(facet + "|" + value, label)).join(""));
+  }
+  return html + group("Favorites", chip("fav", icon("star") + "Favorites only", " fav"));
+}
+
+/* ---------- write ---------- */
+
+const promos = PROMOS.map(cardHtml).join("");
+const sellers = SELLERS.map(sellerHtml).join("");
+const facets = facetsHtml();
+const farmland = PROMOS.filter(promo => promo.tab === "farmland").map(tabPanelHtml).join("");
+
+const SLOTS = {
+  "<!--PROMOS-->": promos,
+  "<!--SELLERS-->": sellers,
+  "<!--FACETS-->": facets,
+  "<!--FARMLAND-->": farmland,
+  "<!--COUNT-->": `${PROMOS.length} promos`,
+  "<!--SELLERCOUNT-->": `${SELLERS.length} sellers`,
+};
+
+let html = fs.readFileSync(path.join(BUILD, "shell.html"), "utf8");
+for (const [slot, value] of Object.entries(SLOTS)) {
+  if (!html.includes(slot)) throw Error(`shell.html has no ${slot}`);
+  html = html.replaceAll(slot, () => value);
+}
+
+const detail = { t: {}, c: {} };
+for (const promo of PROMOS) {
+  if (promo.terms) detail.t[promo.id] = { t: promo.terms, u: promo.updated || "" };
+  if (hasCalc(promo)) detail.c[promo.id] = promo.calc;
+}
+
+/* ---------- output folder ---------- */
+
+function resetOut() {
+  if (fs.existsSync(OUT)) {
+    const existing = fs.readdirSync(OUT);
+    const ours = OUT === DEFAULT_OUT || !existing.length || existing.includes(STAMP);
+    if (!ours) {
+      throw Error(
+        `refusing to overwrite ${OUT}\n` +
+        `  it already has files in it and no previous build of this site wrote them.\n` +
+        `  delete the folder yourself if you meant to replace it, or point --out somewhere else.`
+      );
+    }
+    fs.rmSync(OUT, { recursive: true, force: true });
+  }
+  fs.mkdirSync(OUT, { recursive: true });
+}
+
+/* ---------- minify ---------- */
+
+const SKIP = argv.includes("--no-minify") || process.env.MINIFY === "0";
+
+async function loadEsbuild() {
+  try {
+    const loaded = await import("esbuild");
+    return loaded.default ?? loaded;
+  } catch {
+    return null;
+  }
+}
+
+const esbuild = SKIP ? null : await loadEsbuild();
+
+function shipSource(name, loader) {
+  const source = fs.readFileSync(path.join(BUILD, name), "utf8");
+  if (SKIP) {
+    fs.writeFileSync(path.join(OUT, name), source);
+    return;
+  }
+  if (!esbuild) {
+    throw Error("esbuild is not installed -- run npm install, or build with --no-minify to ship the sources as they are");
+  }
+  const options = {
+    loader,
+    minify: true,
+    sourcemap: true,
+    sourcesContent: true,
+    sourcefile: `build/${name}`,
+    legalComments: "none",
+  };
+  if (loader === "js") options.target = "es2020";
+
+  const { code, map } = esbuild.transformSync(source, options);
+  const link = loader === "css" ? `\n/*# sourceMappingURL=${name}.map */\n` : `\n//# sourceMappingURL=${name}.map\n`;
+  fs.writeFileSync(path.join(OUT, name), code + link);
+  fs.writeFileSync(path.join(OUT, `${name}.map`), map);
+}
+
+/* ---------- copy ---------- */
+
+function copyResources() {
+  if (!fs.existsSync(RESOURCES)) throw Error(`${RESOURCES} is missing`);
+  fs.cpSync(RESOURCES, OUT, { recursive: true });
+}
+
+/* ---------- write ---------- */
+
+resetOut();
+copyResources();
+for (const [name, loader] of Object.entries(SOURCES)) shipSource(name, loader);
+for (const file of ROOT_FILES) fs.copyFileSync(path.join(ROOT, file), path.join(OUT, file));
+fs.writeFileSync(path.join(OUT, "index.html"), html);
+fs.writeFileSync(path.join(OUT, "data.json"), JSON.stringify(detail));
+fs.writeFileSync(path.join(OUT, STAMP), "generated by build/build.js -- safe to delete\n");
+
+const kb = bytes => ((bytes / 1024).toFixed(1) + " KB").padStart(9);
+const size = file => kb(fs.statSync(path.join(OUT, file)).size);
+for (const file of ["index.html", "data.json", ...Object.keys(SOURCES), ...ROOT_FILES]) {
+  console.log(file.padEnd(11), size(file));
+}
+
+let files = 0, bytes = 0;
+for (const entry of fs.readdirSync(OUT, { recursive: true, withFileTypes: true })) {
+  const parent = entry.parentPath ?? entry.path;
+  if (entry.isFile()) { files++; bytes += fs.statSync(path.join(parent, entry.name)).size; }
+}
+console.log("-".repeat(21));
+console.log("total".padEnd(11), kb(bytes), `in ${files} files`);
+console.log(SKIP ? "minify     OFF (--no-minify)" : "minify     on, with sourcemaps");
+console.log("out       ", path.relative(ROOT, OUT) || OUT);
+console.log("calculators", PROMOS.filter(hasCalc).map(promo => promo.id).join(", "));
