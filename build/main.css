@@ -22,7 +22,7 @@
   --accent-text: light-dark(#8f3907, #ffb07a);
   --accent-ink: light-dark(#fff, #1a1a1a);
   --ok: light-dark(#2e8b57, #4caf7a);
-  --gold: light-dark(#b57e00, #e8a700);
+  --star: light-dark(#b57e00, #e8a700);
   --good: light-dark(#dcefe3, #1f3a2b);
   --meh: light-dark(#ecebe7, #2a2a28);
   --bad: light-dark(#fbe1e1, #3f2222);
@@ -888,7 +888,7 @@ li.warn {
   font-weight: 700;
   line-height: 22px;
   & b {
-    color: var(--#ffd700);
+    color: var(--star);
     font-weight: 700;
   }
   & small {
@@ -1210,7 +1210,7 @@ li.warn {
   border-radius: 10px;
   background: var(--sunk);
   font-size: 13px;
-  & output {
+  &>#tz-out>span {
     color: var(--muted);
   }
   & .tz-zone {

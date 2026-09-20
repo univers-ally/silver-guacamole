@@ -10,7 +10,7 @@ const PIP = { b: "🔵", y: "🟡" };
 const group = whole => whole.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 const dollars = (value, keepCents) => {
-    if (!isFinite(value)) return "—";
+    if (!isFinite(value) || Math.abs(value) >= 1e21) return "—";
     const [whole, cents] = Math.abs(value).toFixed(2).split(".");
     return (value < 0 ? "-$" : "$") + group(whole) + (keepCents || cents !== "00" ? "." + cents : "");
 };
@@ -255,6 +255,7 @@ export function render(body, calc, id) {
             else input.value = calc.fields[i].value;
         });
         forget(store);
+        settle();
         update();
     };
 

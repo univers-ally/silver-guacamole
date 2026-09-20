@@ -274,6 +274,7 @@ function confetti(button) {
         button.appendChild(piece);
     }
 }
+let copyTick = 0;
 
 async function copyText(text) {
     try {
@@ -354,7 +355,7 @@ async function onCardClick(event, entry) {
 
     if (hit(".code button")) {
         const button = hit(".code button");
-        const label = button.getAttribute("aria-label");
+        const label = button.dataset.label ||= button.getAttribute("aria-label");
         if (!await copyText(button.dataset.code)) {
             toast("Couldn't copy. Select the code and copy it by hand");
             return;
@@ -365,7 +366,9 @@ async function onCardClick(event, entry) {
         button.setAttribute("aria-label", "Copied");
         button.classList.add("done");
         confetti(button);
+        const tap = button.dataset.tap = String(++copyTick);
         setTimeout(() => {
+            if (button.dataset.tap !== tap) return;
             button.replaceChildren("Copy");
             button.setAttribute("aria-label", label);
             button.classList.remove("done");
@@ -425,6 +428,7 @@ async function onCardClick(event, entry) {
 function render() {
     const term = searchInput.value.trim().toLowerCase();
     const visible = [];
+    const focused = document.activeElement;
 
     for (const entry of orderedEntries()) {
         const card = entry.node;
@@ -438,12 +442,15 @@ function render() {
         }
     }
 
-    const focused = document.activeElement;
     visible.forEach((card, index) => {
         if (promoList.children[index] !== card) promoList.insertBefore(card, promoList.children[index] || null);
     });
     promoList.appendChild(emptyNotice);
-    if (focused && focused.isConnected && focused !== document.activeElement) focused.focus({ preventScroll: true });
+    if (focused && focused.isConnected) {
+        const gone = focused.closest && focused.closest(".promo[hidden]");
+        if (gone) searchInput.focus({ preventScroll: true });
+        else if (focused !== document.activeElement) focused.focus({ preventScroll: true });
+    }
 
     emptyNotice.hidden = visible.length > 0;
     promoCount.textContent = visible.length === entries.length ?
@@ -503,7 +510,7 @@ function paintFilterSheet() {
 /* ---------- rules and calculator (fetched on first use) ---------- */
 
 let detailRequest;
-const detailData = () => (detailRequest ||= fetch("data.json?v=10")
+const detailData = () => (detailRequest ||= fetch("data.json?v=__DATA__")
     .then(response => response.ok ? response.json() : Promise.reject(Error(response.status)))
     .catch(error => {
         detailRequest = null; // so the next tap can retry instead of failing forever
@@ -544,7 +551,7 @@ async function openCalc(entry) {
     openSheet(calcSheet);
 
     try {
-        const [module, data] = await Promise.all([import("./calc.js?v=10"), detailData()]);
+        const [module, data] = await Promise.all([import("./calc.js?v=__CALC__"), detailData()]);
         if (calcSheet.dataset.for !== entry.id) return;
         const calc = data.c[entry.id];
         if (!calc) throw Error("no calculator for " + entry.id);
@@ -625,9 +632,14 @@ function setUpLightbox() {
     const image = lightbox.querySelector("img");
     lightbox.addEventListener("click", () => lightbox.close());
     delegate(document.body, ".shot", shot => {
-        const caption = (shot.getAttribute("aria-label") || "").replace(/^Open screenshot: /, "");
-        image.src = shot.querySelector("img").src;
-        image.alt = caption;
+        const source = shot.querySelector("img");
+        const figure = shot.closest("figure");
+        const figcaption = figure && figure.querySelector("figcaption");
+        const caption = figcaption
+            ? figcaption.textContent.trim()
+            : (shot.getAttribute("aria-label") || "").replace(/^Open screenshot(?::| of)\s*/, "");
+        image.src = source.src;
+        image.alt = source.alt || caption;
         lightbox.setAttribute("aria-label", caption || "Screenshot");
         openSheet(lightbox);
     });
@@ -640,8 +652,8 @@ function isTyping() {
 
 function setUpKeyboard() {
     document.addEventListener("keydown", event => {
-        // a bare "/" only: Ctrl+/ and Cmd+/ are the browser's or the OS's
-        if (event.key === "/" && !event.ctrlKey && !event.metaKey && !event.altKey && !isTyping()) {
+        if (event.key === "/" && !event.ctrlKey && !event.metaKey && !event.altKey
+            && !isTyping() && !document.querySelector("dialog[open]")) {
             event.preventDefault();
             showTab("promos", true);
             searchInput.focus();
