@@ -64,15 +64,15 @@ const FACETS = {
 const ATTR = { rating: "r", payout: "p", accepts: "a", type: "t" };
 
 const SELLER_BADGE = {
-  local: { emoji: "🚛", title: "Ships from inside your country/region or nearby, so orders tend to show up faster" },
-  star: { emoji: "🌟", title: "Ranked among the top 5% of sellers in its main category over the past 30 days, on sales and review ratings combined" },
-  fast: { emoji: "🚀", title: "Among the top 10% in its category over the past 30 days for how quickly orders ship out and arrive" },
-  veteran: { emoji: "🗓️", title: "Has been selling on Temu for more than a year" },
-  handmade: { emoji: "🖐️", title: "More than half the items sold are handmade" },
-  design: { emoji: "✒️", title: "More than half the items sold are original designs" },
-  eco: { emoji: "🌿", title: "More than half the items sold are eco-friendly" },
-  packGood: { emoji: "📦", title: "Orders from this seller have shown up well protected" },
-  packBad: { emoji: "💥", title: "Orders from this seller have shown up damaged or badly packed" },
+  local: { emoji: "🚛", label: "Local warehouse", title: "Ships from inside your country/region or nearby, so orders tend to show up faster", legend: "means the seller ships from inside your country/region or somewhere nearby, so orders tend to show up faster." },
+  star: { emoji: "🌟", label: "Star store", title: "Ranked among the top 5% of sellers in its main category over the past 30 days, on sales and review ratings combined", legend: "means the store ranked in the top 5% of its main product category over the past 30 days, counting sales and review ratings together." },
+  fast: { emoji: "🏎️", label: "Fast delivery", title: "Among the top 10% in its category over the past 30 days for how quickly orders ship out and arrive", legend: "means the store ranked in the top 10% of its category over the past 30 days for how quickly orders ship out and arrive." },
+  veteran: { emoji: "🗓️", label: "Established store", title: "Has been selling on Temu for more than a year", legend: "means the store has been selling on Temu for more than a year." },
+  handmade: { emoji: "🖐️", label: "Handmade", title: "More than half the items sold are handmade", legend: "means more than half the items the store sells are handmade." },
+  design: { emoji: "✒️", label: "Original design", title: "More than half the items sold are original designs", legend: "means more than half the items the store sells are original designs." },
+  eco: { emoji: "🌿", label: "Eco-friendly", title: "More than half the items sold are eco-friendly", legend: "means more than half the items the store sells are eco-friendly." },
+  packGood: { emoji: "📦", label: "Great packaging/shipping", title: "Orders from this seller have shown up well protected", legend: "means orders from this seller have shown up well protected." },
+  packBad: { emoji: "💥", label: "Terrible packaging/shipping", title: "Orders from this seller have shown up damaged or badly packed", legend: "means orders from this seller have shown up damaged or badly packed." },
 };
 const BAR_CLASSES = ["s5", "s4", "s3", "s2", "s1"];
 
@@ -265,6 +265,14 @@ function facetsHtml() {
   return html + group("Favorites", chip("fav", icon("star") + "Favorites only", " fav"));
 }
 
+function sellerKeyHtml() {
+  const used = new Set(SELLERS.flatMap(seller => seller.badges));
+  return Object.entries(SELLER_BADGE)
+    .filter(([key]) => used.has(key))
+    .map(([, badge]) => `<p><b>${badge.emoji} ${esc(badge.label)}</b> ${esc(badge.legend)}</p>`)
+    .join("");
+}
+
 /* ---------- write ---------- */
 
 const promos = PROMOS.map(cardHtml).join("");
@@ -279,6 +287,7 @@ const SLOTS = {
   "<!--FARMLAND-->": farmland,
   "<!--COUNT-->": `${PROMOS.length} promos`,
   "<!--SELLERCOUNT-->": `${SELLERS.length} sellers`,
+  "<!--SELLERKEY-->": sellerKeyHtml(),
 };
 
 let html = fs.readFileSync(path.join(BUILD, "shell.html"), "utf8");
@@ -398,9 +407,19 @@ for (const entry of fs.readdirSync(OUT, { recursive: true, withFileTypes: true }
   const parent = entry.parentPath ?? entry.path;
   if (entry.isFile()) { files++; bytes += fs.statSync(path.join(parent, entry.name)).size; }
 }
+
+const usedBadges = new Set(SELLERS.flatMap(seller => seller.badges));
+const unusedBadges = Object.keys(SELLER_BADGE).filter(key => !usedBadges.has(key));
+const shipList = [...SHIP_ORDER, "data.json"];
+const widths = shipList.map(name => Math.max(name.length, VERSIONS[name].length));
+const row = cells => cells.map((cell, i) => cell.padEnd(widths[i])).join("  ").trimEnd();
+
 console.log("-".repeat(21));
 console.log("total".padEnd(11), kb(bytes), `in ${files} files`);
-console.log(SKIP ? "minify     OFF (--no-minify)" : "minify     on, with sourcemaps");
-console.log("out       ", path.relative(ROOT, OUT) || OUT);
-console.log("versions   ", [...SHIP_ORDER, "data.json"].map(name => `${name} ${VERSIONS[name]}`).join("  "));
-console.log("calculators", PROMOS.filter(hasCalc).map(promo => promo.id).join(", "));
+console.log("minify".padEnd(11), SKIP ? "OFF (--no-minify)" : "on, with sourcemaps");
+console.log("out".padEnd(11), path.relative(ROOT, OUT) || OUT);
+console.log("versions".padEnd(11), row(shipList));
+console.log("".padEnd(11), row(shipList.map(name => VERSIONS[name])));
+console.log("calculators".padEnd(11), PROMOS.filter(hasCalc).map(promo => promo.id).join("  "));
+console.log("badges".padEnd(11), "used:", [...usedBadges].join(", "));
+if (unusedBadges.length) console.log("".padEnd(11), " not:", unusedBadges.join(", "));
