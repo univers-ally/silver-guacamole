@@ -146,10 +146,12 @@ function cardHtml(promo) {
   const foot = promo.terms || hasCalc(promo)
     ? `
         <div class="foot-row">${promo.terms ? `
-          <button type="button" class="info">${icon("rules")}Rules</button>` : ""}${hasCalc(promo) ? `
-          <button type="button" class="info calcbtn">${icon("calc")}Calculator</button>` : ""}
+          <button type="button" class="info" data-open="rules" aria-haspopup="dialog">${icon("rules")}Rules</button>` : ""}${hasCalc(promo) ? `
+          <button type="button" class="info" data-open="calc" aria-haspopup="dialog">${icon("calc")}Calculator</button>` : ""}
         </div>`
     : "";
+  const shortcuts = hasCalc(promo) ? `
+        <button type="button" class="icon" data-open="calc" aria-haspopup="dialog" aria-label="Calculator for ${name}" title="Calculator">${icon("calc")}</button>` : "";
 
   const data = Object.entries(ATTR)
     .map(([facet, attr]) => {
@@ -171,9 +173,8 @@ function cardHtml(promo) {
     <article class="card promo" id="p-${id}" data-id="${id}"${data}${unlisted}>
       <div class="head">
         <span class="star ${rating}" title="${RATING[rating].label}" aria-label="${RATING[rating].label}">${RATING[rating].emoji}</span>
-        <h2><button type="button" class="toggle" aria-expanded="false" aria-controls="b-${id}">${name}</button></h2>
+        <h2><button type="button" class="toggle" aria-expanded="false" aria-controls="b-${id}">${name}</button></h2>${shortcuts}
         <button type="button" class="icon fav" aria-pressed="false" aria-label="Add ${name} to favorites">${icon("star")}</button>
-        <button type="button" class="icon share" aria-label="Share link to ${name}" title="Share link">${icon("share")}${icon("link")}</button>
         <button type="button" class="icon chevbtn" tabindex="-1" aria-hidden="true"><span class="chev">${icon("chev")}</span></button>
       </div>
       <div class="codes">${codesHtml(promo)}

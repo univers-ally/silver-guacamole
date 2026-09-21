@@ -224,6 +224,7 @@ html:not(.js) .facets,
 html:not(.js) .schips,
 html:not(.js) .status .tool,
 html:not(.js) .tzcalc,
+html:not(.js) .head [data-open],
 html:not(.js) .chevbtn {
   display: none;
 }
@@ -714,6 +715,8 @@ html[data-theme="oled"] .theme .t-oled {
   color: var(--ink);
   font: inherit;
   text-align: left;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .icon {
@@ -747,20 +750,6 @@ html[data-theme="oled"] .theme .t-oled {
 
   &.on svg {
     fill: currentColor;
-  }
-}
-
-.share .i-share {
-  display: none;
-}
-
-@media (hover: none) {
-  .share .i-link {
-    display: none;
-  }
-
-  .share .i-share {
-    display: block;
   }
 }
 

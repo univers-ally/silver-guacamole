@@ -10,7 +10,6 @@ function delegate(root, selector, handler) {
 const escapeHtml = text => String(text)
     .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-const isTouch = matchMedia("(hover: none)").matches;
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
 const RATING_WORDS = {
@@ -334,13 +333,6 @@ function refreshFavoriteButton(entry) {
     button.setAttribute("aria-label", on ? `Remove ${entry.name} from favorites` : `Add ${entry.name} to favorites`);
 }
 
-function shareLink(id) {
-    const url = new URL(location.href);
-    url.search = "?id=" + encodeURIComponent(id);
-    url.hash = "";
-    return url.href;
-}
-
 async function onCardClick(event, entry) {
     const card = entry.node;
     const hit = selector => event.target.closest(selector);
@@ -394,29 +386,14 @@ async function onCardClick(event, entry) {
         return;
     }
 
-    if (hit(".share")) {
-        const button = hit(".share");
-        const url = shareLink(entry.id);
-        if (isTouch && navigator.share) {
-            try {
-                await navigator.share({
-                    title: entry.name,
-                    url
-                });
-                return;
-            } catch { }
-        }
-        if (await copyText(url)) {
-            toast("Link copied");
-            confetti(button);
-        } else {
-            toast(url);
-        }
+    // the head's calculator icon and the foot row's labelled buttons all carry data-open
+    const opener = hit("[data-open]");
+    if (opener) {
+        if (opener.dataset.open === "calc") openCalc(entry);
+        else openTerms(entry);
         return;
     }
 
-    if (hit(".calcbtn")) openCalc(entry);
-    else if (hit(".info")) openTerms(entry);
     if (hit(".go")) {
         showTab("farmland", true);
         scrollTo(0, 0);
