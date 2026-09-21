@@ -65,7 +65,12 @@ const ATTR = { rating: "r", payout: "p", accepts: "a", type: "t" };
 
 const SELLER_BADGE = {
   local: { emoji: "🚛", title: "Ships from inside your country/region or nearby, so orders tend to show up faster" },
-  star: { emoji: "🌟", title: "Ranked among the top sellers in its main category over the past 30 days" },
+  star: { emoji: "🌟", title: "Ranked among the top 5% of sellers in its main category over the past 30 days, on sales and review ratings combined" },
+  fast: { emoji: "🚀", title: "Among the top 10% in its category over the past 30 days for how quickly orders ship out and arrive" },
+  veteran: { emoji: "🗓️", title: "Has been selling on Temu for more than a year" },
+  handmade: { emoji: "🖐️", title: "More than half the items sold are handmade" },
+  design: { emoji: "✒️", title: "More than half the items sold are original designs" },
+  eco: { emoji: "🌿", title: "More than half the items sold are eco-friendly" },
   packGood: { emoji: "📦", title: "Orders from this seller have shown up well protected" },
   packBad: { emoji: "💥", title: "Orders from this seller have shown up damaged or badly packed" },
 };
