@@ -1,3 +1,5 @@
+"use strict";
+
 const el = id => document.getElementById(id);
 
 function delegate(root, selector, handler) {
@@ -17,13 +19,10 @@ const RATING_WORDS = {
     meh: "meh average low zzz sleep",
     bad: "bad skull scam avoid",
 };
-const RATING_ORDER = {
-    good: 0,
-    meh: 1,
-    bad: 2
-};
+const RATING_RANK = Object.keys(RATING_WORDS);
 
-// facet name -> the url param and the data- attribute that carry it
+// facet name -> the url param and the data- attribute that carry it.
+// FACETS in build.js has to agree
 const PARAM = {
     rating: "r",
     payout: "p",
@@ -33,25 +32,37 @@ const PARAM = {
 
 const promoList = el("list");
 const promoCount = el("count");
+const promoEmpty = promoList.querySelector(".empty");
 const searchInput = el("q");
 const sortSelect = el("sort");
+const facetChips = el("facets");
+const activePills = el("active");
 const filterButton = el("filter-btn");
+const filterBadge = el("filter-count");
 const filterSheet = el("filters");
+const filterBody = el("filter-body");
+const filterApply = el("filter-apply");
 const termsSheet = el("terms");
+const termsTitle = el("terms-title");
+const termsDate = el("terms-date");
+const termsText = termsSheet.querySelector("pre");
 const calcSheet = el("calc");
+const calcTitle = el("calc-title");
+const calcBody = el("calc-body");
 const lightbox = el("lightbox");
-const emptyNotice = promoList.querySelector(".empty");
+const toastBox = el("toast");
+
+const searchTerm = () => searchInput.value.trim().toLowerCase();
 
 /* ---------- toast ---------- */
 
 let toastTimer;
 
 function toast(message) {
-    const box = el("toast");
-    box.textContent = message;
-    box.classList.add("show");
+    toastBox.textContent = message;
+    toastBox.classList.add("show");
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => box.classList.remove("show"), 2200);
+    toastTimer = setTimeout(() => toastBox.classList.remove("show"), 2200);
 }
 
 /* ---------- storage ---------- */
@@ -97,17 +108,16 @@ function setUpTheme() {
     const button = el("theme");
     const root = document.documentElement;
     const current = () => THEMES.includes(root.dataset.theme) ? root.dataset.theme : "auto";
-    const label = () => {
-        const text = "Theme: " + THEME_NAMES[current()];
-        button.setAttribute("aria-label", text);
-        button.title = text;
-    };
 
-    // the two <meta theme-color> tags follow the OS by media query
+    // the two <meta theme-color> tags follow the OS by media query until a
+    // theme is picked, then both take that theme's colour
     const bars = [...document.querySelectorAll('meta[name="theme-color"]')];
     const OS_BARS = [THEME_BARS.light, THEME_BARS.dark];
-    const paintBar = () => {
+    const paint = () => {
         const theme = current();
+        const text = "Theme: " + THEME_NAMES[theme];
+        button.setAttribute("aria-label", text);
+        button.title = text;
         bars.forEach((meta, i) => meta.content = theme === "auto" ? OS_BARS[i] : THEME_BARS[theme]);
     };
 
@@ -120,13 +130,11 @@ function setUpTheme() {
             root.dataset.theme = next;
             store.set("theme", next);
         }
-        label();
-        paintBar();
+        paint();
         toast("Theme: " + THEME_NAMES[next]);
     });
 
-    label();
-    paintBar();
+    paint();
 }
 
 /* ---------- favorites ---------- */
@@ -213,7 +221,7 @@ const selectedValues = (set, facet) =>
 
 // chip labels live in the markup, so the pills can read them back out
 const LABELS = new Map();
-for (const group of el("facets").querySelectorAll(".facet")) {
+for (const group of facetChips.querySelectorAll(".facet")) {
     const legend = group.querySelector("legend").textContent;
     for (const chip of group.querySelectorAll(".chip")) {
         const key = chip.dataset.key;
@@ -273,7 +281,6 @@ function confetti(button) {
         button.appendChild(piece);
     }
 }
-let copyTick = 0;
 
 async function copyText(text) {
     try {
@@ -305,9 +312,10 @@ function passesFilters(entry, set) {
 
 function orderedEntries() {
     const byIndex = (a, b) => a.index - b.index;
+    const rank = entry => RATING_RANK.indexOf(entry.node.dataset.r);
     const compare = {
         default: byIndex,
-        rating: (a, b) => RATING_ORDER[a.node.dataset.r] - RATING_ORDER[b.node.dataset.r] || byIndex(a, b),
+        rating: (a, b) => rank(a) - rank(b) || byIndex(a, b),
         name: (a, b) => a.name.localeCompare(b.name),
     }[sortMode];
     const favoritesFirst = (a, b) => favorites.has(b.id) - favorites.has(a.id);
@@ -333,6 +341,8 @@ function refreshFavoriteButton(entry) {
     button.setAttribute("aria-label", on ? `Remove ${entry.name} from favorites` : `Add ${entry.name} to favorites`);
 }
 
+let copyTick = 0;
+
 async function onCardClick(event, entry) {
     const card = entry.node;
     const hit = selector => event.target.closest(selector);
@@ -345,8 +355,8 @@ async function onCardClick(event, entry) {
         return;
     }
 
-    if (hit(".code button")) {
-        const button = hit(".code button");
+    const button = hit(".code button");
+    if (button) {
         const label = button.dataset.label ||= button.getAttribute("aria-label");
         if (!await copyText(button.dataset.code)) {
             toast("Couldn't copy. Select the code and copy it by hand");
@@ -361,19 +371,20 @@ async function onCardClick(event, entry) {
         const tap = button.dataset.tap = String(++copyTick);
         setTimeout(() => {
             if (button.dataset.tap !== tap) return;
-            button.replaceChildren("Copy");
+            button.textContent = "Copy";
             button.setAttribute("aria-label", label);
             button.classList.remove("done");
         }, 1500);
         return;
     }
 
-    if (hit(".fav")) {
+    const fav = hit(".fav");
+    if (fav) {
         if (favorites.has(entry.id)) {
             favorites.delete(entry.id);
         } else {
             favorites.add(entry.id);
-            confetti(hit(".fav"));
+            confetti(fav);
         }
         store.set("favs", JSON.stringify([...favorites]));
         refreshFavoriteButton(entry);
@@ -394,8 +405,9 @@ async function onCardClick(event, entry) {
         return;
     }
 
-    if (hit(".go")) {
-        showTab("farmland", true);
+    const go = hit(".go");
+    if (go) {
+        showTab(go.dataset.tab, true);
         scrollTo(0, 0);
     }
 }
@@ -403,7 +415,7 @@ async function onCardClick(event, entry) {
 /* ---------- rendering ---------- */
 
 function render() {
-    const term = searchInput.value.trim().toLowerCase();
+    const term = searchTerm();
     const visible = [];
     const focused = document.activeElement;
 
@@ -422,14 +434,13 @@ function render() {
     visible.forEach((card, index) => {
         if (promoList.children[index] !== card) promoList.insertBefore(card, promoList.children[index] || null);
     });
-    promoList.appendChild(emptyNotice);
+    promoList.appendChild(promoEmpty);
     if (focused && focused.isConnected) {
-        const gone = focused.closest && focused.closest(".promo[hidden]");
-        if (gone) searchInput.focus({ preventScroll: true });
+        if (focused.closest(".promo[hidden]")) searchInput.focus({ preventScroll: true });
         else if (focused !== document.activeElement) focused.focus({ preventScroll: true });
     }
 
-    emptyNotice.hidden = visible.length > 0;
+    promoEmpty.hidden = visible.length > 0;
     promoCount.textContent = visible.length === entries.length ?
         `${visible.length} promos` :
         `${visible.length} of ${entries.length} promos`;
@@ -437,14 +448,13 @@ function render() {
     // on a phone the button is icon-only, so its aria-label is the whole accessible
     // name and the count badge beside it would otherwise never be announced
     const count = filters.size;
-    const badge = el("filter-count");
-    badge.hidden = !count;
-    badge.textContent = count;
+    filterBadge.hidden = !count;
+    filterBadge.textContent = count;
     filterButton.classList.toggle("on", count > 0);
     filterButton.setAttribute("aria-label", count ? `Filters, ${count} active` : "Filters");
 
     renderActiveFilters();
-    syncFacets(el("facets"), filters);
+    syncFacets(facetChips, filters);
 }
 
 function syncFacets(container, set) {
@@ -456,11 +466,10 @@ function syncFacets(container, set) {
 }
 
 function renderActiveFilters() {
-    const container = el("active");
     const keys = [...LABELS.keys()].filter(key => filters.has(key));
 
-    container.hidden = !keys.length;
-    container.innerHTML = keys.map(key =>
+    activePills.hidden = !keys.length;
+    activePills.innerHTML = keys.map(key =>
         `<span class="pill">${LABELS.get(key)}<button type="button" data-key="${escapeHtml(key)}" aria-label="Remove filter ${escapeHtml(LABELS.get(key))}">✕</button></span>`
     ).join("") + (keys.length ? `<button type="button" class="clear">Clear all</button>` : "");
 }
@@ -476,10 +485,10 @@ function openSheet(sheet) {
 }
 
 function paintFilterSheet() {
-    syncFacets(el("filter-body"), draftFilters);
-    const term = searchInput.value.trim().toLowerCase();
+    syncFacets(filterBody, draftFilters);
+    const term = searchTerm();
     const count = entries.filter(entry => passesFilters(entry, draftFilters) && matchesSearch(entry, term)).length;
-    el("filter-apply").textContent = draftFilters.size ?
+    filterApply.textContent = draftFilters.size ?
         `Show ${count} promo${count === 1 ? "" : "s"}` :
         "Show all promos";
 }
@@ -496,12 +505,11 @@ const detailData = () => (detailRequest ||= fetch("data.json?v=__DATA__")
 
 async function openTerms(entry) {
     const codes = [...entry.node.querySelectorAll(".code code")].map(node => node.textContent);
-    const pre = termsSheet.querySelector("pre");
-    termsSheet.querySelector("h3").textContent = `${entry.name} · ${codes.join(" / ")}`;
+    termsTitle.textContent = `${entry.name} · ${codes.join(" / ")}`;
     termsSheet.dataset.for = entry.id;
-    el("terms-date").textContent = "";
-    pre.textContent = "Loading rules…";
-    pre.scrollTop = 0;
+    termsDate.textContent = "";
+    termsText.textContent = "Loading rules…";
+    termsText.scrollTop = 0;
     openSheet(termsSheet);
 
     let record;
@@ -510,21 +518,21 @@ async function openTerms(entry) {
     } catch { }
     if (termsSheet.dataset.for !== entry.id) return;
     if (!record) {
-        pre.textContent = "Could not load the rules. Check your connection and try again.";
+        termsText.textContent = "Could not load the rules. Check your connection and try again.";
         return;
     }
-    el("terms-date").textContent = record.u;
-    pre.innerHTML = record.t.split(/(<table[\s\S]*?<\/table>)\n?/)
+    termsDate.textContent = record.u;
+    // terms are plain text, except for the odd <table> a promo carries as markup
+    termsText.innerHTML = record.t.split(/(<table[\s\S]*?<\/table>)\n?/)
         .map((part, i) => i % 2 ? part : escapeHtml(part)).join("");
-    pre.scrollTop = 0;
+    termsText.scrollTop = 0;
 }
 
 // calc.js is fetched the first time anyone opens a Calculator, then cached
 async function openCalc(entry) {
-    const body = el("calc-body");
-    el("calc-title").textContent = entry.name;
+    calcTitle.textContent = entry.name;
     calcSheet.dataset.for = entry.id;
-    body.innerHTML = `<p class="calc-note">Loading…</p>`;
+    calcBody.innerHTML = `<p class="calc-note">Loading…</p>`;
     openSheet(calcSheet);
 
     try {
@@ -532,82 +540,77 @@ async function openCalc(entry) {
         if (calcSheet.dataset.for !== entry.id) return;
         const calc = data.c[entry.id];
         if (!calc) throw Error("no calculator for " + entry.id);
-        module.render(body, calc, entry.id);
+        module.render(calcBody, calc, entry.id);
     } catch {
         if (calcSheet.dataset.for === entry.id) {
-            body.innerHTML = `<p class="calc-note">Could not load the calculator. Check your connection and try again.</p>`;
+            calcBody.innerHTML = `<p class="calc-note">Could not load the calculator. Check your connection and try again.</p>`;
         }
     }
 }
 
 /* ---------- wiring ---------- */
 
-function setUpSheets() {
-    const active = el("active");
-    delegate(active, ".pill button", button => {
+function setUpFilters() {
+    const apply = () => {
+        render();
+        syncUrl();
+    };
+    delegate(activePills, ".pill button", button => {
         toggleFilter(filters, button.dataset.key);
-        render();
-        syncUrl();
+        apply();
     });
-    delegate(active, ".clear", () => {
+    delegate(activePills, ".clear", () => {
         filters = new Set();
-        render();
-        syncUrl();
+        apply();
+    });
+    delegate(facetChips, ".chip", chip => {
+        toggleFilter(filters, chip.dataset.key);
+        apply();
+    });
+    sortSelect.addEventListener("change", () => {
+        sortMode = sortSelect.value;
+        apply();
     });
 
-    delegate(el("facets"), ".chip", chip => {
-        toggleFilter(filters, chip.dataset.key);
-        render();
-        syncUrl();
-    });
-    delegate(el("filter-body"), ".chip", chip => {
+    delegate(filterBody, ".chip", chip => {
         toggleFilter(draftFilters, chip.dataset.key);
         paintFilterSheet();
     });
-
     filterButton.addEventListener("click", () => {
         draftFilters = new Set(filters);
         paintFilterSheet();
         openSheet(filterSheet);
         filterButton.setAttribute("aria-expanded", "true");
     });
-
     el("filter-reset").addEventListener("click", () => {
         draftFilters = new Set();
         paintFilterSheet();
     });
-
-    el("filter-apply").addEventListener("click", () => {
+    filterApply.addEventListener("click", () => {
         filters = draftFilters;
         filterSheet.close();
-        render();
-        syncUrl();
+        apply();
     });
+    filterSheet.addEventListener("close", () => filterButton.setAttribute("aria-expanded", "false"));
+}
 
+function setUpDialogs() {
     for (const sheet of [filterSheet, termsSheet, calcSheet]) {
         sheet.addEventListener("click", event => {
             if (event.target === sheet || event.target.closest(".close")) sheet.close();
         });
     }
+    lightbox.addEventListener("click", () => lightbox.close());
 
-    for (const sheet of [filterSheet, termsSheet, calcSheet, lightbox]) {
-        sheet.addEventListener("close", () => {
+    for (const dialog of [filterSheet, termsSheet, calcSheet, lightbox]) {
+        dialog.addEventListener("close", () => {
             if (!document.querySelector("dialog[open]")) document.body.classList.remove("locked");
         });
     }
-
-    filterSheet.addEventListener("close", () => filterButton.setAttribute("aria-expanded", "false"));
-
-    sortSelect.addEventListener("change", () => {
-        sortMode = sortSelect.value;
-        render();
-        syncUrl();
-    });
 }
 
 function setUpLightbox() {
     const image = lightbox.querySelector("img");
-    lightbox.addEventListener("click", () => lightbox.close());
     delegate(document.body, ".shot", shot => {
         const source = shot.querySelector("img");
         const figure = shot.closest("figure");
@@ -652,7 +655,7 @@ function setUpSellers() {
     const list = el("seller-list");
     const count = el("seller-count");
     const sortBy = el("seller-sort");
-    const emptyNotice = list.querySelector(".empty");
+    const empty = list.querySelector(".empty");
     const activeChips = new Set();
     const rows = [...list.querySelectorAll(".seller")].map((node, index) => ({
         node,
@@ -677,8 +680,8 @@ function setUpSellers() {
             if (visible) shown++;
             list.appendChild(row.node);
         }
-        list.appendChild(emptyNotice);
-        emptyNotice.hidden = shown > 0;
+        list.appendChild(empty);
+        empty.hidden = shown > 0;
         count.textContent = shown === rows.length ? `${shown} sellers` : `${shown} of ${rows.length} sellers`;
     }
 
@@ -696,22 +699,44 @@ function setUpSellers() {
 
 /* ---------- timeskip calculator ---------- */
 
-const ZONES = ("Line Islands Time (LINT)|Tonga Time (TOT);New Zealand Daylight Time (NZDT)|New Zealand Standard Time (NZST)|" +
-    "Solomon Islands Time (SBT);Australian Eastern Daylight Time (AEDT)|Australian Eastern Standard Time (AEST)|" +
-    "Japan Standard Time (JST)|Hong Kong Time (HKT)|Indochina Time (ICT)|Alma-Ata Time (ALMT)|Pakistan Standard Time (PKT)|" +
-    "Gulf Standard Time (GST)|Moscow Standard Time (MSK);Eastern European Summer Time (EEST)|" +
-    "Eastern European Time (EET);Central European Summer Time (CEST)|Central European Time (CET);British Summer Time (BST)|" +
-    "Greenwich Mean Time (GMT);Azores Summer Time (AZOST)|Azores Standard Time (AZOT)|Fernando de Noronha Time (FNT)|" +
-    "Argentina Time (ART);Atlantic Daylight Time (ADT)|Atlantic Standard Time (AST);Eastern Daylight Time (EDT)|" +
-    "Eastern Standard Time (EST);Central Daylight Time (CDT)|Central Standard Time (CST);Mountain Daylight Time (MDT)|" +
-    "Mountain Standard Time (MST);Pacific Daylight Time (PDT)|Pacific Standard Time (PST);Alaska Daylight Time (AKDT)|" +
-    "Alaska Standard Time (AKST)|Hawaii Standard Time (HST)|Samoa Standard Time (SST)|Anywhere on Earth (AoE)")
-    .split("|").map(names => names.split(";"));
+const ZONES = [
+    ["Line Islands Time (LINT)"],                                                  // +14
+    ["Tonga Time (TOT)", "New Zealand Daylight Time (NZDT)"],                      // +13
+    ["New Zealand Standard Time (NZST)"],                                          // +12
+    ["Solomon Islands Time (SBT)", "Australian Eastern Daylight Time (AEDT)"],     // +11
+    ["Australian Eastern Standard Time (AEST)"],                                   // +10
+    ["Japan Standard Time (JST)"],                                                 // +9
+    ["Hong Kong Time (HKT)"],                                                      // +8
+    ["Indochina Time (ICT)"],                                                      // +7
+    ["Alma-Ata Time (ALMT)"],                                                      // +6
+    ["Pakistan Standard Time (PKT)"],                                              // +5
+    ["Gulf Standard Time (GST)"],                                                  // +4
+    ["Moscow Standard Time (MSK)", "Eastern European Summer Time (EEST)"],         // +3
+    ["Eastern European Time (EET)", "Central European Summer Time (CEST)"],        // +2
+    ["Central European Time (CET)", "British Summer Time (BST)"],                  // +1
+    ["Greenwich Mean Time (GMT)", "Azores Summer Time (AZOST)"],                   //  0
+    ["Azores Standard Time (AZOT)"],                                               // -1
+    ["Fernando de Noronha Time (FNT)"],                                            // -2
+    ["Argentina Time (ART)", "Atlantic Daylight Time (ADT)"],                      // -3
+    ["Atlantic Standard Time (AST)", "Eastern Daylight Time (EDT)"],               // -4
+    ["Eastern Standard Time (EST)", "Central Daylight Time (CDT)"],                // -5
+    ["Central Standard Time (CST)", "Mountain Daylight Time (MDT)"],               // -6
+    ["Mountain Standard Time (MST)", "Pacific Daylight Time (PDT)"],               // -7
+    ["Pacific Standard Time (PST)", "Alaska Daylight Time (AKDT)"],                // -8
+    ["Alaska Standard Time (AKST)"],                                               // -9
+    ["Hawaii Standard Time (HST)"],                                                // -10
+    ["Samoa Standard Time (SST)"],                                                 // -11
+    ["Anywhere on Earth (AoE)"],                                                   // -12
+];
+const gmtLabel = minutes => {
+    const absolute = Math.abs(minutes);
+    const pad = n => String(n).padStart(2, "0");
+    return `GMT${minutes < 0 ? "-" : "+"}${pad(Math.floor(absolute / 60))}:${pad(absolute % 60)}`;
+};
 
 function setUpTimeskip() {
     const button = el("tz-claim");
     const output = el("tz-out");
-    if (!button) return;
 
     const HOUR = 3600e3;
     const DAY = 24 * HOUR;
@@ -719,12 +744,11 @@ function setUpTimeskip() {
     const month = new Date().getMonth();
     const northernSummer = month >= 3 && month <= 9;
     const zoneName = offset => {
-        const names = ZONES[14 - offset];
+        const [standard, daylight] = ZONES[14 - offset];
         const usesDaylight = northernSummer ? (offset <= 3 && offset >= -8) : offset >= 11;
-        return (usesDaylight && names[1]) || names[0];
+        return (usesDaylight && daylight) || standard;
     };
 
-    const gmtLabel = offset => "GMT" + (offset >= 0 ? "+" : "-") + String(Math.abs(offset)).padStart(2, "0") + ":00";
     const clock = ms => new Date(ms).toLocaleTimeString([], {
         hour: "numeric",
         minute: "2-digit"
@@ -744,12 +768,9 @@ function setUpTimeskip() {
         }
     };
     const detectedZone = () => {
-        const offsetMinutes = -new Date().getTimezoneOffset();
-        const sign = offsetMinutes >= 0 ? "+" : "-";
-        const absolute = Math.abs(offsetMinutes);
         const long = localZoneName("long");
         const short = localZoneName("short");
-        return `GMT${sign}${String(Math.floor(absolute / 60)).padStart(2, "0")}:${String(absolute % 60).padStart(2, "0")} ${long}${short && short !== long ? ` (${short})` : ""}`;
+        return `${gmtLabel(-new Date().getTimezoneOffset())} ${long}${short && short !== long ? ` (${short})` : ""}`;
     };
 
     let claimedAt = null;
@@ -780,12 +801,12 @@ function setUpTimeskip() {
         const upcoming = rollovers.filter(zone => zone.at > now);
 
         html += '<div class="tz-list">';
+        const zoneLabel = zone => `${gmtLabel(zone.offset * 60)} ${zoneName(zone.offset)}`;
         if (ready.length) {
-            const zone = ready[ready.length - 1];
-            html += `<div><b>Now</b> switch to <b>${gmtLabel(zone.offset)} ${zoneName(zone.offset)}</b></div>`;
+            html += `<div><b>Now</b> switch to <b>${zoneLabel(ready[ready.length - 1])}</b></div>`;
         }
         for (const zone of upcoming.slice(0, 4)) {
-            html += `<div>In <b>${relative(zone.at - now)}</b> (at ${clock(zone.at)}) switch to <b>${gmtLabel(zone.offset)} ${zoneName(zone.offset)}</b></div>`;
+            html += `<div>In <b>${relative(zone.at - now)}</b> (at ${clock(zone.at)}) switch to <b>${zoneLabel(zone)}</b></div>`;
         }
         html += "</div>";
         html += `<div class="tz-since"><span>Last claim ${clock(claimedAt)} (${localZoneName("short")})</span></div>`;
@@ -806,7 +827,8 @@ function setUpTimeskip() {
 
 setUpTheme();
 setUpTabs();
-setUpSheets();
+setUpFilters();
+setUpDialogs();
 setUpLightbox();
 setUpKeyboard();
 setUpSearch();
@@ -815,20 +837,19 @@ delegate(promoList, ".promo", (card, event) => onCardClick(event, byId.get(card.
 for (const entry of entries) refreshFavoriteButton(entry);
 readUrl();
 
-if (focusId && byId.has(focusId)) {
+const shared = byId.get(focusId);
+focusId = null;
+if (shared) {
     filters = new Set();
     searchInput.value = "";
     showTab("promos");
     render();
-    const card = byId.get(focusId).node;
-    setOpen(card, true);
-    requestAnimationFrame(() => card.scrollIntoView({
+    setOpen(shared.node, true);
+    requestAnimationFrame(() => shared.node.scrollIntoView({
         block: "start"
     }));
-    focusId = null;
     syncUrl();
 } else {
-    focusId = null;
     showTab(location.hash.slice(1));
     render();
 }

@@ -29,8 +29,12 @@
   --bar-2: light-dark(#d9720f, #cf7a24);
   --bar-1: light-dark(#c7302a, #c9463d);
   --good: light-dark(#dcefe3, #1f3a2b);
+  --good-line: light-dark(#bcdcc8, #2c5340);
+  --good-text: light-dark(#1d5a38, #7fd0a2);
   --meh: light-dark(#ecebe7, #2a2a28);
   --bad: light-dark(#fbe1e1, #3f2222);
+  --bad-line: light-dark(#e9b8b8, #5a3030);
+  --bad-text: light-dark(#b4322b, #e07b72);
   --scrim: light-dark(rgba(20, 20, 20, .5), rgba(0, 0, 0, .65));
   --hover: color-mix(in srgb, currentColor 12%, transparent);
   color-scheme: light dark;
@@ -225,6 +229,9 @@ html:not(.js) .schips,
 html:not(.js) .status .tool,
 html:not(.js) .tzcalc,
 html:not(.js) .head [data-open],
+html:not(.js) .foot-row,
+html:not(.js) .fav,
+html:not(.js) .code button,
 html:not(.js) .chevbtn {
   display: none;
 }
@@ -261,12 +268,10 @@ html:not(.js) .chevbtn {
   flex: none;
   width: 40px;
   height: 40px;
-  padding: 0;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--r-s);
   background: var(--surface);
   color: var(--muted);
-  cursor: pointer;
   place-items: center;
 
   &:hover {
@@ -311,7 +316,7 @@ html[data-theme="oled"] .theme .t-oled {
     align-items: center;
     gap: 3px;
     height: 52px;
-    border-radius: 8px;
+    border-radius: var(--r-s);
     color: var(--muted);
     font-size: 11px;
     font-weight: 600;
@@ -347,7 +352,7 @@ html[data-theme="oled"] .theme .t-oled {
   gap: 10px;
   margin: 4px 0 16px;
   padding: 12px 14px;
-  border: 1px solid light-dark(#e9b8b8, #5a3030);
+  border: 1px solid var(--bad-line);
   border-radius: var(--r-s);
   background: var(--bad);
   color: var(--ink);
@@ -359,7 +364,7 @@ html[data-theme="oled"] .theme .t-oled {
     width: 18px;
     height: 18px;
     margin-top: 2px;
-    stroke: light-dark(#b4322b, #e07b72);
+    stroke: var(--bad-text);
     stroke-width: 1.8;
   }
 }
@@ -408,7 +413,7 @@ html[data-theme="oled"] .theme .t-oled {
   height: 40px;
   padding: 0 12px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--r-s);
   background: var(--surface);
   color: var(--muted);
 
@@ -455,7 +460,7 @@ html[data-theme="oled"] .theme .t-oled {
   height: 40px;
   padding: 0;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--r-s);
   background: var(--surface);
   color: var(--muted);
   cursor: pointer;
@@ -577,7 +582,7 @@ html[data-theme="oled"] .theme .t-oled {
   height: 34px;
   padding: 0 12px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--r-s);
   background: var(--surface);
   color: var(--ink);
   font-size: 13px;
@@ -687,7 +692,7 @@ html[data-theme="oled"] .theme .t-oled {
   width: 30px;
   height: 30px;
   margin-right: 4px;
-  border-radius: 8px;
+  border-radius: var(--r-s);
   font-size: 16px;
   line-height: 1;
 
@@ -726,7 +731,7 @@ html[data-theme="oled"] .theme .t-oled {
   align-items: center;
   width: 36px;
   height: 36px;
-  border-radius: 8px;
+  border-radius: var(--r-s);
   color: var(--muted);
 
   &:hover {
@@ -877,7 +882,7 @@ html[data-theme="oled"] .theme .t-oled {
 
 .go,
 .tzcalc button {
-  border-radius: 8px;
+  border-radius: var(--r-s);
   background: var(--accent-deep);
   color: var(--accent-ink);
   font-weight: 600;
@@ -956,7 +961,7 @@ li.warn {
   height: 36px;
   padding: 0 12px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--r-s);
   background: var(--surface);
   color: var(--ink);
   font-size: 13px;
@@ -1001,16 +1006,15 @@ li.warn {
   overflow: hidden;
   width: 100%;
   min-width: 0;
-  border-radius: 8px;
+  border-radius: var(--r-s);
   cursor: zoom-in;
 
   & img {
     display: block;
     width: 100%;
-    max-width: 100%;
     max-height: 200px;
     border: 1px solid var(--line);
-    border-radius: 8px;
+    border-radius: var(--r-s);
     font-size: 11px;
     white-space: normal;
     aspect-ratio: 3 / 4;
@@ -1087,6 +1091,7 @@ li.warn {
   min-width: 0;
 }
 
+/* the name truncates, the ↗ after it never does */
 .seller-link {
   display: flex;
   align-items: center;
@@ -1120,7 +1125,7 @@ li.warn {
   flex: none;
   width: 28px;
   height: 28px;
-  border-radius: 8px;
+  border-radius: var(--r-s);
   font-size: 17px;
   line-height: 1;
   text-decoration: none;
@@ -1139,7 +1144,6 @@ li.warn {
 
   & b {
     color: var(--star);
-    font-weight: 700;
   }
 
   & small {
@@ -1159,23 +1163,19 @@ li.warn {
   width: 28px;
   height: 28px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--r-s);
   background: var(--surface);
   font-size: 15px;
   line-height: 1;
   cursor: help;
 
-  &[data-badge="local"] {
-    display: none;
-  }
-
   &[data-badge="packGood"] {
-    border-color: light-dark(#bcdcc8, #2c5340);
+    border-color: var(--good-line);
     background: var(--good);
   }
 
   &[data-badge="packBad"] {
-    border-color: light-dark(#e9b8b8, #5a3030);
+    border-color: var(--bad-line);
     background: var(--bad);
   }
 }
@@ -1233,7 +1233,7 @@ li.warn {
   padding: 0 8px;
   border-radius: 6px;
   background: var(--good);
-  color: light-dark(#1d5a38, #7fd0a2);
+  color: var(--good-text);
   font-size: 12.5px;
   font-weight: 650;
 }
@@ -1389,7 +1389,7 @@ li.warn {
     max-width: 420px;
     margin: 8px auto 12px;
     border: 1px solid var(--line);
-    border-radius: 8px;
+    border-radius: var(--r-s);
   }
 
   & .shots {
@@ -1497,8 +1497,8 @@ li.warn {
   line-height: 1;
 }
 
-.calc-check {
-  flex-direction: row !important;
+.calc-fields .calc-check {
+  flex-direction: row;
   align-items: center;
   gap: 8px;
   grid-column: 1 / -1;
@@ -1517,15 +1517,15 @@ li.warn {
   }
 }
 
-.calc-fields input:not([type="checkbox"]),
-.calc-cell input:not([type="checkbox"]) {
+.calc-fields input[type="number"],
+.calc-cell input[type="number"] {
   flex: 1;
   width: 100%;
   min-width: 0;
   height: 38px;
   padding: 0 10px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--r-s);
   background: var(--surface);
   color: var(--ink);
   font: inherit;
@@ -1627,6 +1627,13 @@ li.warn {
 }
 
 /* ---------- dogsaster ---------- */
+/* NOT DEAD CODE
+   <div class="dogsaster">
+     <img src="img/misc/03ce7a8f.webp" alt="" width="210">
+     <h2>Nothing here yet</h2>
+     <p>Check back soon.</p>
+   </div>
+*/
 .dogsaster {
   max-width: 480px;
   margin: 0 auto;
@@ -1691,7 +1698,7 @@ dialog::backdrop {
   & img {
     max-width: 100%;
     max-height: 100%;
-    border-radius: 8px;
+    border-radius: var(--r-s);
   }
 }
 
@@ -1825,7 +1832,7 @@ dialog[open] {
   width: 34px;
   height: 34px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--r-s);
   background: var(--sunk);
   color: var(--muted);
   font-size: 15px;
@@ -1834,7 +1841,7 @@ dialog[open] {
 .apply {
   width: 100%;
   height: 46px;
-  border-radius: 8px;
+  border-radius: var(--r-s);
   background: var(--ink);
   color: var(--paper);
   font-size: 16px;
@@ -1848,7 +1855,7 @@ dialog[open] {
   z-index: 30;
   max-width: calc(100% - 32px);
   padding: 10px 16px;
-  border-radius: 8px;
+  border-radius: var(--r-s);
   background: var(--ink);
   color: var(--paper);
   opacity: 0;

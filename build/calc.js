@@ -42,7 +42,6 @@ const fill = (line, raw, derived) => escapeHtml(line)
 /* ---------- saved values ---------- */
 
 const load = key => {
-    if (!key) return {};
     try {
         return JSON.parse(localStorage.getItem(key)) || {};
     } catch {
@@ -51,17 +50,15 @@ const load = key => {
 };
 
 const save = (key, values) => {
-    if (!key) return;
     try {
         localStorage.setItem(key, JSON.stringify(values));
-    } catch { /* full, blocked, or private */ }
+    } catch { }
 };
 
 const forget = key => {
-    if (!key) return;
     try {
         localStorage.removeItem(key);
-    } catch { /* as above */ }
+    } catch { }
 };
 
 /* ---------- markup ---------- */
@@ -69,9 +66,9 @@ const forget = key => {
 // a check field is on for anything but "0" and the empty string
 const isOn = value => value !== "0" && value !== "" && value !== undefined && value !== null;
 
-function inputHtml(field, value, labelled) {
+function inputHtml(field, value, captioned) {
     const key = escapeHtml(field.k);
-    const aria = labelled ? "" : ` aria-label="${escapeHtml(field.label)}"`;
+    const aria = captioned ? "" : ` aria-label="${escapeHtml(field.label)}"`;
     if (field.type === "check") {
         return `<input type="checkbox" data-k="${key}"${isOn(value) ? " checked" : ""}${aria}>`;
     }
@@ -115,7 +112,7 @@ function rowsHtml(fields, start) {
 
 export function render(body, calc, id) {
     const keys = calc.fields.map(field => field.k);
-    const store = id ? "calc:" + id : "";
+    const store = "calc:" + id;
     const saved = load(store);
 
     // saved numbers only survive while the promo still has the field they belong to
@@ -147,24 +144,19 @@ export function render(body, calc, id) {
     // a tpl entry is a plain line, or an array of cells. consecutive arrays of
     // equal width share one grid, so their columns line up like a real table
     const lines = [];
-    let tplHtml = "";
-    let openCols = 0;
+    const groups = []; // { cols, cells }: cols 0 is a plain line
     for (const entry of calc.tpl || []) {
-        if (!Array.isArray(entry)) {
-            lines.push(entry);
-            tplHtml += "<div></div>";
-            openCols = 0;
-            continue;
-        }
-        lines.push(...entry);
-        const cells = "<div></div>".repeat(entry.length);
-        if (openCols === entry.length) {
-            tplHtml = tplHtml.replace(/<\/div>$/, cells + "</div>");
-        } else {
-            tplHtml += `<div class="calc-cols" style="--cols:${entry.length}">${cells}</div>`;
-            openCols = entry.length;
-        }
+        const cells = Array.isArray(entry) ? entry : [entry];
+        const cols = Array.isArray(entry) ? entry.length : 0;
+        lines.push(...cells);
+        const last = groups[groups.length - 1];
+        if (cols && last && last.cols === cols) last.cells += cells.length;
+        else groups.push({ cols, cells: cells.length });
     }
+    const tplHtml = groups.map(({ cols, cells }) => {
+        const empty = "<div></div>".repeat(cells);
+        return cols ? `<div class="calc-cols" style="--cols:${cols}">${empty}</div>` : empty;
+    }).join("");
 
     body.innerHTML = [
         calc.note ? `<p class="calc-note">${calc.note}</p>` : "",
@@ -183,15 +175,16 @@ export function render(body, calc, id) {
     const hintNode = body.querySelector(".calc-hint");
     const lineNodes = [...body.querySelectorAll(".calc-tpl > div:not(.calc-cols), .calc-cols > div")];
 
-    // a check enters expressions as 1 or 0, so `lt ? a : b` works like any other field
+    // what each input currently holds, as typed. a check enters as "1" or "0",
+    // so `lt ? a : b` works like any other field, and an empty box counts as
+    // zero rather than blanking the whole panel mid-edit
     const held = input => input.type === "checkbox" ? (input.checked ? "1" : "0")
         : input.value.trim() === "" ? "0" : input.value;
+    const current = () => Object.fromEntries(inputs.map((input, i) => [keys[i], held(input)]));
 
     const update = () => {
-        // an empty box counts as zero rather than blanking the whole panel mid-edit
-        const values = inputs.map(input => parseFloat(held(input)));
-        const raw = {};
-        inputs.forEach((input, i) => raw[keys[i]] = held(input));
+        const raw = current();
+        const values = keys.map(key => parseFloat(raw[key]));
 
         const computed = {};
         for (const [name, fn] of derived) computed[name] = call(fn, values);
@@ -209,11 +202,7 @@ export function render(body, calc, id) {
         hintNode.hidden = !hintNode.innerHTML;
     };
 
-    const persist = () => {
-        const values = {};
-        inputs.forEach((input, i) => values[keys[i]] = held(input));
-        save(store, values);
-    };
+    const persist = () => save(store, current());
 
     // a field carrying `dp` settles to that many decimals once you leave it, so
     // "50" becomes "50.00". done on blur, never mid-keystroke
