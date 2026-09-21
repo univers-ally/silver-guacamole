@@ -76,8 +76,14 @@
       <symbol id="i-link" viewBox="0 0 24 24">
         <path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" />
       </symbol>
+      <symbol id="i-ext" viewBox="0 0 24 24">
+        <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
+      </symbol>
       <symbol id="i-chev" viewBox="0 0 24 24">
         <path d="M6 9l6 6 6-6" />
+      </symbol>
+      <symbol id="i-warn" viewBox="0 0 24 24">
+        <path d="M12 9v4M12 17h.01M10.3 3.9 2.4 17.4a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" />
       </symbol>
       <symbol id="i-rules" viewBox="0 0 24 24">
         <path d="M6 3h9l4 4v14H6zM14 3v5h5M9 13h6M9 17h6" />
@@ -177,7 +183,12 @@
         </div>
       </section>
       <section class="panel" id="sellers" role="tabpanel" aria-labelledby="tab-sellers" hidden>
-        <p class="lead">While they're top sellers, you still have the chance to get a demolished, weighed, repackaged, resealed set of cards. Shop responsibly.</p>
+        <p class="lead">
+          <svg aria-hidden="true">
+            <use href="#i-warn" />
+          </svg>
+          <span>While they're top sellers, you still have the chance to get a demolished, weighed, repackaged, resealed set of cards. Shop responsibly.</span>
+        </p>
         <div class="schips" id="seller-chips">
           <button type="button" class="chip" data-f="star" aria-pressed="false">🌟 Star store</button>
           <button type="button" class="chip" data-f="veteran" aria-pressed="false">🗓️ Established</button>
@@ -202,6 +213,10 @@
         </div>
         <div id="seller-list">
           <!--SELLERS-->
+          <div class="empty" hidden>
+            <b>No sellers matched.</b>
+            <span>Try removing your filter(s).</span>
+          </div>
         </div>
         <div class="notes">
           <!--SELLERKEY-->
@@ -287,7 +302,6 @@
               </ol>
               <div class="tzcalc" id="tzcalc">
                 <button type="button" id="tz-claim">I just claimed</button>
-                <!-- a div, not <output>: app.js fills this with block markup -->
                 <div id="tz-out" role="status"></div>
               </div>
               <p>Works on <code>GET100</code> and may work on other offers. Be careful if you have other daily-claim promos going at the same time as this may or may not affect them. </p>

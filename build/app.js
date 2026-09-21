@@ -675,6 +675,7 @@ function setUpSellers() {
     const list = el("seller-list");
     const count = el("seller-count");
     const sortBy = el("seller-sort");
+    const emptyNotice = list.querySelector(".empty");
     const activeChips = new Set();
     const rows = [...list.querySelectorAll(".seller")].map((node, index) => ({
         node,
@@ -699,6 +700,8 @@ function setUpSellers() {
             if (visible) shown++;
             list.appendChild(row.node);
         }
+        list.appendChild(emptyNotice);
+        emptyNotice.hidden = shown > 0;
         count.textContent = shown === rows.length ? `${shown} sellers` : `${shown} of ${rows.length} sellers`;
     }
 

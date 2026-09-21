@@ -196,6 +196,14 @@ function tabPanelHtml(promo) {
 
 /* ---------- sellers ---------- */
 
+function regionOf(address) {
+  const parts = String(address || "").split(",").map(part => part.trim()).filter(Boolean);
+  if (!parts.length) return "";
+  const country = parts[parts.length - 1];
+  if (parts.length < 2 || !/^(United States|USA?)$/i.test(country)) return country;
+  return parts[parts.length - 2].replace(/\s+\d{5}(-\d{4})?$/, "");
+}
+
 function sellerHtml(seller) {
   const number = value => value.toLocaleString("en-US");
   const where = seller.name || seller.url || "a seller";
@@ -210,19 +218,28 @@ function sellerHtml(seller) {
   for (const value of [seller.rating, seller.reviews, ...seller.bars]) {
     if (typeof value !== "number" || !isFinite(value)) throw Error(`${where}: "${value}" is not a number`);
   }
+  if (seller.website && !/^https?:\/\//i.test(seller.website)) {
+    throw Error(`${where}: website "${seller.website}" has to start with http:// or https://`);
+  }
 
+  const name = esc(seller.name);
   const badges = seller.badges.map(key =>
-    `<span class="seller-badge" title="${esc(SELLER_BADGE[key].title)}" aria-label="${esc(SELLER_BADGE[key].title)}">${SELLER_BADGE[key].emoji}</span>`
+    `<span class="seller-badge" data-badge="${key}" title="${esc(SELLER_BADGE[key].title)}" aria-label="${esc(SELLER_BADGE[key].title)}">${SELLER_BADGE[key].emoji}</span>`
   ).join("");
   const barSummary = seller.bars.map((percent, i) => `${5 - i}★ ${percent}%`).join(" · ");
   const barSegments = seller.bars.map((percent, i) =>
     percent ? `<span class="${BAR_CLASSES[i]}" style="flex:${percent}" title="${5 - i}★ ${percent}%"></span>` : ""
   ).join("");
-  const legend = seller.bars.map((percent, i) =>
-    `<span><i class="${BAR_CLASSES[i]}"></i>${5 - i}★ <b>${percent}%</b></span>`
-  ).join("");
-  // "30K+" -> 30000, for the Most sold sort only. without the M branch a 1.2M
-  // seller would sort below every K seller
+  const breakdown = seller.bars.map((percent, i) => {
+    const stars = 5 - i;
+    const fill = percent ? `<span class="${BAR_CLASSES[i]}" style="--p:${percent}%"></span>` : "";
+    return `
+          <span class="dist-n">${stars}</span><span class="dist-stars">${"★".repeat(stars)}<i>${"☆".repeat(5 - stars)}</i></span><span class="dist-track">${fill}</span><span class="dist-pct">${percent.toFixed(1)}%</span>`;
+  }).join("");
+  const from = regionOf(seller.address);
+  const site = seller.website
+    ? `<a class="seller-site" href="${esc(seller.website)}" target="_blank" rel="noopener noreferrer" title="Seller's own website" aria-label="${name}'s own website">🌐</a>`
+    : "";
   const scale = /M/i.test(seller.sold) ? 1e6 : /K/i.test(seller.sold) ? 1e3 : 1;
   const sold = parseFloat(seller.sold) * scale;
 
@@ -231,13 +248,14 @@ function sellerHtml(seller) {
       <img class="seller-avatar" src="${esc(seller.avatar)}" alt="" loading="lazy" decoding="async">
       <div class="seller-main">
         <div class="seller-top">
-          <a href="${esc(seller.url)}" target="_blank" rel="noopener noreferrer">${esc(seller.name)}</a>
+          <span class="seller-name"><a class="seller-link" href="${esc(seller.url)}" target="_blank" rel="noopener noreferrer"><span>${name}</span>${icon("ext")}</a>${site}</span>
           <span class="seller-rating">${seller.rating.toFixed(1)} <b>★</b> <small>${number(seller.reviews)} reviews</small></span>
         </div>
         <div class="seller-badges">${badges}</div>
       </div>
       <div class="seller-ship">
-        <span class="lbl lbl-m">Shipping:</span><span class="lbl lbl-d">Shipping minimum</span><b>${esc(seller.shipping)}</b>
+        <div class="seller-min"><span class="lbl lbl-m">Shipping:</span><span class="lbl lbl-d">Shipping minimum</span><b>${esc(seller.shipping)}</b></div>${from ? `
+        <div class="seller-from lbl"><span>From:</span>${esc(from)}</div>` : ""}
       </div>
       <div class="seller-sold">
         <span class="lbl lbl-d">Sold</span><b>${esc(seller.sold)}</b><span class="sold-m"> sold <i>·</i> <b>${number(seller.reviews)}</b> reviews</span>
@@ -245,7 +263,8 @@ function sellerHtml(seller) {
       <div class="seller-ratings">
         <span class="lbl lbl-d">Ratings</span>
         <div class="seller-bars" role="img" aria-label="${barSummary}">${barSegments}</div>
-        <div class="seller-legend">${legend}</div>
+        <div class="seller-dist" aria-hidden="true">${breakdown}
+        </div>
       </div>
     </article>`;
 }
@@ -264,11 +283,12 @@ function facetsHtml() {
   }
   return html + group("Favorites", chip("fav", icon("star") + "Favorites only", " fav"));
 }
+const KEY_SKIP = new Set(["local"]);
 
 function sellerKeyHtml() {
   const used = new Set(SELLERS.flatMap(seller => seller.badges));
   return Object.entries(SELLER_BADGE)
-    .filter(([key]) => used.has(key))
+    .filter(([key]) => used.has(key) && !KEY_SKIP.has(key))
     .map(([, badge]) => `<p><b>${badge.emoji} ${esc(badge.label)}</b> ${esc(badge.legend)}</p>`)
     .join("");
 }
