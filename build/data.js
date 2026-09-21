@@ -116,7 +116,7 @@ const SELLERS = [{
   biz: "TURBO TCG INC.",
   address: "419 Essex St, Brooklyn, New York 11208, United States",
   website: null,
-  avatar: "img/sellers/40f25798.webp",
+  avatar: "img/sellers/f3b07bfd.webp",
   badges: ["local", "packBad"],
   sold: "6.9K+",
   rating: 4.8,
@@ -158,7 +158,7 @@ const SELLERS = [{
   biz: "Bucks Card Shop",
   address: "110 East Ellsworth, Dows, Iowa 50071, United States",
   website: "https://www.buckscardshop.com/",
-  avatar: "img/sellers/35ef7b2d.webp",
+  avatar: "img/sellers/6bc1d0c2.webp",
   badges: ["local", "packBad"],
   sold: "1.3K+",
   rating: 4.8,
@@ -225,7 +225,7 @@ const PROMOS = [
       { src: "img/promos/rebate100/f1704180.webp", caption: "What's actually inside the bundle" },
       { src: "img/promos/rebate100/8979be51.webp", caption: "After the first order: Boost to $722 with one more 2-item order" },
       { src: "img/promos/rebate100/e6e128ff.webp", caption: "What the $300 boost actually is: nine coupons needing $140 to $420 orders" },
-      { src: "img/promos/rebate100/a212adf1.webp", caption: "Vanilla flavor, worse version!" },
+      { src: "img/promos/rebate100/5225e3a4.webp", caption: "Vanilla flavor, worse version!" },
     ],
   },
   {
@@ -410,7 +410,7 @@ const PROMOS = [
     },
     updated: "Rules last updated September 4, 2026",
     images: [
-      { src: "img/promos/credit8888/b2a531cc.webp", caption: "$50 x 20 version. $6.99 to unlock, $3 credit thrown in" },
+      { src: "img/promos/credit8888/fb05f10b.webp", caption: "$50 x 20 version. $6.99 to unlock, $3 credit thrown in" },
     ],
   },
   {
