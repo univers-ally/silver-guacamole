@@ -2,8 +2,6 @@ import { el, delegate } from "./dom.js";
 import { store } from "./store.js";
 import { openSheet } from "./sheets.js";
 
-// The saved pick is applied before first paint by the inline script in
-// Base.astro; this wires the picker and keeps the header button in step.
 export function setUpTheme() {
   const button = el("theme");
   const sheet = el("themes");
@@ -16,8 +14,6 @@ export function setUpTheme() {
   const chosen = () => (store.get("theme") === "random" ? "random" : applied());
   const randomTheme = () => themes[Math.floor(Math.random() * themes.length)];
 
-  // the <meta theme-color> pair follows the OS until a theme is picked, then
-  // both take the page's actual background
   const bars = [...document.querySelectorAll('meta[name="theme-color"]')];
   const osBars = bars.map(meta => meta.content);
 

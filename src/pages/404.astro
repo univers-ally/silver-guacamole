@@ -1,13 +1,10 @@
 ---
-// Served by GitHub Pages for any missing path, at any depth: links must be root-absolute.
 import { Image } from "astro:assets";
-import Base from "../layouts/Base.astro";
+import Plain from "../layouts/Plain.astro";
 import dog from "../assets/misc/03ce7a8f.webp";
 ---
-<Base app={false} heading="Not found">
-  <div class="dogsaster">
-    <Image src={dog} alt="" widths={[210, 400]} sizes="210px" format="avif" loading="eager" />
-    <h2>Nothing here</h2>
-    <p>That page doesn't exist. <a href="/">Back to the guide</a></p>
-  </div>
-</Base>
+<Plain title="Not found">
+  <Image src={dog} alt="" widths={[210, 400]} sizes="210px" format="avif" loading="eager" />
+  <h1>Nothing here</h1>
+  <p>That page doesn't exist.</p>
+</Plain>

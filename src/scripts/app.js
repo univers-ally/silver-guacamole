@@ -1,12 +1,11 @@
-// Entry point, bundled by Astro as a module script (strict and deferred).
-// calc.js and the rules data are loaded later, on first use (detail.js).
 import { setUpSheets, setUpLightbox } from "./sheets.js";
 import { setUpTheme } from "./theme.js";
 import { setUpTabs } from "./tabs.js";
 import { setUpPromos, syncUrl } from "./promos.js";
 import { setUpSellers } from "./sellers.js";
 import { setUpFarmland } from "./farmland.js";
-import { setUpTimeskip } from "./timeskip.js";
+import { setUpTimetravel } from "./timetravel.js";
+import { setUpFooter } from "./footer.js";
 
 setUpSheets();
 setUpLightbox();
@@ -15,4 +14,5 @@ setUpTabs(syncUrl);
 setUpPromos();
 setUpSellers();
 setUpFarmland();
-setUpTimeskip();
+setUpTimetravel();
+setUpFooter();

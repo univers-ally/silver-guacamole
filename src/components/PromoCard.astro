@@ -1,5 +1,4 @@
 ---
-// scripts/promos.js reads this markup (classes, data- attributes); change both together
 import Icon from "./Icon.astro";
 import Star from "./Star.astro";
 import Codes from "./Codes.astro";
@@ -18,14 +17,12 @@ const starred = [promo.type, promo.accepts, promo.payout]
 const calc = hasCalc(promo);
 const pending = promo.pending || !(promo.rules || []).length;
 
-// data-r, data-p, data-a, data-t: what the facet filters match
 const facetAttrs = Object.fromEntries(
   Object.entries(FACETS).flatMap(([facet, { attr }]) => {
     const values = facet === "rating" ? [rating] : clean(promo[facet]);
     return values.length ? [[`data-${attr}`, values.join(",")]] : [];
   }),
 );
-// a tab promo's card shows a link instead of its rules; data-s keeps them searchable
 const unlisted = promo.tab ? hiddenWords(promo) : undefined;
 const facts = [
   ["Type", promo.type],

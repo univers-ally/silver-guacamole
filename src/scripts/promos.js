@@ -6,7 +6,6 @@ import { openSheet } from "./sheets.js";
 import { showTab, currentTab } from "./tabs.js";
 import { openTerms, openCalc } from "./detail.js";
 
-// facet -> the card's data- attribute and url parameter that carry it
 const PARAM = Object.fromEntries(Object.entries(FACETS).map(([facet, { attr }]) => [facet, attr]));
 const RATING_RANK = Object.keys(RATING); // best first
 
@@ -27,8 +26,6 @@ const searchTerm = () => searchInput.value.trim().toLowerCase();
 
 /* ---------- cards ---------- */
 
-// A card is searched by what it shows plus data-s, which holds the words a
-// card doesn't show (a tab promo's rules and apps).
 const entries = [...list.querySelectorAll(".promo")].map((node, index) => {
   const name = node.querySelector(".toggle").textContent;
   const shown = [...node.querySelectorAll(".code code, .reward, .rules li")].map(
@@ -63,7 +60,6 @@ const toggle = (set, key) => set.delete(key) || set.add(key);
 const selectedValues = (set, facet) =>
   [...set].filter(key => key.startsWith(facet + "|")).map(key => key.slice(facet.length + 1));
 
-// pill labels, read back out of the chips' markup
 const LABELS = new Map();
 for (const group of facetChips.querySelectorAll(".facet")) {
   const legend = group.querySelector("legend").textContent;
@@ -139,8 +135,6 @@ function orderedEntries() {
 
 /* ---------- card behavior ---------- */
 
-// auto: opened by a search rather than the reader, so clearing the search
-// closes it again
 function setOpen(card, open, auto) {
   card.classList.toggle("open", open);
   card.querySelector(".toggle").setAttribute("aria-expanded", open);
@@ -187,14 +181,13 @@ export async function copyCode(button) {
     return;
   }
   toast("Code copied");
-  // text first: setting textContent afterwards would wipe the confetti
   button.textContent = "Copied";
   button.setAttribute("aria-label", "Copied");
   button.classList.add("done");
   confetti(button);
   const tap = (button.dataset.tap = String(++copyTick));
   setTimeout(() => {
-    if (button.dataset.tap !== tap) return; // tapped again since
+    if (button.dataset.tap !== tap) return;
     button.textContent = "Copy";
     button.setAttribute("aria-label", label);
     button.classList.remove("done");
@@ -212,7 +205,6 @@ function onCardClick(event, entry) {
   if (hit(".toggle, .chevbtn")) {
     const open = !card.classList.contains("open");
     setOpen(card, open);
-    // shut: closed by hand during a search, so the search doesn't reopen it
     if (open) delete card.dataset.shut;
     else card.dataset.shut = "1";
   } else if (copy) {
@@ -246,7 +238,6 @@ function render() {
     else if (!term && card.dataset.auto) setOpen(card, false);
   }
 
-  // reorder in place, touching only cards that moved
   visible.forEach((card, index) => {
     if (list.children[index] !== card) list.insertBefore(card, list.children[index] || null);
   });
@@ -259,7 +250,6 @@ function render() {
   empty.hidden = visible.length > 0;
   count.textContent = countText(visible.length, entries.length, "promos");
 
-  // on a phone the button is icon-only, so the count has to be in its label
   const active = filters.size;
   filterBadge.hidden = !active;
   filterBadge.textContent = active;

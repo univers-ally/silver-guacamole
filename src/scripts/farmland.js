@@ -6,7 +6,6 @@ export function setUpFarmland() {
   const panel = el("farmland");
   if (!panel) return;
 
-  // the primer's Rules are the promo's; an app's carry the app's own id
   delegate(panel, '[data-open="rules"]', button => {
     const primer = button.closest(".primer");
     const entry = primer

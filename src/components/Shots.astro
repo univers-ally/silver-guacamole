@@ -1,10 +1,10 @@
 ---
-// AVIF only: every supported browser (Safari 17.5+, Firefox 120+) reads it.
-// src is the full 480px image; the lightbox shows it.
+// AVIF only
+// src is the full 480px image
 import { Image } from "astro:assets";
 
 const { item } = Astro.props;
-// thumbnails are 110–220 CSS px wide; sources are 480
+// thumbnails are 110–220 CSS px wide- sources are 480
 const widths = [160, 240, 320, 480];
 const sizes = "(min-width: 700px) 220px, 34vw";
 const shots = item.images || [];

@@ -1,8 +1,7 @@
 import { el, h } from "./dom.js";
 import { confetti } from "./feedback.js";
 
-// Timeskip helper (Tips tab): after a claim, which time zone passes midnight
-// next, so a daily promo can be claimed again by switching the phone to it.
+// timetravel helper (Tips tab)
 
 const HOUR = 3600e3;
 const DAY = 24 * HOUR;
@@ -81,9 +80,6 @@ function detectedZone() {
   return `${gmtLabel(-new Date().getTimezoneOffset())} ${long}${abbreviation}`;
 }
 
-// Shift the claim into each zone's local time, round down to its midnight, add
-// a day, shift back: that's when a daily promo rolls over there. A 30-hour
-// window holds every zone once, since the offsets span 26 hours.
 function rolloversAfter(claimedAt) {
   const rollovers = [];
   for (const [offset] of ZONES) {
@@ -93,7 +89,7 @@ function rolloversAfter(claimedAt) {
   return rollovers.sort((a, b) => a.at - b.at);
 }
 
-export function setUpTimeskip() {
+export function setUpTimetravel() {
   const button = el("tz-claim");
   const output = el("tz-out");
   let claimedAt = null;

@@ -1,5 +1,3 @@
-// localStorage throws in private mode and when storage is blocked; every
-// caller treats a failure as "nothing saved"
 export const store = {
   get(key) {
     try {

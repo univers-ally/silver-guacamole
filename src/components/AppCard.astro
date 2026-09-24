@@ -1,6 +1,4 @@
 ---
-// An app on a tab promo's page (Farmland). Sub-apps render through this same
-// component, one level deep.
 import Icon from "./Icon.astro";
 import Shots from "./Shots.astro";
 import RulesList from "./RulesList.astro";
@@ -12,7 +10,7 @@ const { app, sub = false } = Astro.props;
 const Heading = sub ? "h4" : "h3";
 const subs = subsOf(app);
 const rewards = clean(app.rewards);
-// icons (96² for 48² @2x) and banners (480 wide) ship as-is
+// icons (96x2 for 48x2 @2x) and banners (480 wide) ship as-is
 const iconSrc = app.icon?.src;
 const bannerSrc = app.banner?.src;
 const pending = !(app.rules || []).length && !(app.images || []).length;

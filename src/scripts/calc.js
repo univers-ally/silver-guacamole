@@ -1,4 +1,3 @@
-/* promo calculators. loaded on demand, only when a Calculator button is tapped */
 import { escapeHtml } from "./dom.js";
 import { store } from "./store.js";
 
@@ -14,10 +13,8 @@ const dollars = (value, keepCents) => {
   return (value < 0 ? "-$" : "$") + group(whole) + (keepCents || cents !== "00" ? "." + cents : "");
 };
 
-// "$1,234.56", whole dollars left bare so Temu's own "+ $1" wording survives
 const money = value => dollars(value, false);
 
-// "$350.00", for lines quoting a balance, where bare dollars read as a typo
 const money2 = value => dollars(value, true);
 
 const num = value => {
@@ -217,7 +214,6 @@ const forget = key => store.drop(key);
 
 /* ---------- markup ---------- */
 
-// a check field is on for anything but "0" and the empty string
 const isOn = value => value !== "0" && value !== "" && value !== undefined && value !== null;
 
 function inputHtml(field, value, captioned) {
@@ -226,12 +222,10 @@ function inputHtml(field, value, captioned) {
   if (field.type === "check") {
     return `<input type="checkbox" data-k="${key}"${isOn(value) ? " checked" : ""}${aria}>`;
   }
-  // nothing here is ever meaningfully negative, so the spinner stops at zero
   return `<input type="number" inputmode="decimal" min="0" step="${escapeHtml(field.step || "any")}" data-k="${key}" value="${escapeHtml(value)}"${aria}>`;
 }
 
 function fieldsHtml(fields, start) {
-  // a check reads box-then-label, so it gets its own full-width row
   const one = field =>
     field.type === "check"
       ? `<label class="calc-check">${inputHtml(field, start[field.k], true)}<span>${escapeHtml(field.label)}</span></label>`
@@ -245,7 +239,6 @@ function fieldsHtml(fields, start) {
       </div>`;
 }
 
-// a field carrying row starts a new row, the ones after it share that row
 function rowsHtml(fields, start) {
   const rows = [];
   for (const field of fields) {
@@ -284,7 +277,6 @@ export function render(body, calc, id) {
   const store = "calc:" + id;
   const saved = load(store);
 
-  // saved numbers only survive while the promo still has the field they belong to
   const start = {};
   for (const field of calc.fields) start[field.k] = saved[field.k] ?? field.value;
 
@@ -296,10 +288,6 @@ export function render(body, calc, id) {
   ]);
   const format = FORMAT[calc.fmt] || money;
 
-  // a tpl entry is a plain line, or an array of cells. consecutive arrays of
-  // equal width share one grid, so their columns line up like a real table.
-  // lines is every cell in document order, which is the order the nodes come
-  // back in below
   const lines = [];
   const groups = []; // { cols, cells }: cols 0 is a plain line
   for (const entry of calc.tpl || []) {
@@ -328,7 +316,6 @@ export function render(body, calc, id) {
         </div>`,
     `<div class="calc-actions"><button type="button" class="reset">Reset to defaults</button></div>`,
   ].join("");
-  // grid widths go in through the CSSOM: the CSP allows no style attributes
   for (const node of body.querySelectorAll("[data-cols]"))
     node.style.setProperty("--cols", node.dataset.cols);
 
@@ -353,8 +340,6 @@ export function render(body, calc, id) {
     for (const [name, fn] of derived) scope[name] = evaluate(fn, scope);
     lineNodes.forEach((node, i) => (node.innerHTML = fill(lines[i], raw, scope)));
 
-    // plain results, number or text, are the headline and stay bold. only a
-    // result carrying its own markup drops to normal weight so <b> can emphasise
     const result = evaluate(formula, scope);
     const text = typeof result === "number" ? format(result) : String(result);
     output.classList.toggle("rich", /<[a-z]/i.test(text));
@@ -367,8 +352,6 @@ export function render(body, calc, id) {
 
   const persist = () => save(store, current());
 
-  // a field carrying `dp` settles to that many decimals once you leave it, so
-  // "50" becomes "50.00". done on blur, never mid-keystroke
   const settle = () => {
     let moved = false;
     inputs.forEach((input, i) => {
@@ -390,8 +373,6 @@ export function render(body, calc, id) {
     persist();
   };
 
-  // onblur per input, not onfocusout on the body: focusout has no handler
-  // property, and the inputs are rebuilt each render so nothing stacks up
   for (const input of inputs) {
     input.onblur = () => {
       if (settle()) {

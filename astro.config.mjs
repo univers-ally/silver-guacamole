@@ -6,9 +6,7 @@ export default defineConfig({
   site: "https://shoreskies.com",
   devToolbar: { enabled: false },
   markdown: {
-    // keep "straight" quotes in the Tips Markdown as written
     processor: satteri({ features: { smartPunctuation: false } }),
-    // no code blocks in the Tips, and Shiki's inline styles would break the CSP
     syntaxHighlight: false,
   },
   security: {
@@ -24,12 +22,8 @@ export default defineConfig({
   },
   vite: {
     build: {
-      // the oldest supported browsers (the CSS uses light-dark()); also stops the
-      // minifier dropping -webkit-backdrop-filter, which Safari 17 needs
       cssTarget: ["safari17.5", "firefox120", "chrome123"],
-      // public, with sources: minified is not obfuscated
       sourcemap: true,
-      // no data: URLs, which img-src 'self' would block
       assetsInlineLimit: 0,
     },
   },

@@ -4,6 +4,4 @@ node_modules/
 package-lock.json
 public/
 src/assets/
-# prettier-plugin-astro reflows inline elements onto separate lines, which
-# changes rendered whitespace; .astro files are formatted by hand
 *.astro

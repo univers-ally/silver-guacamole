@@ -8,8 +8,6 @@ let onUserSwitch = () => {};
 
 export const currentTab = () => current;
 
-// fromUser: a click or keypress, as opposed to reading the url on load. Only
-// those update the url and restore the tab's own scroll position
 export function showTab(id, fromUser) {
   if (!IDS.includes(id)) id = IDS[0];
   scrollPositions[current] = scrollY;

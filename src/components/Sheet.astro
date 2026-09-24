@@ -1,9 +1,7 @@
 ---
-// A bottom-sheet dialog: grab handle, a title row with ✕, then the body.
-// The title's id is `${id}-title`; slot="heading" replaces the plain <h3>.
 const { id, title = "" } = Astro.props;
 ---
-<dialog id={id} aria-labelledby={`${id}-title`}>
+<dialog id={id} class="sheet-dialog" aria-labelledby={`${id}-title`}>
   <div class="sheet">
     <div class="handle" aria-hidden="true"></div>
     <div class="sheet-head">

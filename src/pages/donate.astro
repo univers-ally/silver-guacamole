@@ -1,19 +1,18 @@
 ---
-// Unlisted: nothing on the site links here. The button is Ko-fi's own snippet,
-// so this page alone lets in Ko-fi's image host and the snippet's inline style.
-import Base from "../layouts/Base.astro";
+// Unlisted
+// ?origin=<page> adds a link back to that page (scripts/donate.js).
+import Plain from "../layouts/Plain.astro";
 
 Astro.csp.insertDirective("img-src 'self' https://storage.ko-fi.com");
 Astro.csp.insertStyleResource({ resource: "'unsafe-hashes'", kind: "attribute" });
 // sha256 of the snippet's style value, "border:0px;height:36px;"
 Astro.csp.insertStyleHash({ hash: "sha256-M3n1VHq3sgJa8Vf82f2/8MadJYlLQR98bhFcLgLCj2M=", kind: "attribute" });
 ---
-<Base app={false} heading="Tip jar">
-  <div class="tipjar">
-    <h2>Tip jar</h2>
-    <p>The guide is free and stays free. If it saved you money, a tip helps keep it up to date.</p>
-    <p><a href='https://ko-fi.com/I6K327JIHT' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi3.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a></p>
-    <p class="meta">Optional. Nothing on the site is locked behind it.</p>
-    <p><a href="/">Back to the guide</a></p>
-  </div>
-</Base>
+<Plain title="Tip jar">
+  <h1>Tip jar</h1>
+  <p>Everything here is free and ad-free.<br/>If you really want to, you can leave a tip.</p>
+  <p><a href='https://ko-fi.com/I6K327JIHT' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi3.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a></p>
+  <p class="small">COMPLETELY OPTIONAL.</p>
+  <p id="back-row" hidden><a id="back" href="/">Go Back</a></p>
+  <script src="../scripts/donate.js"></script>
+</Plain>

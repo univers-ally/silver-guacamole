@@ -31,7 +31,6 @@ jobs:
       - name: Install
         run: npm ci
 
-      # encoded screenshots: a push that changes no images skips re-encoding them
       - name: Image cache
         uses: actions/cache@v6
         with:

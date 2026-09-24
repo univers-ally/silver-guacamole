@@ -1,6 +1,4 @@
 ---
-// The CSP <meta> is added by Astro (security.csp in astro.config.mjs), which
-// hashes the inline script below.
 import "../styles/main.css";
 import Sprite from "../components/Sprite.astro";
 import Top from "../components/Top.astro";
@@ -8,12 +6,9 @@ import Footer from "../components/Footer.astro";
 import Dialogs from "../components/Dialogs.astro";
 import { SITE, THEME_IDS } from "../lib/site.js";
 
-// app={false}: no tabs, dialogs or scripts (the 404 page)
-// detail: url of the rules/calculator data (see lib/content.js)
-const { app = true, heading, detail } = Astro.props;
-const title = heading ? `${heading} · ${SITE.name}` : `${SITE.name} ${SITE.tagline}`;
+const { detail } = Astro.props;
+const title = `${SITE.name} ${SITE.tagline}`;
 
-// before first paint, so a saved theme never flashes the default one
 const bootstrap = `
   document.documentElement.className = "js";
   try {
@@ -42,19 +37,19 @@ const bootstrap = `
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={SITE.description} />
-    <meta property="og:url" content={new URL("/", Astro.site).href} />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).href} />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" href="/favicon.ico" />
     <script is:inline set:html={bootstrap} />
   </head>
   <body data-detail={detail}>
     <Sprite />
-    <Top tabs={app} />
+    <Top />
     <main>
       <slot />
     </main>
     <Footer />
-    {app && <Dialogs />}
-    {app && <script src="../scripts/app.js"></script>}
+    <Dialogs />
+    <script src="../scripts/app.js"></script>
   </body>
 </html>

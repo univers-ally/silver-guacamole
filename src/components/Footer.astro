@@ -1,8 +1,11 @@
+---
+const origin = Astro.url.pathname.replace(/^\/|\/$/g, "");
+---
 <footer class="foot">
   <p>Disclaimer: you might still get scammed.</p>
-  <p>Thanks to the Discord frens. Hope this helps! 💚</p>
+  <p>Thanks to the Discord frens. Hope this helps! <a class="tip" id="tip" href={`/donate/?origin=${origin}`} title="Tip jar" aria-label="Tip jar">💚 · ☕</a></p>
   <details class="legal">
-    <summary>Not affiliated with Temu. Click to View.</summary>
+    <summary>Click to view Disclaimer.</summary>
     <div class="legal-body">
       <hr/>
       <p>

@@ -1,7 +1,64 @@
-/* ---------- themes ----------
-   each block is scoped to [data-theme], not html[data-theme], so the picker
-   can put a theme's id on its own option and have that row render in the
-   theme's colours with nothing duplicated. THEMES in src/lib/site.js lists them */
+/* ---------- tokens ---------- */
+:root {
+  --wrap: 1280px;
+  --gutter: 16px;
+  --bar-h: 64px; /* the bottom tab bar on phones */
+  --r: 12px;
+  --r-s: 8px;
+
+  @media (min-width: 600px) {
+    --gutter: 24px;
+  }
+
+  @media (min-width: 1000px) {
+    --gutter: 40px;
+    --bar-h: 0;
+  }
+}
+
+:root,
+.theme-option:not([data-theme]),
+[data-theme] {
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  --paper: light-dark(#fafaf8, #131313);
+  --veil: color-mix(in srgb, var(--paper) 92%, transparent);
+  --surface: light-dark(#fff, #1b1b1b);
+  --sunk: light-dark(#f3f2ee, #242422);
+  --line: light-dark(#e6e4df, #2c2c2a);
+  --ink: light-dark(#1a1a1a, #f2f0eb);
+  --ink-2: light-dark(#3f3f3b, #d6d3cc);
+  --muted: light-dark(#5c5c57, #a5a39c);
+  --faint: light-dark(#6f6f69, #918f87);
+  --accent: light-dark(#e8641a, #ff8a47);
+  --accent-deep: light-dark(#c44f0c, #ff8a47);
+  --accent-tint: light-dark(#fce9dd, #3a2416);
+  --accent-text: light-dark(#8f3907, #ffb07a);
+  --accent-ink: light-dark(#fff, #1a1a1a);
+  --ok: light-dark(#2e8b57, #4caf7a);
+  --star: light-dark(#b57e00, #e8a700);
+  --bar-5: light-dark(#2e9e44, #3f9c52);
+  --bar-4: light-dark(#7fb53a, #7ea83f);
+  --bar-3: light-dark(#d9ae16, #c8a01a);
+  --bar-2: light-dark(#d9720f, #cf7a24);
+  --bar-1: light-dark(#c7302a, #c9463d);
+  --good: light-dark(#dcefe3, #1f3a2b);
+  --good-line: light-dark(#bcdcc8, #2c5340);
+  --good-text: light-dark(#1d5a38, #7fd0a2);
+  --meh: light-dark(#ecebe7, #2a2a28);
+  --bad: light-dark(#fbe1e1, #3f2222);
+  --bad-line: light-dark(#e9b8b8, #5a3030);
+  --bad-text: light-dark(#b4322b, #e07b72);
+  --scrim: light-dark(rgba(20, 20, 20, 0.5), rgba(0, 0, 0, 0.65));
+  --hover: color-mix(in srgb, currentColor 12%, transparent);
+  --top: var(--veil);
+  --top-ink: var(--ink);
+  --top-muted: var(--muted);
+  --top-line: var(--line);
+  color-scheme: light dark;
+}
+
+/* ---------- themes ---------- */
 
 [data-theme="light"] {
   color-scheme: light;

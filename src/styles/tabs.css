@@ -1,0 +1,793 @@
+/* ---------- sellers tab (SellersPanel.astro) ---------- */
+.lead {
+  display: flex;
+  gap: 10px;
+  margin: 4px 0 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--bad-line);
+  border-radius: var(--r-s);
+  background: var(--bad);
+  color: var(--ink);
+  font-size: 14.5px;
+  line-height: 1.5;
+
+  & svg {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    stroke: var(--bad-text);
+    stroke-width: 1.8;
+  }
+}
+
+#seller-list {
+  display: grid;
+  gap: 12px;
+  padding-top: 8px;
+
+  & .empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 36px 16px;
+    border: 1px dashed var(--line);
+    border-radius: var(--r);
+
+    & b {
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 650;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    &:has(.seller:not([hidden])) {
+      overflow: hidden;
+      gap: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      background: var(--surface);
+    }
+  }
+}
+
+.notes {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14.5px;
+
+  & p {
+    margin: 7px 0;
+  }
+
+  & b {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  & .meta {
+    margin-top: 12px;
+  }
+}
+
+/* ---------- seller card (SellerCard.astro) ---------- */
+.seller {
+  display: grid;
+  align-items: start;
+  gap: 8px 12px;
+  grid-template-columns: 48px minmax(0, 1fr);
+  grid-template-areas:
+    "avatar  main"
+    "ship    ship"
+    "sold    sold"
+    "ratings ratings";
+  padding: 14px;
+  font-size: 13.5px;
+
+  @media (min-width: 1000px) {
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+    align-items: center;
+    gap: 20px;
+    grid-template-columns:
+      52px minmax(180px, 240px) 120px minmax(100px, 1fr) minmax(64px, 1fr)
+      minmax(220px, 300px);
+    grid-template-areas: "avatar main badges ship sold ratings";
+    padding: 16px 20px;
+    font-size: 14px;
+
+    &:first-of-type {
+      border-top: 0;
+    }
+
+    &:not(:first-of-type) .lbl-d {
+      display: none;
+    }
+  }
+}
+
+.seller-avatar {
+  display: block;
+  grid-area: avatar;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--sunk);
+  object-fit: cover;
+
+  @media (min-width: 1000px) {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+.seller-main {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  grid-area: main;
+  align-self: center;
+  min-width: 0;
+
+  @media (min-width: 1000px) {
+    display: contents;
+  }
+}
+
+.seller-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+
+  @media (min-width: 1000px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    grid-area: main;
+  }
+}
+
+.seller-name {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+
+  @media (min-width: 1000px) {
+    display: block;
+  }
+}
+
+.seller-link {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 22px;
+  text-decoration: none;
+
+  & span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  & svg {
+    flex: none;
+    width: 17px;
+    height: 17px;
+  }
+
+  &:hover span {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (min-width: 1000px) {
+    display: inline;
+
+    & span {
+      overflow: visible;
+      white-space: normal;
+    }
+
+    & svg {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      margin-left: 5px;
+      vertical-align: -2px;
+    }
+  }
+}
+
+.seller-site {
+  display: grid;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--r-s);
+  font-size: 17px;
+  line-height: 1;
+  text-decoration: none;
+  place-items: center;
+
+  &:hover {
+    background: var(--sunk);
+  }
+
+  @media (min-width: 1000px) {
+    display: inline-grid;
+    width: 24px;
+    height: 24px;
+    margin-left: 2px;
+    font-size: 15px;
+    vertical-align: -5px;
+  }
+}
+
+.seller-rating {
+  flex: none;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 22px;
+
+  & b {
+    color: var(--star);
+  }
+
+  & small {
+    display: none;
+  }
+
+  @media (min-width: 1000px) {
+    font-size: 14px;
+
+    & small {
+      display: inline;
+      margin-left: 4px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+    }
+  }
+}
+
+.seller-badges {
+  display: flex;
+  gap: 6px;
+
+  @media (min-width: 1000px) {
+    grid-area: badges;
+  }
+}
+
+.seller-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+  background: var(--surface);
+  font-size: 15px;
+  line-height: 1;
+  cursor: help;
+
+  &[data-badge="packGood"] {
+    border-color: var(--good-line);
+    background: var(--good);
+  }
+
+  &[data-badge="packBad"] {
+    border-color: var(--bad-line);
+    background: var(--bad);
+  }
+}
+
+.lbl-d {
+  display: none;
+
+  @media (min-width: 1000px) {
+    display: block;
+    margin-bottom: 2px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .lbl-m,
+  .sold-m {
+    display: none;
+  }
+}
+
+.seller-ship {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  grid-area: ship;
+
+  @media (min-width: 1000px) {
+    display: block;
+  }
+}
+
+.seller-min {
+  min-width: 168px;
+
+  @media (min-width: 1000px) {
+    min-width: 0;
+  }
+}
+
+.seller-min .lbl-m,
+.seller-from span {
+  margin-right: 6px;
+}
+
+.seller-from {
+  @media (min-width: 1000px) {
+    margin-top: 4px;
+  }
+}
+
+.seller-sold {
+  grid-area: sold;
+  color: var(--muted);
+
+  & i {
+    margin: 0 4px;
+    color: var(--faint);
+    font-style: normal;
+  }
+}
+
+.seller-ship b,
+.seller-sold b {
+  color: var(--ink);
+  font-weight: 600;
+
+  @media (min-width: 1000px) {
+    font-size: 14px;
+  }
+}
+
+.seller[data-free="1"] .seller-ship b {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 6px;
+  background: var(--good);
+  color: var(--good-text);
+  font-size: 12.5px;
+  font-weight: 650;
+}
+
+.seller-ratings {
+  grid-area: ratings;
+}
+
+.seller-bars {
+  display: flex;
+  overflow: hidden;
+  gap: 1px;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--line);
+}
+
+.s5 {
+  background: var(--bar-5);
+}
+
+.s4 {
+  background: var(--bar-4);
+}
+
+.s3 {
+  background: var(--bar-3);
+}
+
+.s2 {
+  background: var(--bar-2);
+}
+
+.s1 {
+  background: var(--bar-1);
+}
+
+.seller-dist {
+  display: grid;
+  align-items: center;
+  gap: 3px 8px;
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  margin-top: 10px;
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 18px;
+  font-variant-numeric: tabular-nums;
+
+  @media (min-width: 1000px) {
+    gap: 2px 8px;
+    margin-top: 8px;
+    font-size: 12px;
+    line-height: 16px;
+  }
+}
+
+.dist-stars {
+  font-size: 13px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+
+  & i {
+    color: var(--faint);
+    font-style: normal;
+  }
+
+  @media (min-width: 1000px) {
+    font-size: 12px;
+  }
+}
+
+.dist-track {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--line);
+
+  & span {
+    display: block;
+    width: max(8px, var(--p));
+    height: 100%;
+    border-radius: inherit;
+  }
+}
+
+.dist-pct {
+  text-align: right;
+}
+
+/* ---------- tips (Tips.astro) ---------- */
+.card.sec {
+  --pad: 14px;
+  padding: 0;
+
+  & > summary {
+    padding: var(--pad);
+  }
+
+  @media (min-width: 1000px) {
+    --pad: 18px;
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  & h2 {
+    flex: 1;
+  }
+}
+
+.sec-body {
+  padding: 0 var(--pad) 16px;
+
+  & p {
+    margin: 6px 0 10px;
+  }
+
+  & ol,
+  & ul {
+    margin: 4px 0 10px;
+    padding-left: 20px;
+  }
+
+  & h3 {
+    margin: 18px 0 4px;
+    font-size: 15px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  /* Markdown wraps an image in its own <p> */
+  & > p:has(> img:only-child) {
+    margin: 0;
+  }
+
+  & > p > img:only-child {
+    display: block;
+    width: 100%;
+    max-width: 420px;
+    margin: 8px auto 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-s);
+  }
+
+  & .shots {
+    max-width: 640px;
+    margin-inline: auto;
+  }
+}
+
+.tzcalc {
+  display: grid;
+  gap: 8px;
+  margin: 6px 0 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--sunk);
+  font-size: 13px;
+
+  & button {
+    min-height: 44px;
+    padding: 10px 16px;
+    border-radius: var(--r-s);
+    background: var(--accent-deep);
+    color: var(--accent-ink);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  & > #tz-out > span {
+    color: var(--muted);
+  }
+
+  & .tz-zone {
+    margin: 2px 0 8px;
+
+    & span {
+      color: var(--muted);
+    }
+  }
+
+  & .tz-list div {
+    margin: 4px 0;
+    color: var(--ink);
+    font-size: 14px;
+  }
+
+  & .tz-list span {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  & .tz-since {
+    margin-top: 6px;
+    font-size: 12px;
+  }
+}
+
+/* ---------- farmland: the primer and the app grid (TabPanel.astro) ---------- */
+#farmland {
+  @media (min-width: 1000px) {
+    gap: 16px;
+    padding-top: 20px;
+  }
+}
+
+.primer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  & .foot-row {
+    justify-content: space-between;
+  }
+
+  & .meta {
+    padding: 0;
+  }
+}
+
+.apps-wrap {
+  display: grid;
+  gap: 10px;
+}
+
+.apps-title {
+  padding-top: 6px;
+  font-size: 17px;
+}
+
+.apps {
+  display: grid;
+  align-items: start;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  @media (min-width: 1000px) {
+    gap: 12px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ---------- farmland apps (AppCard.astro) ---------- */
+.card.app {
+  padding: 0;
+
+  &[open] {
+    grid-column: 1 / -1;
+  }
+}
+
+.app-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px;
+
+  & .chev {
+    display: none;
+    flex: none;
+  }
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    & .chev {
+      display: block;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    padding: 14px 16px;
+  }
+}
+
+.app[open] > .app-head,
+.app-sub > .app-head {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+
+  & .chev {
+    display: block;
+  }
+}
+
+.app-icon {
+  display: grid;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--sunk);
+  color: var(--muted);
+  object-fit: cover;
+  place-items: center;
+
+  & svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 1.8;
+  }
+}
+
+.app-title {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+
+  & h3,
+  & h4 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 650;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+}
+
+.app-blurb {
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+
+.app-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  & i {
+    padding: 1px 7px;
+    border-radius: 6px;
+    background: var(--accent-tint);
+    color: var(--accent-text);
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 600px) {
+    justify-content: flex-end;
+    max-width: 40%;
+  }
+}
+
+.app-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 12px 14px;
+
+  @media (min-width: 1000px) {
+    padding: 0 16px 16px;
+  }
+}
+
+.app-banner {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+}
+
+.app-subs {
+  display: grid;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+
+  & .lbl {
+    margin: 0;
+  }
+}
+
+.app-sub {
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+  background: var(--sunk);
+
+  & > .app-head {
+    padding: 10px;
+
+    & .app-tags {
+      flex-direction: column;
+      align-items: flex-end;
+    }
+  }
+
+  & .app-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--surface);
+
+    & svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  & .app-body {
+    padding: 0 10px 12px;
+  }
+}

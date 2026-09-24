@@ -1,9 +1,9 @@
 ---
-title: Timeskipping (speeding up daily claims)
+title: Timetravel
 order: 40
 ---
 
-Daily-claim promos might go by your phone's clock. We can exploit this by changing the phone's time zone to a place where it's already tomorrow and thus Temu thinks a day has passed. You can burn through every day of most daily-claims/calendars in one day, so never ever pay extra to unlock early unless you can't timeskip.
+Daily-claim promos might go by your phone's clock. We can help this by changing the phone's time zone to a place where it's already tomorrow and thus Temu thinks a day has passed. You can burn through every day of most daily-claims/calendars in one day, so never ever pay extra to unlock early unless you can't timetravel.
 
 For it to work correctly, whatever time zone you switch to needs to have since passed midnight since your last claim, otherwise Temu will still think that it's the same day.
 

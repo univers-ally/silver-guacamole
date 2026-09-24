@@ -38,7 +38,6 @@ export function setUpSellers() {
     count.textContent = countText(shown, rows.length, "sellers");
   }
 
-  // rating bars: the stacked one grows by share, the breakdown ones by width
   for (const bar of list.querySelectorAll(".seller-bars [data-p]")) bar.style.flex = bar.dataset.p;
   for (const bar of list.querySelectorAll(".dist-track [data-p]"))
     bar.style.setProperty("--p", bar.dataset.p + "%");

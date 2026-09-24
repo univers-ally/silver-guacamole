@@ -1,10 +1,7 @@
-// Build-time vocabulary and helpers. The half the browser also needs is in
-// vocab.js; the content itself is in src/content (read through content.js).
 import { RATING } from "./vocab.js";
 
 export { RATING, FACETS, TABS, TAB_LABEL } from "./vocab.js";
 
-// names used in <title>, the header and link previews
 export const SITE = {
   name: "How to Temu",
   tagline: "(for cards)",
@@ -41,10 +38,8 @@ export const updatedText = promo =>
   promo.date ? "Rules last updated " + longDate(promo.date) : "";
 
 const summaryNote = item =>
-  `Our summary of Temu's rules${item.date ? `, last updated ${longDate(item.date)}` : ""}. Check the full rules in the app.`;
+  `Basic summary of rules${item.date ? `, last updated ${longDate(item.date)}` : ""}. Check the full rules in the app.`;
 
-// every word under a promo, including its apps: the search text for a card
-// that links to a tab instead of showing its rules
 const wordsOf = item =>
   [
     item.name || "",
@@ -62,8 +57,6 @@ export const hiddenWords = promo =>
     .trim()
     .toLowerCase();
 
-// Rules summaries and calculator configs, keyed by promo or app id. Served as
-// a hashed JSON file (pages/[detail].json.js), fetched on first use.
 export function detailData(promos) {
   const detail = { t: {}, c: {} };
   for (const promo of promos) {
@@ -145,7 +138,6 @@ export const SELLER_BADGE = {
   },
 };
 
-// the Sellers filter chips, in order; "free" is the shipping filter, not a badge
 export const SELLER_FILTERS = [
   ...["star", "veteran", "fast", "packGood"].map(key => ({ key, ...SELLER_BADGE[key] })),
   { key: "free", emoji: "💸", chip: "Free shipping" },
@@ -156,7 +148,6 @@ export const HIDDEN_BADGES = new Set(["local"]);
 
 export const number = value => value.toLocaleString("en-US");
 
-// "…, Northridge, California 91324, United States" -> "California"; outside the US, the country
 export function regionOf(address) {
   const parts = String(address || "")
     .split(",")
@@ -194,7 +185,6 @@ const PAGES_THEMES = {
 
 const DARK_THEMES = new Set(["dark", "midnight", "hacker"]);
 
-// icon: which glyph the header button shows while the theme is on
 export const THEMES = [
   { id: "auto", name: "Auto", note: "follows your device", icon: "auto" },
   { id: "light", name: "Light" },
@@ -204,6 +194,5 @@ export const THEMES = [
   { id: "random", name: "Random", note: "a new one each visit", icon: "auto" },
 ].map(theme => ({ icon: DARK_THEMES.has(theme.id) ? "dark" : "light", ...theme }));
 
-// auto and random are modes, not themes: no [data-theme] block of their own
 export const MODES = new Set(["auto", "random"]);
 export const THEME_IDS = THEMES.map(theme => theme.id).filter(id => !MODES.has(id));

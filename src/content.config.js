@@ -1,5 +1,3 @@
-// Content schemas. A promo, seller or app that doesn't match fails the build
-// with the file and field named.
 import { defineCollection } from "astro:content";
 import { glob, file } from "astro/loaders";
 import { z } from "astro/zod";
@@ -8,7 +6,6 @@ import { REWARDS, SELLER_BADGE } from "./lib/site.js";
 
 const date = z.iso.date(); // "2026-09-22", quoted in YAML
 
-// Temu's own wording is kept out of the site (rules.local.js, never built)
 const noTerms = z
   .never({ error: "Temu's wording belongs in rules.local.js; write a `summary` instead" })
   .optional();
@@ -82,7 +79,7 @@ const promos = defineCollection({
     return z
       .strictObject({
         id: z.string(),
-        order: z.number(), // default sort; leave gaps (10, 20, …)
+        order: z.number(), // default sort; leave gaps (10, 20, ...)
         name: z.string(),
         codes: z.array(z.string()),
         rating: z.enum(Object.keys(RATING)).optional(), // omitted = meh
@@ -108,13 +105,15 @@ const sellers = defineCollection({
   loader: file("./src/content/sellers.yaml"),
   schema: z.strictObject({
     id: z.string(),
-    order: z.number(), // default sort; leave gaps (10, 20, …)
+    order: z.number(), // default sort; leave gaps (10, 20,...)
     name: z.string(),
     url: z.url(),
     biz: z.string(),
     address: z.string(),
     website: z.url({ protocol: /^https?$/ }).nullable(),
-    avatar: z.string(), // public/img/sellers, 96×96
+    avatar: z
+      .string()
+      .regex(/^\/img\/sellers\/[\w.-]+$/, "a file in public/img/sellers, as /img/sellers/<name>"), // 96×96
     badges: z.array(z.enum(Object.keys(SELLER_BADGE))),
     sold: z.string(), // "150K+"
     rating: z.number(),
@@ -124,8 +123,6 @@ const sellers = defineCollection({
   }),
 });
 
-// Tips tab sections. The body is Markdown; a list that needs .warn items is
-// written as HTML. The timeskip helper's markup lives in timeskip.md.
 const tips = defineCollection({
   loader: glob({ pattern: "*.md", base: "./src/content/tips" }),
   schema: ({ image }) =>
@@ -138,8 +135,6 @@ const tips = defineCollection({
     }),
 });
 
-// Page-level values that aren't a promo, seller or tip. Each top-level key is
-// an entry: `sellers.updated` is the Sellers tab's "Last updated" date.
 const site = defineCollection({
   loader: file("./src/content/site.yaml"),
   schema: z.strictObject({ updated: date }),

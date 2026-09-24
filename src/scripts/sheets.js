@@ -1,6 +1,5 @@
 import { el, delegate } from "./dom.js";
 
-// body.locked stops the page scrolling behind an open dialog
 export function openSheet(sheet) {
   if (sheet.open) return;
   sheet.showModal();
@@ -11,7 +10,6 @@ export function openSheet(sheet) {
 export function setUpSheets() {
   for (const dialog of document.querySelectorAll("dialog")) {
     dialog.addEventListener("click", event => {
-      // the lightbox closes on any click; a sheet on its backdrop or its ✕
       if (dialog.id === "lightbox" || event.target === dialog || event.target.closest(".close"))
         dialog.close();
     });

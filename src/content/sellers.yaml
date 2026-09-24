@@ -5,7 +5,7 @@
   biz: Larry's Card Mart
   address: Wisconsin, United States
   website: null
-  avatar: img/sellers/594dc3b2.webp
+  avatar: /img/sellers/594dc3b2.webp
   badges:
     - local
     - star
@@ -28,7 +28,7 @@
   biz: KSTAMPS-2015, LLC
   address: 19523 Business Center Drive, Northridge, California 91324, United States
   website: https://megacards1.com/
-  avatar: img/sellers/d7c49111.webp
+  avatar: /img/sellers/d7c49111.webp
   badges:
     - local
     - star
@@ -52,7 +52,7 @@
   biz: TCG Empire LLC
   address: 1603 S Main St, Corbin, Kentucky 40701, United States
   website: https://tcgempire.com/
-  avatar: img/sellers/b28882e0.webp
+  avatar: /img/sellers/b28882e0.webp
   badges:
     - local
     - star
@@ -75,7 +75,7 @@
   biz: GONZALEZ WHOLESALE LLC
   address: California, United States
   website: null
-  avatar: img/sellers/2b0a6cb3.webp
+  avatar: /img/sellers/2b0a6cb3.webp
   badges:
     - local
     - star
@@ -97,7 +97,7 @@
   biz: MANT LLC
   address: Indiana, United States
   website: null
-  avatar: img/sellers/67dfc197.webp
+  avatar: /img/sellers/67dfc197.webp
   badges:
     - local
     - star
@@ -120,7 +120,7 @@
   biz: RACP Ventures LLC
   address: 91 Herod Point Rd, Wading River, New York 11792, United States
   website: https://collectorsemporium.com/
-  avatar: img/sellers/4634d8c5.webp
+  avatar: /img/sellers/4634d8c5.webp
   badges:
     - local
     - star
@@ -143,7 +143,7 @@
   biz: MATTYPORK CORP.
   address: New York, United States
   website: null
-  avatar: img/sellers/97b3b7af.webp
+  avatar: /img/sellers/97b3b7af.webp
   badges:
     - local
     - star
@@ -165,7 +165,7 @@
   biz: Lumination Ltd Co
   address: Texas, United States
   website: null
-  avatar: img/sellers/fc55b73b.webp
+  avatar: /img/sellers/fc55b73b.webp
   badges:
     - local
     - star
@@ -187,7 +187,7 @@
   biz: RJB Skokie LLC
   address: 8040 Lincoln Ave, Skokie, Illinois 60077, United States
   website: https://cardcolosseum.com/
-  avatar: img/sellers/a7d59fc7.webp
+  avatar: /img/sellers/a7d59fc7.webp
   badges:
     - local
     - star
@@ -209,7 +209,7 @@
   biz: THEPOPPLUG LLC
   address: 2054 El Camino Real, Santa Clara, California 95050, United States
   website: https://www.thepopplug.com/
-  avatar: img/sellers/03203769.webp
+  avatar: /img/sellers/03203769.webp
   badges:
     - local
     - star
@@ -231,7 +231,7 @@
   biz: AllPokeTCG1
   address: 7020 Maple St., Omaha, Nebraska 68104, United States
   website: https://allpoketcg.com/
-  avatar: img/sellers/ffb41884.webp
+  avatar: /img/sellers/ffb41884.webp
   badges:
     - local
     - star
@@ -255,7 +255,7 @@
   biz: TURBO TCG INC.
   address: 419 Essex St, Brooklyn, New York 11208, United States
   website: null
-  avatar: img/sellers/f3b07bfd.webp
+  avatar: /img/sellers/f3b07bfd.webp
   badges:
     - local
     - packGood
@@ -277,7 +277,7 @@
   biz: POKE PLUG LLC
   address: 2408 SW State Route 7, Blue Springs, Missouri 64014, United States
   website: https://theplugtradingcards.com/
-  avatar: img/sellers/184af25b.webp
+  avatar: /img/sellers/184af25b.webp
   badges:
     - local
     - packGood
@@ -298,7 +298,7 @@
   biz: MARCUS D GUTIERREZ
   address: 3408 S Lincoln Ct, Visalia, California 93277, United States
   website: null
-  avatar: img/sellers/1668dc04.webp
+  avatar: /img/sellers/1668dc04.webp
   badges:
     - local
     - packGood
@@ -319,7 +319,7 @@
   biz: CBTCG
   address: New York, United States
   website: null
-  avatar: img/sellers/3b1bc2cb.webp
+  avatar: /img/sellers/3b1bc2cb.webp
   badges:
     - local
     - packGood
@@ -341,7 +341,7 @@
   biz: Bucks Card Shop
   address: 110 East Ellsworth, Dows, Iowa 50071, United States
   website: https://www.buckscardshop.com/
-  avatar: img/sellers/6bc1d0c2.webp
+  avatar: /img/sellers/6bc1d0c2.webp
   badges:
     - local
     - packBad

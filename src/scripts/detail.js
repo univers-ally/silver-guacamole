@@ -1,9 +1,6 @@
 import { el, escapeHtml } from "./dom.js";
 import { openSheet } from "./sheets.js";
 
-// Rules summaries and calculator configs. The page names the file (a hashed
-// json, see lib/content.js); it's fetched on the first Rules or Calculator tap,
-// and a failed load is forgotten so the next tap retries.
 let request;
 const detailData = () =>
   (request ||= fetch(document.body.dataset.detail)
@@ -18,7 +15,6 @@ const termsTitle = el("terms-title");
 const termsDate = el("terms-date");
 const termsText = termsSheet.querySelector("pre");
 
-// entry: { id, name, node }, for a promo card or a Farmland app
 export async function openTerms(entry) {
   const codes = [...entry.node.querySelectorAll(".code code")].map(node => node.textContent);
   termsTitle.textContent = codes.length ? `${entry.name} · ${codes.join(" / ")}` : entry.name;

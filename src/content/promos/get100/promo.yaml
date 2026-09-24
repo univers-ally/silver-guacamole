@@ -22,13 +22,13 @@ summary: |-
   • Items not shipped by Temu may carry shipping fees.
 reward: Buy from the page, then claim coupons daily over 14 days
 rules:
-  - t: <b>tl;dr:</b> Make an order, then claim a coupon every day for 14 days. The gold days (no-minimum coupons) are extremely good, and you can timeskip to claim early
+  - t: <b>tl;dr:</b> Make an order, then claim a coupon every day for 14 days. The gold days (no-minimum coupons) are extremely good, and you can timetravel to claim early
   - t: Buy the required number of items from the promo page before time's up
   - t: You won't see expiry dates or restrictions until after you get the coupons
     warn: true
   - t: One tile per day for 14 days. Miss a day and you lose the rest
     warn: true
-  - t: You can <b>timeskip</b> to get your coupons early. See Tips and tricks
+  - t: You can <b>timetravel</b> to get your coupons early. See Tips and tricks
   - t: Most of the tiles are junk with big minimum spends. The ones worth showing up for are the gold days, which are no-minimum spend coupons
     warn: true
   - t: Refund anything and all your coupons are revoked. Price adjustments don't count.

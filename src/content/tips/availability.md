@@ -14,6 +14,5 @@ Nothing to do about it except check back later. The codes still work for other a
 ### Getting a promo to show up anyway
 
 1. Uninstall the app, wait at least 24 hours without logging in or touching the account from anywhere, then reinstall.
-2. Make a new account from a different IP (VPN) and a different device (different MAC address).
-3. Make a new account in a different region (VPN), use a different shipping address inside that region (you can change it at checkout), and do not link a PayPal account that has ever been used on Temu before.
-4. Some promos just won't show up no matter what, and there's no forcing them. Don't lose hope. You'll get out of Temu jail eventually.
+2. Some promos just won't show up no matter what, and there's no forcing them. 
+3. Don't lose hope. You'll get out of Temu jail eventually.
