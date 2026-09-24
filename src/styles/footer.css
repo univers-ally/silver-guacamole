@@ -1,0 +1,11 @@
+/* ---------- footer ---------- */
+.foot {
+  padding: 0 var(--gutter) 16px;
+  color: var(--muted);
+  font-size: 13.5px;
+  text-align: center;
+
+  & p {
+    margin: 4px 0;
+  }
+}

@@ -1,0 +1,60 @@
+---
+// The CSP <meta> is added by Astro (security.csp in astro.config.mjs), which
+// hashes the inline script below.
+import "../styles/main.css";
+import Sprite from "../components/Sprite.astro";
+import Top from "../components/Top.astro";
+import Footer from "../components/Footer.astro";
+import Dialogs from "../components/Dialogs.astro";
+import { SITE, THEME_IDS } from "../lib/site.js";
+
+// app={false}: no tabs, dialogs or scripts (the 404 page)
+// detail: url of the rules/calculator data (see lib/content.js)
+const { app = true, heading, detail } = Astro.props;
+const title = heading ? `${heading} · ${SITE.name}` : `${SITE.name} ${SITE.tagline}`;
+
+// before first paint, so a saved theme never flashes the default one
+const bootstrap = `
+  document.documentElement.className = "js";
+  try {
+    var t = localStorage.getItem("theme");
+    if (t === "random") {
+      var themes = ${JSON.stringify(THEME_IDS)};
+      t = themes[Math.floor(Math.random() * themes.length)];
+    }
+    if (t && /^[a-z][a-z-]*$/.test(t)) document.documentElement.dataset.theme = t;
+  } catch (e) {}
+`;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#131313" media="(prefers-color-scheme: dark)" />
+    <title>{title}</title>
+    <meta name="description" content={SITE.description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={SITE.description} />
+    <meta property="og:url" content={new URL("/", Astro.site).href} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.ico" />
+    <script is:inline set:html={bootstrap} />
+  </head>
+  <body data-detail={detail}>
+    <Sprite />
+    <Top tabs={app} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    {app && <Dialogs />}
+    {app && <script src="../scripts/app.js"></script>}
+  </body>
+</html>

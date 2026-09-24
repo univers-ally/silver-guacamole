@@ -1,0 +1,357 @@
+- id: larrys-card-mart
+  order: 10
+  name: Larry's Card Mart
+  url: https://www.temu.com/mall.html?mall_id=741070851918312
+  biz: Larry's Card Mart
+  address: Wisconsin, United States
+  website: null
+  avatar: img/sellers/594dc3b2.webp
+  badges:
+    - local
+    - star
+    - veteran
+    - packGood
+  sold: 100K+
+  rating: 4.8
+  reviews: 14966
+  shipping: Free
+  bars:
+    - 92.5
+    - 3
+    - 1.3
+    - 0.7
+    - 2.5
+- id: megacards
+  order: 20
+  name: MEGACARDS
+  url: https://www.temu.com/mall.html?mall_id=741070851925183
+  biz: KSTAMPS-2015, LLC
+  address: 19523 Business Center Drive, Northridge, California 91324, United States
+  website: https://megacards1.com/
+  avatar: img/sellers/d7c49111.webp
+  badges:
+    - local
+    - star
+    - veteran
+    - packGood
+    - packBad
+  sold: 150K+
+  rating: 4.6
+  reviews: 20722
+  shipping: $30 min order
+  bars:
+    - 84.3
+    - 4.5
+    - 3.1
+    - 2
+    - 6.1
+- id: tcg-empire
+  order: 30
+  name: TCG Empire
+  url: https://www.temu.com/mall.html?mall_id=741070852035508
+  biz: TCG Empire LLC
+  address: 1603 S Main St, Corbin, Kentucky 40701, United States
+  website: https://tcgempire.com/
+  avatar: img/sellers/b28882e0.webp
+  badges:
+    - local
+    - star
+    - veteran
+    - packGood
+  sold: 150K+
+  rating: 4.6
+  reviews: 27624
+  shipping: $30 min order
+  bars:
+    - 82.7
+    - 5.3
+    - 3.4
+    - 2.1
+    - 6.5
+- id: manditogontcg
+  order: 40
+  name: manditogonTCG
+  url: https://www.temu.com/mall.html?mall_id=741070853640394
+  biz: GONZALEZ WHOLESALE LLC
+  address: California, United States
+  website: null
+  avatar: img/sellers/2b0a6cb3.webp
+  badges:
+    - local
+    - star
+    - packGood
+  sold: 4.2K+
+  rating: 4.9
+  reviews: 590
+  shipping: Free
+  bars:
+    - 94.7
+    - 2
+    - 0.3
+    - 0.7
+    - 2.3
+- id: mant-tcg
+  order: 50
+  name: MANT TCG
+  url: https://www.temu.com/mall.html?mall_id=741070853718556
+  biz: MANT LLC
+  address: Indiana, United States
+  website: null
+  avatar: img/sellers/67dfc197.webp
+  badges:
+    - local
+    - star
+    - packGood
+    - packBad
+  sold: 4.4K+
+  rating: 4.8
+  reviews: 534
+  shipping: $30 min order
+  bars:
+    - 91
+    - 3.2
+    - 2.2
+    - 1.1
+    - 2.5
+- id: collectors-emporium
+  order: 60
+  name: Collectors Emporium
+  url: https://www.temu.com/mall.html?mall_id=741070851660908
+  biz: RACP Ventures LLC
+  address: 91 Herod Point Rd, Wading River, New York 11792, United States
+  website: https://collectorsemporium.com/
+  avatar: img/sellers/4634d8c5.webp
+  badges:
+    - local
+    - star
+    - veteran
+    - packGood
+  sold: 100K+
+  rating: 4.7
+  reviews: 8828
+  shipping: $30 min order
+  bars:
+    - 89.7
+    - 3.7
+    - 1.7
+    - 1
+    - 3.9
+- id: hause-of-toys-and-collectibles
+  order: 70
+  name: HAUSE of Toys & Collectibles
+  url: https://www.temu.com/mall.html?mall_id=741070852380709
+  biz: MATTYPORK CORP.
+  address: New York, United States
+  website: null
+  avatar: img/sellers/97b3b7af.webp
+  badges:
+    - local
+    - star
+    - packGood
+  sold: 77K+
+  rating: 4.8
+  reviews: 7245
+  shipping: $30 min order
+  bars:
+    - 90.7
+    - 3.6
+    - 1.2
+    - 0.9
+    - 3.6
+- id: summit-chain-co
+  order: 80
+  name: Summit Chain Co
+  url: https://www.temu.com/mall.html?mall_id=741070853378563
+  biz: Lumination Ltd Co
+  address: Texas, United States
+  website: null
+  avatar: img/sellers/fc55b73b.webp
+  badges:
+    - local
+    - star
+    - packGood
+  sold: 33K+
+  rating: 4.7
+  reviews: 4024
+  shipping: Free
+  bars:
+    - 89.7
+    - 2.7
+    - 1.4
+    - 1
+    - 5.2
+- id: card-colosseum
+  order: 90
+  name: Card Colosseum
+  url: https://www.temu.com/mall.html?mall_id=741070853303771
+  biz: RJB Skokie LLC
+  address: 8040 Lincoln Ave, Skokie, Illinois 60077, United States
+  website: https://cardcolosseum.com/
+  avatar: img/sellers/a7d59fc7.webp
+  badges:
+    - local
+    - star
+    - packGood
+  sold: 10K+
+  rating: 4.8
+  reviews: 1100
+  shipping: $30 min order
+  bars:
+    - 94.1
+    - 1.8
+    - 1
+    - 0.1
+    - 3
+- id: the-pop-plug
+  order: 100
+  name: The Pop Plug
+  url: https://www.temu.com/mall.html?mall_id=741070853157271
+  biz: THEPOPPLUG LLC
+  address: 2054 El Camino Real, Santa Clara, California 95050, United States
+  website: https://www.thepopplug.com/
+  avatar: img/sellers/03203769.webp
+  badges:
+    - local
+    - star
+    - packGood
+  sold: 10K+
+  rating: 4.9
+  reviews: 817
+  shipping: $30 min order
+  bars:
+    - 97.2
+    - 0.6
+    - 0.7
+    - 0.1
+    - 1.4
+- id: allpoketcg1
+  order: 110
+  name: AllPokeTCG1
+  url: https://www.temu.com/mall.html?mall_id=741070852047874
+  biz: AllPokeTCG1
+  address: 7020 Maple St., Omaha, Nebraska 68104, United States
+  website: https://allpoketcg.com/
+  avatar: img/sellers/ffb41884.webp
+  badges:
+    - local
+    - star
+    - fast
+    - veteran
+    - packGood
+  sold: 7.4K+
+  rating: 4.8
+  reviews: 771
+  shipping: $30 min order
+  bars:
+    - 93
+    - 3
+    - 1.2
+    - 0.4
+    - 2.4
+- id: turbo-tcg-inc
+  order: 120
+  name: Turbo TCG inc
+  url: https://www.temu.com/mall.html?mall_id=741070853221313
+  biz: TURBO TCG INC.
+  address: 419 Essex St, Brooklyn, New York 11208, United States
+  website: null
+  avatar: img/sellers/f3b07bfd.webp
+  badges:
+    - local
+    - packGood
+    - packBad
+  sold: 6.9K+
+  rating: 4.8
+  reviews: 728
+  shipping: $30 min order
+  bars:
+    - 93.5
+    - 1.6
+    - 1.1
+    - 0.7
+    - 3.1
+- id: the-plug-trading-cards
+  order: 130
+  name: The Plug Trading Cards
+  url: https://www.temu.com/mall.html?mall_id=741070852564692
+  biz: POKE PLUG LLC
+  address: 2408 SW State Route 7, Blue Springs, Missouri 64014, United States
+  website: https://theplugtradingcards.com/
+  avatar: img/sellers/184af25b.webp
+  badges:
+    - local
+    - packGood
+  sold: 6.8K+
+  rating: 4.9
+  reviews: 1088
+  shipping: $30 min order
+  bars:
+    - 95.5
+    - 2.5
+    - 0.3
+    - 0.2
+    - 1.5
+- id: vmg-enterprise
+  order: 140
+  name: VMG Enterprise
+  url: https://www.temu.com/mall.html?mall_id=741070853026788
+  biz: MARCUS D GUTIERREZ
+  address: 3408 S Lincoln Ct, Visalia, California 93277, United States
+  website: null
+  avatar: img/sellers/1668dc04.webp
+  badges:
+    - local
+    - packGood
+  sold: 3.3K+
+  rating: 4.8
+  reviews: 477
+  shipping: $30 min order
+  bars:
+    - 91.8
+    - 2.5
+    - 0.4
+    - 0.4
+    - 4.9
+- id: cbtcg
+  order: 150
+  name: CBTCG
+  url: https://www.temu.com/mall.html?mall_id=741070852824195
+  biz: CBTCG
+  address: New York, United States
+  website: null
+  avatar: img/sellers/3b1bc2cb.webp
+  badges:
+    - local
+    - packGood
+    - packBad
+  sold: 2.3K+
+  rating: 4.8
+  reviews: 271
+  shipping: Free
+  bars:
+    - 92.6
+    - 2.2
+    - 0.7
+    - 0.4
+    - 4.1
+- id: bucks-card-shop
+  order: 160
+  name: Bucks Card Shop
+  url: https://www.temu.com/mall.html?mall_id=741070853646046
+  biz: Bucks Card Shop
+  address: 110 East Ellsworth, Dows, Iowa 50071, United States
+  website: https://www.buckscardshop.com/
+  avatar: img/sellers/6bc1d0c2.webp
+  badges:
+    - local
+    - packBad
+  sold: 1.3K+
+  rating: 4.8
+  reviews: 45
+  shipping: $30 min order
+  bars:
+    - 93.3
+    - 2.2
+    - 2.2
+    - 0
+    - 2.3

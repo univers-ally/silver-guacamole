@@ -1,0 +1,99 @@
+id: claimcredit
+order: 60
+name: Cash Bonus / Credit Back
+codes:
+  - claimcredit
+  - credit777
+accepts:
+  - Credit
+  - Discounts
+rating: good
+payout:
+  - Cash*
+  - Credit
+type:
+  - Daily claim
+date: "2025-07-14"
+summary: |-
+  You get back an amount based on what you pay for the order, not counting tax, shipping, or coupons and credits applied. The rate is tiered and capped. Temu's example: 10% of the first $10, 50% from $10 to $280, then a higher rate above that. The promo page shows your actual numbers.
+
+  Credit version
+  • Paid in 10 daily instalments, one per day per order, claimed by hand. A missed day is void.
+  • Credits can't be cashed out and don't expire.
+
+  Cash version
+  • Paid to PayPal in 7 daily instalments that grow each day. A missed day has to be claimed before later ones; anything still unclaimed after 7 days is void.
+  • You need a PayPal account in the same location as you. The eligibility check can take up to 14 business days, and the PayPal account used for Temu cash rewards can only be changed once a year. Without PayPal you can take the same amount as credit.
+
+  Both
+  • Confirming the reward can take up to 90 days.
+  • Cancelling or refunding enough to drop below the qualifying amount voids unclaimed instalments and takes back credits already issued, unless the refund is for a quality problem or a wrong or defective item. Credits come out of your balance, but never below zero.
+reward: Get back a % of what you spend, paid out in 10 daily installments. Can be cash
+rules:
+  - t: <b>tl;dr:</b> Get back a tiered % of what you spend, paid in daily installments over 7–10 days. Use the Calculator to find the spend that hits the cap
+  - t: Tiered rates. Each % only applies to the dollars in that bracket, not your whole order
+  - t: Tax, shipping, coupons and credits don't count toward the total
+    warn: true
+  - t: Capped at whatever max the page shows. Rates and caps change between offers
+    warn: true
+  - t: Officially it's "credits," but the page often lets you take cash to PayPal instead.
+  - t: You have to come back 7-10 days in a row to claim each installment.
+    warn: true
+  - t: Miss a day, that installment is gone. There are no mechanisms to recover missed days in this promo!
+    warn: true
+  - t: They might offer a second order to unlock whatever's left if your initial order wasn't the full amount. Totally random.
+  - t: The "limited-time" tier-3 rate really is on a timer. But leaving the promo page and coming back has a high chance of extending it. Not guaranteed
+  - t: Refund anything and they invalidate all installments plus already-issued credits (quality/defective issues exempt)
+    warn: true
+calc:
+  note: Rewards Back Calculator:<br>NUMBERS VARY! Find your numbers by scrolling through the Rules. You can see this by clicking the "Rules" label (if it exists), or by clicking the (?) under the 50% tier in the disclaimer text.
+  tpl:
+    - ${cap} Pending
+    - - 10%
+      - 50%
+      - 👑 {=r3:n}%
+    - - $0-$10
+      - $10-${c2}
+      - ${c2}+
+  fields:
+    - k: cap
+      label: Max reward (Z)
+      value: "180.00"
+    - k: c2
+      label: Tier 2 up to
+      value: "280"
+    - k: r3n
+      label: Tier 3, normally %
+      value: "135"
+      step: "1"
+    - k: r3l
+      label: Tier 3, limited-time %
+      value: "220"
+      step: "1"
+    - k: x
+      label: Order Amount (X)
+      value: "300.00"
+      dp: "2"
+    - k: lt
+      label: Limited-time offer active
+      value: "1"
+      type: check
+  derived:
+    r3: "lt ? r3l : r3n"
+    t2: 1 + (c2 - 10) * 0.5
+    need: "cap <= 1 ? cap / 0.1 : cap <= t2 ? 10 + (cap - 1) / 0.5 : c2 + (cap - t2) / (r3 / 100)"
+  out: "Rewards Back (Y):"
+  fmt: money2
+  f: min(min(x, 10) * 0.1 + max(0, min(x, c2) - 10) * 0.5 + max(0, x - c2) * r3 / 100, cap)
+  hint: 'cap > 0 && finite(need) ? "Reward caps out with a <b>" + $$(need) + "</b> purchase." : ""'
+images:
+  - src: ./bad01116.webp
+    caption: Tiers hidden
+  - src: ./7dab7493.webp
+    caption: Tiers revealed
+  - src: ./b65deac1.webp
+    caption: Day-by-day claiming (done)
+  - src: ./1979a845.webp
+    caption: Cash version with tiers unhidden
+  - src: ./6da2d8ca.webp
+    caption: Occasionally extends the timer on the 'limited-time' %

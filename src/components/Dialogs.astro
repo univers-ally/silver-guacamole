@@ -1,0 +1,35 @@
+---
+import Facets from "./Facets.astro";
+import Sheet from "./Sheet.astro";
+import ThemeList from "./ThemeList.astro";
+---
+<dialog id="lightbox" aria-label="Screenshot">
+  <img alt="">
+</dialog>
+<Sheet id="terms">
+  <div slot="heading">
+    <h3 id="terms-title"></h3>
+    <p class="meta" id="terms-date"></p>
+  </div>
+  <pre tabindex="0" role="region" aria-labelledby="terms-title"></pre>
+</Sheet>
+<Sheet id="calc">
+  <div class="sheet-body" id="calc-body"></div>
+</Sheet>
+<Sheet id="filters" title="Filters">
+  <button slot="actions" type="button" class="reset" id="filter-reset">Reset</button>
+  <div class="sheet-body" id="filter-body">
+    <Facets />
+  </div>
+  <div class="sheet-foot">
+    <button type="button" class="apply" id="filter-apply">Show all promos</button>
+  </div>
+</Sheet>
+<Sheet id="themes" title="Theme">
+  <div class="sheet-body">
+    <div class="theme-list" id="theme-list">
+      <ThemeList />
+    </div>
+  </div>
+</Sheet>
+<div id="toast" role="status" aria-live="polite"></div>

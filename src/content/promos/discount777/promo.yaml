@@ -1,0 +1,30 @@
+id: discount777
+order: 90
+name: Pick One Get ??% Off
+codes:
+  - discount777
+accepts:
+  - None
+payout:
+  - Discount
+type: []
+date: "2024-02-06"
+summary: |-
+  Spin the wheel on the promo page and you get the discount it lands on.
+
+  • The discount applies once, to one item from the promo page, even if you buy several.
+  • It can't be combined with any other offer.
+  • You can only get in within 72 hours of receiving a push notification for it in the Temu app.
+reward: Spin a wheel, get a percentage off one item from the promo page
+rules:
+  - t: <b>tl;dr:</b> Spin for a % off one item from the page. It only unlocks from a Temu push notification
+  - t: Probably discontinued and replaced by <code>double777</code> (unconfirmed)
+    warn: true
+  - t: The discount applies to one item only, even if you buy several from the page
+  - t: Can't be stacked with any other offer
+  - t: "You can't force this one by searching the code. It only unlocks after Temu sends your account a push notification, and you get 72 hours from then. This is why I've never seen it ):"
+    warn: true
+  - t: If the promo isn't available, tap the banner on the page to get redirected to <code>double777</code>
+images:
+  - src: ./90f2c05b.webp
+    caption: "Not eligible: it says expired and then tries to redirect you"

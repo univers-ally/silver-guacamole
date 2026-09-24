@@ -1,0 +1,39 @@
+id: double777
+order: 140
+name: Double Savings
+codes:
+  - double777
+accepts:
+  - None
+payout:
+  - Discount
+type:
+  - Cashout
+date: "2026-07-03"
+summary: |-
+  Two rounds of discounted items from the promo page.
+
+  • Round 1: one order before 11:59 PM local time on the day the promo starts. After it you may get a $3 promo-page coupon for a second Round 1 order, which expires at 11:59 PM that day.
+  • Round 2 starts at midnight local time the next day and lasts 24 hours, one order only. The more you saved in Round 1, the bigger the Round 2 discounts can be.
+  • Every order has to meet the minimum shown.
+  • Cancelling or refunding any promo order, even partly, may disqualify you.
+  • Can't be combined with other offers, and items only ship to an address in the country you joined from.
+reward: "Two rounds of discounted items. Save more on day one and day two's discounts get bigger (seen: save $50, earn $100 extra)"
+rules:
+  - t: <b>tl;dr:</b> Save on one order today, and tomorrow's order gets bigger discounts
+  - t: <b>Round 1:</b> make a single qualifying order from the promo page before 11:59 PM local time. How much you "save" in Round 2 depends on how much you saved on this order, denoted by the cash number on the left
+  - t: 'While adding items to your cart to finish Round 1, you may be offered a "bonus" to your total savings (seen: $20, on a 15-minute timer)'
+  - t: 'You may be immediately offered a partial "bonus" after completing Round 1 which actually takes away from your Round 2 bonus (seen: $3 off $15 min spend, expiring in 6h)'
+    warn: true
+  - t: <b>Round 2</b> opens at 12:00 AM local time the next day and lasts 24 hours. One order only
+  - t: Cancel or refund any promo order, even partly, and you are invalidated. <em>This may or may not include price adjustments!</em>
+    warn: true
+  - t: Can't be combined with other offers or credit
+    warn: true
+images:
+  - src: ./8adca8c0.webp
+    caption: "Empty bag (seen: $7.72 of $50, $99 of $100)"
+  - src: ./7252d55b.webp
+    caption: "Bag full, timed bonus added (seen: $50 of $50, extra $20)"
+  - src: ./945aa50f.webp
+    caption: "Round 1 start (seen: $3 off with $15 min today, $117 tomorrow)"

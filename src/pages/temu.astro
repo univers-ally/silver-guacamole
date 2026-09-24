@@ -1,0 +1,33 @@
+---
+// The guide used to live at /temu/. Old links land here and go to the root,
+// keeping any ?query and #tab. Unstyled: it's on screen for an instant.
+import { SITE } from "../lib/site.js";
+
+const home = new URL("/", Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="color-scheme" content="light dark" />
+    <title>{SITE.name} — moved</title>
+    <link rel="canonical" href={home} />
+    <!-- link previews don't follow the redirect, so old links still get a card -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={`${SITE.name} ${SITE.tagline}`} />
+    <meta property="og:description" content={SITE.description} />
+    <meta property="og:url" content={home} />
+    <meta name="twitter:card" content="summary" />
+    <script is:inline>
+      location.replace("../" + location.search + location.hash);
+    </script>
+    <meta http-equiv="refresh" content="0; url=../" />
+  </head>
+  <body>
+    <p>This guide moved to the front page. <a href="../">Continue to {SITE.name}</a></p>
+  </body>
+</html>

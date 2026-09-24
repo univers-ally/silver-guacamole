@@ -1,0 +1,44 @@
+id: GET100
+order: 110
+name: Buy and Get Coupon Back
+codes:
+  - GET100
+  - dailycoupon100
+accepts:
+  - Credit
+  - Discounts
+rating: good
+payout:
+  - Coupons
+type:
+  - Daily claim
+  - Coupon Bundle
+date: "2024-11-12"
+summary: |-
+  Buy the number of items the promo page asks for, from the promo page, before the timer ends. You get one of the coupon bundles shown on the page.
+
+  • Each coupon's expiry and where it can be used only show up after you receive it. Temu's general coupon rules also apply.
+  • Cancelling or refunding any item in the qualifying order takes all the coupons back.
+  • Items not shipped by Temu may carry shipping fees.
+reward: Buy from the page, then claim coupons daily over 14 days
+rules:
+  - t: <b>tl;dr:</b> Make an order, then claim a coupon every day for 14 days. The gold days (no-minimum coupons) are extremely good, and you can timeskip to claim early
+  - t: Buy the required number of items from the promo page before time's up
+  - t: You won't see expiry dates or restrictions until after you get the coupons
+    warn: true
+  - t: One tile per day for 14 days. Miss a day and you lose the rest
+    warn: true
+  - t: You can <b>timeskip</b> to get your coupons early. See Tips and tricks
+  - t: Most of the tiles are junk with big minimum spends. The ones worth showing up for are the gold days, which are no-minimum spend coupons
+    warn: true
+  - t: Refund anything and all your coupons are revoked. Price adjustments don't count.
+    warn: true
+images:
+  - src: ./c3eba3c1.webp
+    caption: The initial order to unlock the promo
+  - src: ./bd4cc1dc.webp
+    caption: Flavor with lots of daily coupons in addition to gold ones
+  - src: ./aaaeb016.webp
+    caption: Offer to pre-claim the next 3 days with one more order
+  - src: ./2a2e5bf1.webp
+    caption: "Alt flavor: fewer daily coupons, but better gold ones"

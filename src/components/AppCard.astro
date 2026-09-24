@@ -1,0 +1,59 @@
+---
+// An app on a tab promo's page (Farmland). Sub-apps render through this same
+// component, one level deep.
+import Icon from "./Icon.astro";
+import Shots from "./Shots.astro";
+import RulesList from "./RulesList.astro";
+import RulesButton from "./RulesButton.astro";
+import Todo from "./Todo.astro";
+import { REWARDS, clean, subsOf } from "../lib/site.js";
+
+const { app, sub = false } = Astro.props;
+const Heading = sub ? "h4" : "h3";
+const subs = subsOf(app);
+const rewards = clean(app.rewards);
+// icons (96² for 48² @2x) and banners (480 wide) ship as-is
+const iconSrc = app.icon?.src;
+const bannerSrc = app.banner?.src;
+const pending = !(app.rules || []).length && !(app.images || []).length;
+---
+<details
+  class={sub ? "app-sub" : "card app"}
+  id={`a-${app.id}`}
+  data-rw={!sub && rewards.length ? rewards.join(",") : undefined}
+>
+  <summary class="app-head">
+    {iconSrc ? (
+      <img class="app-icon" src={iconSrc} alt="" loading="lazy" decoding="async" width="48" height="48" />
+    ) : (
+      <span class="app-icon"><Icon name="farmland" /></span>
+    )}
+    <span class="app-title">
+      <Heading>{app.name}</Heading>
+      {app.blurb && <span class="app-blurb">{app.blurb}</span>}
+    </span>
+    {rewards.length > 0 && (
+      <span class="app-tags">
+        {app.rewards.map(reward => <i title={REWARDS[reward].note}>{reward}</i>)}
+      </span>
+    )}
+    <span class="chev" aria-hidden="true"><Icon name="chev" /></span>
+  </summary>
+  <div class="app-body">
+    {bannerSrc && <img class="app-banner" src={bannerSrc} alt="" loading="lazy" decoding="async" />}
+    <RulesList rules={app.rules} />
+    <Shots item={app} />
+    {pending && <Todo />}
+    {subs.length > 0 && (
+      <div class="app-subs">
+        <p class="lbl">Inside {app.name}</p>
+        {subs.map(child => <Astro.self app={child} sub />)}
+      </div>
+    )}
+    {app.summary && (
+      <div class="foot-row">
+        <RulesButton app={app} />
+      </div>
+    )}
+  </div>
+</details>

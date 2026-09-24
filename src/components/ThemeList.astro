@@ -1,0 +1,19 @@
+---
+// Theme picker rows. A theme's row carries its own data-theme, so it renders
+// in that theme's colors.
+import { THEMES, MODES } from "../lib/site.js";
+---
+{THEMES.map(({ id, name, note, icon }) => (
+  <button
+    type="button"
+    class="theme-option"
+    data-pick={id}
+    data-name={name}
+    data-icon={icon}
+    data-theme={MODES.has(id) ? undefined : id}
+    aria-pressed="false"
+  >
+    <span class="swatch" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span>{name}{note && <small>{note}</small>}</span>
+  </button>
+))}

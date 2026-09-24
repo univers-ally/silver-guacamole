@@ -1,0 +1,94 @@
+---
+// scripts/promos.js reads this markup (classes, data- attributes); change both together
+import Icon from "./Icon.astro";
+import Star from "./Star.astro";
+import Codes from "./Codes.astro";
+import Shots from "./Shots.astro";
+import RulesList from "./RulesList.astro";
+import RulesButton from "./RulesButton.astro";
+import Todo from "./Todo.astro";
+import { FACETS, TAB_LABEL, ratingOf, clean, hasCalc, hiddenWords } from "../lib/site.js";
+
+const { promo } = Astro.props;
+const rating = ratingOf(promo);
+const { id, name } = promo;
+const starred = [promo.type, promo.accepts, promo.payout]
+  .flatMap(values => values || [])
+  .some(value => String(value).endsWith("*"));
+const calc = hasCalc(promo);
+const pending = promo.pending || !(promo.rules || []).length;
+
+// data-r, data-p, data-a, data-t: what the facet filters match
+const facetAttrs = Object.fromEntries(
+  Object.entries(FACETS).flatMap(([facet, { attr }]) => {
+    const values = facet === "rating" ? [rating] : clean(promo[facet]);
+    return values.length ? [[`data-${attr}`, values.join(",")]] : [];
+  }),
+);
+// a tab promo's card shows a link instead of its rules; data-s keeps them searchable
+const unlisted = promo.tab ? hiddenWords(promo) : undefined;
+const facts = [
+  ["Type", promo.type],
+  ["Accepts", promo.accepts],
+  ["Payout", promo.payout],
+];
+---
+
+<article class="card promo" id={`p-${id}`} data-id={id} {...facetAttrs} data-s={unlisted}>
+  <div class="head">
+    <Star rating={rating} />
+    <h2>
+      <button type="button" class="toggle" aria-expanded="false" aria-controls={`b-${id}`}>{name}</button>
+    </h2>
+    {calc && (
+      <button
+        type="button"
+        class="icon"
+        data-open="calc"
+        aria-haspopup="dialog"
+        aria-label={`Calculator for ${name}`}
+        title="Calculator"
+      >
+        <Icon name="calc" />
+      </button>
+    )}
+    <button type="button" class="icon fav" aria-pressed="false" aria-label={`Add ${name} to favorites`}>
+      <Icon name="star" />
+    </button>
+    <button type="button" class="icon chevbtn" tabindex="-1" aria-hidden="true">
+      <span class="chev"><Icon name="chev" /></span>
+    </button>
+  </div>
+  <Codes codes={promo.codes} />
+  <div class="facts">
+    {facts.map(([label, values]) => (
+      <div class="fact">
+        <span class="lbl">{label}</span>
+        {values?.length ? <b>{values.join(", ")}</b> : <b class="unk">Unknown</b>}
+      </div>
+    ))}
+    {starred && <p class="fact-note">* not always offered</p>}
+  </div>
+  <div class="body" id={`b-${id}`}>
+    {promo.reward && <p class="reward" set:html={promo.reward} />}
+    {promo.tab ? (
+      <button type="button" class="go" data-tab={promo.tab}>Open the {TAB_LABEL[promo.tab]} tab</button>
+    ) : (
+      <>
+        <Shots item={promo} />
+        <RulesList rules={promo.rules} />
+        {pending && <Todo />}
+      </>
+    )}
+    {(promo.summary || calc) && (
+      <div class="foot-row">
+        {promo.summary && <RulesButton />}
+        {calc && (
+          <button type="button" class="info" data-open="calc" aria-haspopup="dialog">
+            <Icon name="calc" />Calculator
+          </button>
+        )}
+      </div>
+    )}
+  </div>
+</article>

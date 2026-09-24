@@ -1,0 +1,46 @@
+---
+// tabs={false} drops the tab bar and theme button, which need the scripts
+import Icon from "./Icon.astro";
+import { SITE, TABS } from "../lib/site.js";
+
+const { tabs = true } = Astro.props;
+---
+<div class="topwrap">
+  <header class="top">
+    <div class="bar">
+      <h1>{SITE.name} <span>{SITE.tagline}</span></h1>
+    </div>
+  </header>
+  {tabs && (
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      {TABS.map(({ id, label }, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`tab-${id}`}
+          aria-controls={id}
+          aria-selected={i === 0 ? "true" : "false"}
+          tabindex={i === 0 ? undefined : "-1"}
+        >
+          <Icon name={id} />
+          <span>{label}</span>
+        </button>
+      ))}
+    </nav>
+  )}
+  {tabs && (
+    <button
+      type="button"
+      class="theme"
+      id="theme"
+      aria-label="Theme: Auto"
+      title="Theme: Auto"
+      aria-haspopup="dialog"
+    >
+      <svg class="t-auto"><use href="#i-auto" /></svg>
+      <svg class="t-light"><use href="#i-light" /></svg>
+      <svg class="t-dark"><use href="#i-dark" /></svg>
+      <svg class="t-oled"><use href="#i-oled" /></svg>
+    </button>
+  )}
+</div>

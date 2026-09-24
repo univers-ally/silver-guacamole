@@ -1,0 +1,40 @@
+id: slash99
+order: 120
+name: Slash to max 99% OFF
+codes:
+  - slash99
+accepts:
+  - Credit
+  - Discounts
+payout:
+  - Discount
+type:
+  - Cashout
+date: "2026-05-28"
+summary: |-
+  Pick items from the page's pool; they can't be changed afterwards. Each qualifying order from the promo page that meets the minimum takes $1 off your picks for every $1 spent, starting with the cheapest pick.
+
+  • Your first qualifying order is required before you can buy the first pick.
+  • The discount the first order puts toward your second pick is capped; anything over the cap rolls to the third and fourth.
+  • Each later order adds a capped amount. The full discount needs the total spend shown on the page.
+  • Refunding the qualifying items from the first or second order, or from an order containing the third or fourth pick, so that only the discounted picks are left, cancels that order and ends your part in the promo.
+  • If refunds drop your total qualifying spend below 70% of the milestone, orders containing the third or fourth pick are cancelled. Other partial refunds shrink or take back the discounts.
+reward: Pick items, then spend on other stuff from the page to slash their prices, up to 99% off
+rules:
+  - t: <b>tl;dr:</b> Every $1 spend takes $1 off the items you picked, cheapest first. Make your first order the biggest one, since every order after it is capped
+  - t: Pick your items from the page's pool. Once picked, items cannot be changed!
+    warn: true
+  - t: Every qualifying order knocks $1 off your picks per $1 spent, starting from the cheapest item
+  - t: First qualifying order unlocks the first picked item
+  - t: Discount toward the 2nd item is capped. Overflow rolls to the 3rd and 4th
+  - t: Each order after that adds a capped amount. Full discount needs the total spend shown on the page
+    warn: true
+  - t: Refunding the qualifying items to try to get only the discounted picks bans you from the promo and cancels all related orders.
+    warn: true
+  - t: Drop below 70% of the milestone via refunds and orders with your 3rd/4th picks get canceled
+    warn: true
+  - t: Partial refunds shrink or remove discounts on whatever's left
+    warn: true
+images:
+  - src: ./8389a61f.webp
+    caption: Picking items to slash, each shown at max 99% off

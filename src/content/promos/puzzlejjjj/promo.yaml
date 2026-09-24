@@ -1,0 +1,126 @@
+id: puzzleJJJJ
+order: 160
+name: Collect Puzzle Pieces to Get Rewards
+codes:
+  - puzzleJJJJ
+accepts:
+  - Credit
+  - Discounts
+payout:
+  - Credit
+  - Coupons
+  - Gift
+type:
+  - Daily claim
+date: "2026-07-07"
+summary: |-
+  Unlock with a qualifying order on the promo page, then collect coloured puzzle pieces and redeem rewards in the order shown.
+
+  • Pieces come from daily check-ins or qualifying orders, depending on the colour, with a daily cap.
+  • Rewards can be credits, coupons or free gifts.
+  • Credits arrive automatically after you redeem them, can take up to 90 days, and can't be cashed out.
+  • Coupons can't be used inside this promo, and expire at 11:59 PM local time the day after you claim them.
+  • Each free gift needs an extra qualifying order to claim. Taxes and shipping may apply.
+  • Every order has to meet the minimum shown. Refunding an order takes back its pieces, and any reward you no longer have enough pieces for is cancelled. Refunding a gift's order cancels that gift.
+pending: true
+rules:
+  - t: <b>tl;dr:</b> Collect blue and yellow puzzle pieces from check-ins and orders to redeem rewards. The first order counts before credits, so it can cost $0. Use the Calculator to see how many extra orders you need to redeem the final credit
+  - t: "Seems like: Spend 50$ to get 50$ in credits. Requires an initial 10$, plus an extra 20$ for the missing blue pieces, plus a final 20$ to claim the 50$ credit."
+  - t: The qualifying purchase uses the order amount before reductions, so a $0 purchase can qualify
+    warn: true
+  - t: Bonus purchases use the final amount as the qualifying number, taxes included
+    warn: true
+calc:
+  note: "How to calculate if you'll finish the promo:"
+  formula: p<sub>target</sub> − (p<sub>initial</sub> + p<sub>bonus</sub> + (d<sub>total</sub> − d<sub>missed</sub>) × r<sub>daily</sub>)
+  rows: true
+  fields:
+    - k: tb
+      label: Target blue
+      value: "27"
+      row: Target
+      icon: b
+      step: "1"
+    - k: ty
+      label: Target yellow
+      value: "18"
+      icon: "y"
+      step: "1"
+    - k: ib
+      label: Initial blue
+      value: "5"
+      row: Initial
+      icon: b
+      step: "1"
+    - k: iy
+      label: Initial yellow
+      value: "5"
+      icon: "y"
+      step: "1"
+    - k: bb
+      label: Bonus blue
+      value: "0"
+      row: Bonus
+      icon: b
+      step: "1"
+    - k: by
+      label: Bonus yellow
+      value: "3"
+      icon: "y"
+      step: "1"
+    - k: db
+      label: Daily blue
+      value: "1"
+      row: Daily
+      icon: b
+      step: "1"
+    - k: dy
+      label: Daily yellow
+      value: "2"
+      icon: "y"
+      step: "1"
+    - k: d
+      label: Total days
+      value: "20"
+      row: Days
+      tag: total
+      step: "1"
+    - k: md
+      label: Days missed
+      value: "0"
+      tag: missed
+      step: "1"
+    - k: po
+      label: Blue per extra order
+      value: "6"
+      row: Order
+      icon: b
+      step: "1"
+    - k: mo
+      label: Minimum order
+      value: "20.00"
+      tag: min $
+  derived:
+    days: max(0, d - md)
+    b: max(0, ceil(tb - ib - bb - db * days))
+    "y": max(0, ceil(ty - iy - by - dy * days))
+  out: "Still short:"
+  f: 'y > 0 ? "∞ IMPOSSIBLE :(" : b ? num(b) + " Blue" : "Nothing"'
+  hint: |-
+    y > 0 ? "Yellow only comes from check-ins, so <b>" + num(y) + "</b> short cannot be bought back."
+            : !b ? "<b>COMPLETE!</b> Finish your daily claims!"
+            : !(po > 0) ? "Set how many blue pieces one qualifying order pays."
+            : "<b>" + num(ceil(b / po)) + " more</b> " + $(mo) + "+ order(s)"
+images:
+  - src: ./9614e9ed.webp
+    caption: The initial page, before unlocking
+  - src: ./87af9bb8.webp
+    caption: The initial order pays pieces to start
+  - src: ./ff369e00.webp
+    caption: Bonus missions pay extra pieces, like this quiz
+  - src: ./f0ec7894.webp
+    caption: Once you qualify it turns into a daily claim
+  - src: ./ea997a04.webp
+    caption: The initial order qualifies on the pre-credit total
+  - src: ./60c6dce2.webp
+    caption: A bonus order qualifies on the final total

@@ -1,0 +1,9 @@
+---
+// rule text is trusted HTML from the promo files (<b>, <code>, <sub>)
+const { rules = [] } = Astro.props;
+---
+{rules.length > 0 && (
+  <ul class="rules">
+    {rules.map(rule => <li class={rule.warn ? "warn" : undefined} set:html={rule.t} />)}
+  </ul>
+)}

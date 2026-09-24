@@ -1,0 +1,49 @@
+id: save7777
+order: 150
+name: Temu Coins
+codes:
+  - save7777
+accepts:
+  - Credit
+  - Coupons
+  - Discounts
+payout:
+  - Discount
+  - Credit
+  - Coupons
+  - Gift
+type:
+  - Daily claim
+date: "2026-03-13"
+summary: |-
+  Earn Temu Coins from any Temu order and from daily check-ins on the promo page, then spend them there on free prizes or discounts.
+
+  • Orders earn $0.10 in coins per $1 spent, up to $100 in coins a day. Tap Claim within 24 hours or they expire.
+  • Check-ins pay coins, with bonuses for a streak. Missing a day resets the streak. Check-ins may also offer a free gift, which needs a qualifying order within 24 hours; a gift claimed in an earlier cycle can't be claimed again.
+  • Coins expire 30 days after they're credited.
+  • Prizes: spend coins to pick one, then order it within 24 hours, or it expires and the coins aren't refunded. One prize a day. Cancelling or returning the prize order refunds the coins.
+  • Discounts: $1 off per 10 coins, at most $50 or 20% of the item's reference price. Can't be combined with other offers.
+  • Coins can't be transferred, cashed out or used elsewhere. A refund can take back coins earned from that order.
+  • Minimum orders and shipping fees apply. The promo runs until Temu ends it.
+reward: Earn coins from orders + check-ins, spend them on free items or discounts
+rules:
+  - t: <b>tl;dr:</b> Essentially "passive income." Every Temu order earns 10% back in coins, but only if you tap Claim within 24h. Spend them on free prizes or discounts before they expire in 30 days
+  - t: $0.10 in coins per $1 spent on any Temu order. Off-page orders show up when you tap Claim
+  - t: Claim within 24h or they vanish. $100/day cap from orders
+    warn: true
+  - t: Daily check-in gives coins with a streak bonus. Miss a day and the streak resets
+    warn: true
+  - t: Coins expire after 30 days
+    warn: true
+  - t: "Discounts: 10 coins = $1 off, capped at $50/item and 20% of the listed price. Can't stack"
+  - t: Prizes rotate, and out-of-stock ones get swapped daily
+  - t: You can also turn coins into credit ($5, needs 14 consecutive check-ins) or grab daily instant coupons (one per order)
+images:
+  - src: ./3c95e43b.webp
+    caption: "Main page: balance, check-ins, gifts"
+  - src: ./a971d584.webp
+    caption: 10% Tcoins back on everything
+  - src: ./de4a36f9.webp
+    caption: Free prizes (cost coins)
+  - src: ./8a3ca2db.webp
+    caption: Redeem coins for credit or coupons

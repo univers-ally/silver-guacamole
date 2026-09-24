@@ -1,0 +1,29 @@
+---
+import { getCollection, render } from "astro:content";
+import Icon from "./Icon.astro";
+import Shots from "./Shots.astro";
+
+const sections = (await getCollection("tips")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="panel" id="tips" role="tabpanel" aria-labelledby="tab-tips" hidden>
+  <div class="stack">
+    {
+      sections.map(async section => {
+        const { Content } = await render(section);
+        return (
+          <details class="card sec">
+            <summary class="title">
+              <h2>{section.data.title}</h2>
+              <span class="chev" aria-hidden="true"><Icon name="chev" /></span>
+            </summary>
+            <div class="sec-body">
+              <Content />
+              <Shots item={{ name: section.data.title, images: section.data.images }} />
+            </div>
+          </details>
+        );
+      })
+    }
+  </div>
+</section>

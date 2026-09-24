@@ -1,0 +1,41 @@
+id: stargift000
+order: 30
+name: "[Free Gift(s) with Eligible Purchases]"
+codes:
+  - star gift000
+accepts:
+  - Credit
+  - Discounts
+rating: bad
+payout:
+  - Gift
+  - Coupons
+type:
+  - Coupon Bundle
+date: "2026-01-15"
+summary: |-
+  Pick free items on the promo page, then earn "stars" by placing orders that meet the page's minimum spend. Once you have enough stars for an item, it ships free with that order.
+
+  • Picked items can't be changed.
+  • Stars are a percentage of the items' listed price, excluding tax, shipping and other charges. Some orders earn a higher rate, up to a cap.
+  • Your picked free items must already be in the order when you place it.
+  • Your first order may also get a coupon bundle worth up to 100% of its value, capped at $100. Thresholds and values show on the page; expiry only after you receive the coupons.
+  • A refund that drops an order below the minimum, or leaves too few stars for an item you redeemed, cancels that item. If it already shipped, you may be charged its full price.
+reward: 'Earn stars by ordering, "trade" them for free stuff (seen: 5 gifts up to $385). First order also gets coupons, max $100'
+rules:
+  - t: <b>tl;dr:</b> Order to earn stars toward your selected "free" gifts. The first order also gets a ~$100 coupon bundle
+  - t: Pick what you want on the promo page, then add it to your cart before checkout
+  - t: Chosen items cannot be changed once picked.
+    warn: true
+  - t: Orders above the minimum earn stars, a stated % of the items' listed price
+  - t: Stars come from the item price only, not tax/shipping
+    warn: true
+  - t: Some orders may give a boosted star rate (capped)
+  - t: First order also gets a coupon bundle matching its value, up to $100, mostly garbage
+  - t: Coupon details are on the page, but expiry dates only show up after you get them
+    warn: true
+  - t: If you refund enough to drop below the minimum, all provided rewards are cancelled.
+    warn: true
+images:
+  - src: ./1743e09b.webp
+    caption: Five gift slots, wishlist worth $385

@@ -1,0 +1,60 @@
+/* ---------- tips ---------- */
+.card.sec {
+  --pad: 14px;
+  padding: 0;
+
+  & > summary {
+    padding: var(--pad);
+  }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  & h2 {
+    flex: 1;
+  }
+}
+
+.sec-body {
+  padding: 0 var(--pad) 16px;
+
+  & p {
+    margin: 6px 0 10px;
+  }
+
+  & ol,
+  & ul {
+    margin: 4px 0 10px;
+  }
+
+  & h3 {
+    margin: 18px 0 4px;
+    font-size: 15px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  /* Markdown wraps an image in its own <p> */
+  & > p:has(> img:only-child) {
+    margin: 0;
+  }
+
+  & > p > img:only-child {
+    display: block;
+    width: 100%;
+    max-width: 420px;
+    margin: 8px auto 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-s);
+  }
+
+  & .shots {
+    max-width: 640px;
+    margin-inline: auto;
+  }
+}

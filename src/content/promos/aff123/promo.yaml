@@ -1,0 +1,21 @@
+id: aff123
+order: 100
+name: Affiliate
+codes:
+  - aff123
+rating: bad
+payout:
+  - Cash
+  - Credit
+type:
+  - Cashout
+reward: Referral cash + daily check-in coins
+rules:
+  - t: <b>tl;dr:</b> Invite people for referral cash and check in daily for coins. Cash out to PayPal or take it as credit
+  - t: Cash out to PayPal or use as Temu credit
+  - t: 7-day check-in for coins
+  - t: Free gifts for signing up, first share, and inviting someone
+  - t: Referral bonus and Ranking Race unlock later
+images:
+  - src: ./f401b730.webp
+    caption: "Affiliate page: $2 balance, check-in calendar, invite 1 user to withdraw $31"

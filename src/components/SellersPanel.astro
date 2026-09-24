@@ -1,0 +1,45 @@
+---
+// The Sellers tab. scripts/sellers.js drives the chips and sort by id.
+import Icon from "./Icon.astro";
+import SellerCard from "./SellerCard.astro";
+import SellerKey from "./SellerKey.astro";
+import { SELLER_FILTERS, longDate } from "../lib/site.js";
+import { SELLERS, SELLERS_UPDATED } from "../lib/content.js";
+---
+<section class="panel" id="sellers" role="tabpanel" aria-labelledby="tab-sellers" hidden>
+  <p class="lead">
+    <Icon name="warn" />
+    <span>
+      While they're top sellers, you still have the chance to get a demolished, weighed,
+      repackaged, resealed set of cards. Shop responsibly.
+    </span>
+  </p>
+  <div class="chips scroll" id="seller-chips">
+    {SELLER_FILTERS.map(({ key, emoji, chip }) => (
+      <button type="button" class="chip" data-f={key} aria-pressed="false">{emoji} {chip}</button>
+    ))}
+  </div>
+  <div class="status">
+    <span id="seller-count">{SELLERS.length} sellers</span>
+    <label class="tool sort">
+      <Icon name="sort" />
+      <select id="seller-sort" aria-label="Sort sellers">
+        <option value="default">Default order</option>
+        <option value="rating">Highest rated</option>
+        <option value="sold">Most sold</option>
+        <option value="reviews">Most reviews</option>
+      </select>
+    </label>
+  </div>
+  <div id="seller-list">
+    {SELLERS.map(seller => <SellerCard seller={seller} />)}
+    <div class="empty" hidden>
+      <b>No sellers matched.</b>
+      <span>Try removing your filter(s).</span>
+    </div>
+  </div>
+  <div class="notes">
+    <SellerKey />
+    <p class="meta">Last updated: {longDate(SELLERS_UPDATED)}</p>
+  </div>
+</section>

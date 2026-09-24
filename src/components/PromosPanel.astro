@@ -1,0 +1,58 @@
+---
+// The Promos tab. scripts/promos.js drives the search, filters and sort by id.
+import Facets from "./Facets.astro";
+import Icon from "./Icon.astro";
+import PromoCard from "./PromoCard.astro";
+import { RATING } from "../lib/site.js";
+import { PROMOS } from "../lib/content.js";
+
+const legend = Object.values(RATING)
+  .map(({ emoji, chip }) => `${emoji} ${chip.toLowerCase()}`)
+  .join(" · ");
+---
+<section class="panel" id="promos" role="tabpanel" aria-labelledby="tab-promos">
+  <div class="tools">
+    <label class="search">
+      <Icon name="search" />
+      <input
+        id="q"
+        type="search"
+        placeholder="Search promos or codes"
+        aria-label="Search promos"
+        autocomplete="off"
+      />
+    </label>
+    <button
+      type="button"
+      class="tool"
+      id="filter-btn"
+      aria-label="Filters"
+      aria-haspopup="dialog"
+      aria-expanded="false"
+    >
+      <Icon name="filter" />
+      <span class="tool-label">Filter</span>
+      <span class="badge" id="filter-count" hidden></span>
+    </button>
+    <label class="tool sort">
+      <Icon name="sort" />
+      <select id="sort" aria-label="Sort promos">
+        <option value="default">Default order</option>
+        <option value="rating">Best rated first</option>
+        <option value="name">Name A to Z</option>
+      </select>
+    </label>
+  </div>
+  <div class="facets" id="facets">
+    <Facets />
+  </div>
+  <div class="active" id="active" hidden></div>
+  <div class="status">
+    <span id="count">{PROMOS.length} promos</span>
+    <span class="legend">{legend}</span>
+  </div>
+  <div id="list">
+    {PROMOS.map(promo => <PromoCard promo={promo} />)}
+    <div class="empty" hidden>No promos match.</div>
+  </div>
+</section>

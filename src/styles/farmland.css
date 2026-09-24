@@ -1,0 +1,388 @@
+/* ---------- farmland: the primer and the apps ---------- */
+
+.primer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  & .foot-row {
+    justify-content: space-between;
+  }
+
+  & .meta {
+    padding: 0;
+  }
+}
+
+.apps-wrap {
+  display: grid;
+  gap: 10px;
+}
+
+.apps-title {
+  padding-top: 6px;
+  font-size: 17px;
+}
+
+.apps {
+  display: grid;
+  align-items: start;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.card.app {
+  padding: 0;
+
+  &[open] {
+    grid-column: 1 / -1;
+  }
+}
+
+.app-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px;
+
+  & .chev {
+    display: none;
+    flex: none;
+  }
+}
+
+.app[open] > .app-head,
+.app-sub > .app-head {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+
+  & .chev {
+    display: block;
+  }
+}
+
+.app-icon {
+  display: grid;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--sunk);
+  color: var(--muted);
+  object-fit: cover;
+  place-items: center;
+
+  & svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 1.8;
+  }
+}
+
+.app-title {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+
+  & h3,
+  & h4 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 650;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+}
+
+.app-blurb {
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+
+.app-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  & i {
+    padding: 1px 7px;
+    border-radius: 6px;
+    background: var(--accent-tint);
+    color: var(--accent-text);
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+}
+
+.app-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 12px 14px;
+}
+
+.app-banner {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+}
+
+.app-subs {
+  display: grid;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+
+  & .lbl {
+    margin: 0;
+  }
+}
+
+.app-sub {
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+  background: var(--sunk);
+
+  & > .app-head {
+    padding: 10px;
+    & .app-tags {
+      flex-direction: column;
+      align-items: flex-end;
+    }
+  }
+
+  & .app-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--surface);
+
+    & svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  & .app-body {
+    padding: 0 10px 12px;
+  }
+}
+
+.calc-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.calc-formula {
+  margin: 0;
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.calc-fields {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+
+  & label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+  }
+}
+
+.calc-tpl {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--sunk);
+  color: var(--ink-2);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.calc-tpl b,
+.calc-out b {
+  color: var(--accent-text);
+  font-weight: 650;
+}
+
+.calc-cols {
+  display: grid;
+  row-gap: 1px;
+  grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+  column-gap: 12px;
+}
+
+.calc-rows {
+  display: grid;
+  gap: 10px;
+}
+
+.calc-row {
+  display: grid;
+  align-items: center;
+  gap: 8px;
+  grid-template-columns: 58px repeat(var(--cols, 2), minmax(0, 1fr));
+}
+
+.calc-row-label {
+  overflow: hidden;
+  min-width: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calc-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.calc-mark {
+  display: flex;
+  flex: none;
+  align-items: center;
+  min-width: 18px;
+}
+
+.calc-pip {
+  justify-content: center;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.calc-fields .calc-check {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  grid-column: 1 / -1;
+  font-size: 13px;
+
+  & input {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: var(--accent-deep);
+  }
+
+  & span {
+    color: var(--ink);
+  }
+}
+
+#calc-body input[type="number"] {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+
+  &:focus {
+    border-color: transparent;
+    outline: 2px solid var(--accent);
+  }
+}
+
+.calc-out {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--sunk);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.calc-out-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+
+  & output {
+    color: var(--ink);
+    font-size: 17px;
+    font-weight: 650;
+  }
+
+  & output.rich {
+    font-weight: 400;
+  }
+}
+
+.calc-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.calc-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -10px;
+}
+
+.tzcalc {
+  display: grid;
+  gap: 8px;
+  margin: 6px 0 12px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--sunk);
+  font-size: 13px;
+
+  & > #tz-out > span {
+    color: var(--muted);
+  }
+
+  & .tz-zone {
+    margin: 2px 0 8px;
+
+    & span {
+      color: var(--muted);
+    }
+  }
+
+  & .tz-list div {
+    margin: 4px 0;
+    color: var(--ink);
+    font-size: 14px;
+  }
+
+  & .tz-list span {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  & .tz-since {
+    margin-top: 6px;
+    font-size: 12px;
+  }
+}

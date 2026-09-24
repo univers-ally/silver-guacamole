@@ -1,0 +1,281 @@
+/* ---------- search, sort, filter button ---------- */
+.tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+  background: var(--surface);
+  color: var(--muted);
+
+  &:focus-within {
+    border-color: transparent;
+    outline: 2px solid var(--accent);
+  }
+
+  & svg {
+    flex: none;
+    width: 18px;
+    height: 18px;
+  }
+
+  & input {
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: 16px;
+
+    &::placeholder {
+      color: var(--muted);
+    }
+
+    &::-webkit-search-cancel-button {
+      appearance: none;
+    }
+  }
+}
+
+.tool {
+  position: relative;
+  display: flex;
+  flex: none;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  min-width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+
+  &:focus-within {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  & svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &.on {
+    border-color: var(--accent-deep);
+    color: var(--accent-deep);
+  }
+
+  &.sort {
+    overflow: hidden;
+
+    & svg {
+      position: absolute;
+      top: 10px;
+      left: 11px;
+      pointer-events: none;
+    }
+
+    & select {
+      width: 40px;
+      height: 40px;
+      border: 0;
+      background: var(--surface);
+      color: var(--ink);
+      opacity: 0;
+      font: inherit;
+      cursor: pointer;
+      appearance: none;
+    }
+  }
+}
+
+.tool-label {
+  display: none;
+}
+
+#filter-btn {
+  border-style: dashed;
+
+  &.on {
+    border-style: solid;
+  }
+}
+
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--accent-deep);
+  color: var(--accent-ink);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0 4px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.legend {
+  white-space: nowrap;
+}
+
+.lbl {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ---------- filter chips ---------- */
+.facets {
+  display: none;
+}
+
+.facet {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  & legend {
+    margin: 0 0 8px;
+    padding: 0;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chips.scroll {
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  padding-bottom: 2px;
+  mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent 100%);
+  white-space: nowrap;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  & .chip {
+    flex: none;
+  }
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+
+  &:hover {
+    border-color: var(--muted);
+  }
+
+  &.on {
+    border-color: var(--accent-deep);
+    background: var(--accent-deep);
+    color: var(--accent-ink);
+  }
+
+  & svg {
+    width: 15px;
+    height: 15px;
+    stroke-width: 1.8;
+  }
+
+  &.fav svg {
+    fill: var(--accent);
+    stroke: var(--accent);
+  }
+
+  &.fav.on svg {
+    fill: var(--accent-ink);
+    stroke: var(--accent-ink);
+  }
+}
+
+.active {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding-top: 10px;
+
+  & .clear {
+    padding: 0 6px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+  }
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 4px 0 10px;
+  border-radius: 6px;
+  background: var(--accent-tint);
+  color: var(--accent-text);
+  font-size: 13px;
+  font-weight: 600;
+
+  & button {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    font-size: 11px;
+
+    &:hover {
+      background: var(--hover);
+    }
+  }
+}

@@ -1,0 +1,8 @@
+---
+// only badges some listed seller has
+import { SELLER_BADGE, HIDDEN_BADGES } from "../lib/site.js";
+import { USED_BADGES } from "../lib/content.js";
+
+const shown = Object.entries(SELLER_BADGE).filter(([key]) => USED_BADGES.has(key) && !HIDDEN_BADGES.has(key));
+---
+{shown.map(([, badge]) => <p><b>{badge.emoji} {badge.label}</b> {badge.legend}</p>)}

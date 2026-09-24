@@ -1,0 +1,11 @@
+---
+const { codes } = Astro.props;
+---
+<div class="codes">
+  {codes.map(code => (
+    <div class="code">
+      <code>{code}</code>
+      <button type="button" data-code={code} aria-label={`Copy code ${code}`}>Copy</button>
+    </div>
+  ))}
+</div>

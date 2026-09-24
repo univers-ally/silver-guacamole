@@ -1,0 +1,75 @@
+id: wincash
+order: 80
+name: Place Orders to Win Credits and Cash Back
+codes:
+  - wincredit
+  - wincash
+accepts:
+  - Credit
+  - Discounts
+rating: good
+payout:
+  - Cash*
+  - Credit
+type:
+  - Cashout
+date: "2025-11-17"
+summary: |-
+  Place orders from the promo page within the time limit (3 days from joining, unless the page says otherwise) to fill a progress bar. Fill it and you can claim the cash or credit shown.
+
+  • Each order adds a percentage of what you pay, not counting tax and shipping. Progress per order may be capped, and some non-purchase activities may add a little too.
+  • The amount needed to fill the bar varies.
+  • Credits can take up to 90 days after you confirm you received each order.
+  • If items become unavailable, get a price adjustment, or are cancelled or refunded so the order no longer qualifies, Temu can hold back or take back rewards and cut your progress. Issued credits are taken back unless the refund is for a quality problem or a wrong or defective item.
+  • After a cash reward, you can only get the credit version for a cooling-off period.
+reward: Fill a progress bar to unlock cash or credit. Page picks a random minspend
+rules:
+  - t: <b>tl;dr:</b> Orders fill a progress bar toward cash or credit. Check the Remaining spent ⓘ or use the Calculator to finish in one order, since the rate can get worse on the next offer
+  - t: Buy from the promo page. Each order adds a % to the progress bar
+  - t: The version that needs a purchase to unlock is really just gatekeeping the EXTRA amount. Wait long enough and it unlocks on its own, but with no extra bonus, which makes it effectively impossible
+    warn: true
+  - t: If you don't qualify with a single order, the next one might have a worse "Cash Balance" rate! (The opposite is also true)
+    warn: true
+  - t: 'Extremely rare flavors: Single-order progress can be capped, but usually aren''t. Some "free activities" also add a little but are almost never seen.'
+  - t: Fill the bar before time runs out, then claim. The timer may or may not be real. If it's fake, it'll run out and then refresh to be the duration of the entire promo.
+  - t: The page has a Remaining spent ⓘ that shows roughly how much more you need. If you can't find it, leave and re-enter the promo.
+  - t: Items going out of stock, repricing, or refunds below threshold may mean that rewards are cancelled and progress is cut, but this really only applies when multiple orders are used to qualify.
+    warn: true
+  - t: Refunds revoke issued credits (unless it's a quality/defective issue). Cash is exempt by nature, but don't try to literally scam Temu please.
+    warn: true
+  - t: "If you complete the promo, you're stuck with one of two states: credit-only versions (cash version only), or being temporarily banned from the promo entirely. Cooloffs people have hit: 1h, 24h, 48h, 1 week, 3 weeks"
+calc:
+  note: Total Spend Calculator:<br>( You can also view your min spend in the "Remaining spent ⓘ" tooltip. )
+  formula: (C<sub>remaining</sub> − B<sub>extra</sub>) ÷ P<sub>back</sub> = spend still needed
+  tpl:
+    - "Total event balance: {=total:2}"
+    - ${c} confirmed + ${x} remaining in cash back to withdraw all
+    - 🪙 {r}% Cash Balance Back + EXTRA ${y}
+  fields:
+    - k: c
+      label: Confirmed
+      value: "346.50"
+    - k: x
+      label: Remaining
+      value: "3.50"
+    - k: r
+      label: Balance Back %
+      value: "0.20"
+    - k: "y"
+      label: Extra
+      value: "2.34"
+  derived:
+    total: c + x
+    need: (x - y) / (r / 100)
+  out: "Total Spend:"
+  f: 'finite(need) ? max(0, need) : "—"'
+  hint: 'finite(need) ? "<b>" + $$(max(0, need) - total) + "</b> total spend after returns" : ""'
+images:
+  - src: ./73bc47ae.webp
+    caption: Credit version
+  - src: ./5d088cdd.webp
+    caption: Cash version, locked until a first order
+  - src: ./027e41db.webp
+    caption: Cash version, active and nearly done
+  - src: ./3e829aa7.webp
+    caption: The tooltip showing how much more you need

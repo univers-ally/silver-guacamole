@@ -1,0 +1,45 @@
+id: calendar1000
+order: 40
+name: TEMU Gift Calendar
+codes:
+  - calendar1000
+  - QQQQ
+accepts:
+  - Credit
+  - Discounts
+payout:
+  - Coupons
+  - Gift
+type:
+  - Daily claim
+  - Coupon Bundle
+date: "2026-04-03"
+summary: |-
+  Pick an Ultimate Gift, unlock the calendar by ordering the minimum number of items shown, then claim every Daily Gift. Claiming all of them earns the Ultimate Gift for free.
+
+  • The Daily Gifts add up to $1 in credit, up to $1,000 in coupon "savings", and 7 reward items you choose.
+  • The $1,000 is what every coupon would save if you met all their minimums. It is not cash value.
+  • Each coupon has its own conditions (for example, a 24-hour expiry, or local-warehouse items only). One coupon per order.
+  • Reward items ship with an order. Shipping fees and a minimum order may apply.
+  • Miss a day's claim and you lose that day's gift and the Ultimate Gift. Some versions let you spend coins, earned from browsing or ordering tasks, to reclaim a missed day or claim ahead. Coins have no cash value.
+  • Cancelling or refunding any order forfeits the gifts, rewards and coins tied to it.
+reward: Open daily gifts to unlock a free Ultimate Gift. The headline number is mostly coupons.
+rules:
+  - t: <b>tl;dr:</b> Pick an Ultimate Gift and then unlock the daily claims with an order. Manage your coins carefully to claim multiple gifts in one day. Gifts require an order to ship with
+  - t: Pick your Ultimate Gift, then unlock the calendar by buying the number of items it asks for
+  - t: Free items need an order to ship with, so pick them first, then buy.
+    warn: true
+  - t: If multiple free items are ready at once, try to grab them all in one order. You can use coins to force this.
+  - t: "Coins stack up per $ spent (seen: 1,000 per $10) with bonuses for more orders"
+  - t: Coupon restrictions (24h expiry, local-only, etc.) are hidden until you get them. One per order
+    warn: true
+  - t: Some versions let you recover missed days or pre-claim future ones using coins from daily tasks
+  - t: Refund any order and everything tied to it (gifts, rewards, coins) is reclaimed
+    warn: true
+images:
+  - src: ./bd93fb47.webp
+    caption: Just started, calendar locked
+  - src: ./624f07cc.webp
+    caption: Items ready to grab
+  - src: ./dc3c5b03.webp
+    caption: All days done

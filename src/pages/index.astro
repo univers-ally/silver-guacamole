@@ -1,0 +1,19 @@
+---
+import Base from "../layouts/Base.astro";
+import PromosPanel from "../components/PromosPanel.astro";
+import SellersPanel from "../components/SellersPanel.astro";
+import TabPanel from "../components/TabPanel.astro";
+import Tips from "../components/Tips.astro";
+import { TABS } from "../lib/site.js";
+import { PROMOS, DETAIL_FILE } from "../lib/content.js";
+---
+<Base detail={`/${DETAIL_FILE}.json`}>
+  <PromosPanel />
+  <SellersPanel />
+  <Tips />
+  {TABS.filter(tab => tab.promo).map(tab => (
+    <section class="panel stack" id={tab.id} role="tabpanel" aria-labelledby={`tab-${tab.id}`} hidden>
+      {PROMOS.filter(promo => promo.tab === tab.id).map(promo => <TabPanel promo={promo} />)}
+    </section>
+  ))}
+</Base>

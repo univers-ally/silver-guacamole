@@ -1,0 +1,47 @@
+id: claimgift
+order: 10
+name: Free Gift(s)
+codes:
+  - claimgift
+accepts:
+  - Credit
+  - Discounts
+payout:
+  - Gift
+  - Coupons
+type:
+  - Daily claim
+  - Coupon Bundle
+date: "2024-07-07"
+summary: |-
+  Place one order from the promo page that meets the minimum payment amount before the timer ends. That unlocks the free item(s) you picked beforehand, plus a coupon bundle worth up to $100.
+
+  • The minimum counts what you actually pay after discounts. Tax and shipping don't count.
+  • Pick the free items before you order. Claim them by tapping "grab" on the promo page, one per day, before they expire. Unclaimed items are forfeited.
+  • Coupons expire at midnight the day after you claim them.
+  • Cancelling or refunding enough to drop the order below the minimum cancels the order and takes back all rewards.
+  • If Temu can't deliver a reward (for example, it's out of stock), you can pick again, or get a coupon or credit worth its selling price.
+reward: Pick free items one at a time. 3-4 Gifts + Coupons
+rules:
+  - t: <b>tl;dr:</b> Pick free gifts then place one order over the minimum. Daily claim the gifts, and the 4th slot is coupons
+  - t: "Pick your gifts on the promo page before you buy anything. Slots open one at a time (seen: 3 picks, then a mystery 4th)"
+  - t: "That last slot is coupons, not a gift. Worth 100% of a qualifying order (seen: $20 min spend, $100 max)"
+  - t: 'Check the ⓘ before you buy. The "$100" is really a pile of coupons with high minimums (seen: 3×$15 off $135, 4×$10 off $100, 3×$5 off $60)'
+    warn: true
+  - t: Place an order above the minimum before time runs out
+  - t: The minimum is what you actually pay after discounts. Tax and shipping explicitly don't count
+    warn: true
+  - t: One gift claim per day. Coupons are 24h expiry.
+  - t: Refunding below the minimum kills the order and all your rewards
+    warn: true
+images:
+  - src: ./323ffed9.webp
+    caption: Picking the 2nd gift, 3rd still locked
+  - src: ./42daec4c.webp
+    caption: Picking the 3rd gift, mystery box is next
+  - src: ./4be8da21.webp
+    caption: "4th slot: it's coupons, not a gift ($20 min order)"
+  - src: ./1d8dc716.webp
+    caption: Ready to check out with $100 coupons back
+  - src: ./3678ffe4.webp
+    caption: What the $100 bundle actually contains

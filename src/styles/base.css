@@ -1,0 +1,179 @@
+/* ---------- base ---------- */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+  background: var(--paper);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom, 0));
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+
+  &.locked {
+    overflow: hidden;
+  }
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.sprite {
+  display: none;
+}
+
+svg {
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+summary {
+  list-style: none;
+  cursor: pointer;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+details:not([open]) > summary .chev {
+  transform: rotate(-90deg);
+}
+
+.pill button,
+.active .clear,
+.icon,
+.code button,
+.close,
+.reset,
+.chip {
+  position: relative;
+}
+
+.pill button::after,
+.active .clear::after,
+.icon::after,
+.code button::after,
+.close::after,
+.reset::after,
+.chip::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 44px);
+  height: max(100%, 44px);
+  content: "";
+  translate: -50% -50%;
+}
+
+.chip::after {
+  width: 100%;
+}
+
+.chip:active,
+.icon:active,
+.close:active,
+.reset:active,
+.theme:active,
+.tool:active,
+.tabs button:active,
+.code button:active,
+.info:active,
+.go:active,
+.apply:active,
+.shot:active {
+  box-shadow: inset 0 0 0 999px var(--hover);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+code {
+  color: var(--accent-deep);
+  font-family: var(--mono);
+  font-size: 0.93em;
+  font-weight: 600;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+
+  & span {
+    color: var(--top-muted);
+    font-weight: 400;
+  }
+}
+
+h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+li {
+  margin: 7px 0;
+}
+
+li::marker {
+  color: var(--faint);
+}
+
+/* ---------- without scripts, show everything and drop the dead controls ---------- */
+html:not(.js) .panel[hidden] {
+  display: block !important;
+}
+
+html:not(.js) body {
+  padding-bottom: 0;
+}
+
+html:not(.js) .tabs,
+html:not(.js) .theme,
+html:not(.js) .tools,
+html:not(.js) .facets,
+html:not(.js) .chips,
+html:not(.js) .status .tool,
+html:not(.js) .tzcalc,
+html:not(.js) .head [data-open],
+html:not(.js) .foot-row,
+html:not(.js) .fav,
+html:not(.js) .code button,
+html:not(.js) .chevbtn {
+  display: none;
+}

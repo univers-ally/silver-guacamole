@@ -1,0 +1,7 @@
+---
+import { RATING } from "../lib/site.js";
+
+const { rating } = Astro.props;
+const { emoji, label } = RATING[rating];
+---
+<span class={`star ${rating}`} role="img" title={label} aria-label={label}>{emoji}</span>

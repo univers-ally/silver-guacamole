@@ -1,0 +1,50 @@
+id: cccccccc
+order: 130
+name: Place Orders to Win Credits Back
+codes:
+  - cccccccc
+accepts:
+  - Credit
+  - Discounts
+payout:
+  - Credit
+type:
+  - Daily claim
+  - Cashout
+date: "2026-09-21"
+summary: |-
+  Unlock by placing one order over the amount shown, collect Credit Passes by doing the tasks on the page, then use the passes to withdraw your unlocked credit.
+
+  • Up to 99 passes, worth up to $100 in credit in total. The promo ends early once you reach 99 passes or redeem $100.
+  • Time limit: 10 days from joining, unless the page says otherwise.
+  • Credits can take up to 90 days after you confirm you received each order, and spending them is subject to Temu's minimum purchase.
+  • If items become unavailable, get a price adjustment, or are cancelled or refunded so the order no longer qualifies, Temu can hold back or take back rewards and cut your progress. Issued credits are taken back unless the refund is for a quality problem or a wrong or defective item.
+reward: "Unlock with one order, buy just enough passes to reach 99, and collect what's left of the prize (seen: $100–$200)"
+rules:
+  - t: <b>tl;dr:</b> Every order earns 1 pass, whatever the spend. Add up what the remaining daily check-ins will give you and buy exactly the number of passes you're short on $10 days
+  - t: "To qualify, order over the minimum from the promo page to unlock (seen: $12 min)"
+  - t: Each order earns 1 pass. There's no benefit to spending over the minimum, and several orders a day are fine
+    warn: true
+  - t: "The full reward still costs ~$80 (seen: $76, $80, $84). The promo raises later minimums to force this (seen: last pass at $50, $79)"
+    warn: true
+  - t: "Check the minimum each day and buy on the $10 days (seen: 2+ per run)"
+  - t: Skip the x40 bonus pop-up ($15 for 40 passes). The 40 passes show up free on day 2 anyway
+    warn: true
+  - t: Daily gift boxes raise the minspend. Tap the X on the auto-claim screen to skip them and prevent the raised minspend from applying
+    warn: true
+  - t: At 99 passes the rest of the prize is released, pending until all items ship
+  - t: If you don't want the full reward, a single $10 order plus daily check-ins allows you to go ~net positive
+  - t: "Seen passes: Black (Spend $10, Get $5), Diamond (Spend $20, Get $10), Gold (Spend $35, Get $15–20)"
+images:
+  - src: ./fda812b0.webp
+    caption: $150 version (+$50 bonus)
+  - src: ./a69aaedd.webp
+    caption: $100 version, no bonus
+  - src: ./08863b14.webp
+    caption: "Some days prompt an extra order for bonus passes (seen: +43 passes, $15 min)"
+  - src: ./32fbb08d.webp
+    caption: The x40 bonus pop-up ($15 for 40 passes). Skip it, they come free on day 2
+  - src: ./498fd9e0.webp
+    caption: Rewards come in increments to keep you coming back
+  - src: ./57ceabe2.webp
+    caption: Corresponding pass records

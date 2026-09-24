@@ -1,0 +1,25 @@
+---
+// rendered twice: inline on wide screens, in the Filters sheet on narrow ones
+import Icon from "./Icon.astro";
+import { FACETS } from "../lib/site.js";
+---
+{Object.entries(FACETS).map(([facet, entry]) => (
+  <fieldset class="facet">
+    <legend>{entry.label}</legend>
+    <div class="chips">
+      {entry.options.map(([value, label]) => (
+        <button type="button" class="chip" aria-pressed="false" data-key={`${facet}|${value}`}>
+          {label}
+        </button>
+      ))}
+    </div>
+  </fieldset>
+))}
+<fieldset class="facet">
+  <legend>Favorites</legend>
+  <div class="chips">
+    <button type="button" class="chip fav" aria-pressed="false" data-key="fav">
+      <Icon name="star" />Favorites only
+    </button>
+  </div>
+</fieldset>

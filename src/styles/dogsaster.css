@@ -1,0 +1,32 @@
+/* ---------- dogsaster ---------- */
+/* used by src/pages/404.astro, with src/assets/misc/03ce7a8f.webp. Also the
+   look for an empty panel:
+   <div class="dogsaster">
+     <Image src={dog} alt="" widths={[210, 400]} sizes="210px" format="avif" />
+     <h2>Nothing here yet</h2>
+     <p>Check back soon.</p>
+   </div>
+*/
+.dogsaster {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 28px 16px;
+  text-align: center;
+
+  & img {
+    display: block;
+    width: min(60%, 210px);
+    height: auto;
+    margin: 0 auto 12px;
+  }
+
+  & h2 {
+    font-size: 22px;
+    letter-spacing: -0.02em;
+  }
+
+  & p {
+    margin: 8px 0 0;
+    color: var(--muted);
+  }
+}

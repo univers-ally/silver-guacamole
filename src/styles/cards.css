@@ -1,0 +1,362 @@
+/* ---------- cards ---------- */
+.card {
+  min-width: 0;
+  max-width: 100%;
+  padding: 14px 14px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+
+#list,
+#seller-list {
+  display: grid;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.promo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scroll-margin-top: 76px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.star {
+  display: flex;
+  flex: none;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  margin-right: 4px;
+  border-radius: var(--r-s);
+  font-size: 16px;
+  line-height: 1;
+
+  &.good {
+    background: var(--good);
+  }
+
+  &.meh {
+    background: var(--meh);
+  }
+
+  &.bad {
+    background: var(--bad);
+  }
+}
+
+.head h2 {
+  flex: 1;
+  min-width: 0;
+}
+
+.toggle {
+  width: 100%;
+  padding: 4px 0;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.icon {
+  display: flex;
+  flex: none;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-s);
+  color: var(--muted);
+
+  &:hover {
+    background: var(--sunk);
+    color: var(--ink);
+  }
+
+  & svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.8;
+  }
+}
+
+.icon.fav {
+  color: var(--faint);
+
+  &.on {
+    color: var(--accent);
+  }
+
+  &.on svg {
+    fill: currentColor;
+  }
+}
+
+.chev {
+  display: block;
+  width: 18px;
+  height: 18px;
+  color: var(--muted);
+  transition: transform 0.15s;
+
+  & svg {
+    width: 100%;
+    height: 100%;
+    stroke-width: 2;
+  }
+}
+
+.promo.open .chev {
+  transform: rotate(180deg);
+}
+
+.codes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.code {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 4px 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+  background: var(--sunk);
+
+  & code {
+    overflow: hidden;
+    flex: 1;
+    min-width: 0;
+    font-size: 15px;
+    font-weight: 650;
+    letter-spacing: 0.02em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    user-select: all;
+  }
+
+  & button {
+    flex: none;
+    min-width: 64px;
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 6px;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 13px;
+    font-weight: 600;
+
+    &.done {
+      background: var(--ok);
+      color: var(--accent-ink);
+    }
+  }
+}
+
+.facts {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding-top: 2px;
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+
+  & b {
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.35;
+
+    &.unk {
+      color: var(--faint);
+      font-weight: 500;
+    }
+  }
+}
+
+.fact-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.js .promo:not(.open) .body {
+  display: none;
+}
+
+.reward {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 15px;
+}
+
+.go,
+.tzcalc button {
+  border-radius: var(--r-s);
+  background: var(--accent-deep);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+
+.go {
+  align-self: flex-start;
+  padding: 9px 14px;
+  font-size: 14px;
+
+  &:hover {
+    filter: brightness(0.95);
+  }
+}
+
+.tzcalc button {
+  min-height: 44px;
+  padding: 10px 16px;
+  font-size: 15px;
+}
+
+.rules,
+.sec-body ul,
+.sec-body ol {
+  padding-left: 20px;
+}
+
+.rules {
+  margin: 0;
+}
+
+li.warn {
+  position: relative;
+  margin-left: -20px;
+  padding-left: 20px;
+  list-style: none;
+
+  &::before {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: 4px;
+    width: 3px;
+    border-radius: 2px;
+    background: var(--accent);
+    content: "";
+  }
+}
+
+.todo {
+  margin: 0;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.meta {
+  margin: 0;
+  padding-top: 4px;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.foot-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.info {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+
+  &:hover {
+    border-color: var(--accent);
+    color: var(--accent-deep);
+  }
+
+  & svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* ---------- screenshots ---------- */
+.shots {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  &:has(figure + figure + figure) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  & figure {
+    min-width: 0;
+    margin: 0;
+  }
+
+  & figcaption {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+}
+
+.shot {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  border-radius: var(--r-s);
+  cursor: zoom-in;
+
+  & img {
+    display: block;
+    width: 100%;
+    /* the width/height attributes astro:assets writes would otherwise pin the height */
+    height: auto;
+    max-height: 200px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-s);
+    font-size: 11px;
+    white-space: normal;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: top;
+  }
+}

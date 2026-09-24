@@ -1,0 +1,32 @@
+---
+// AVIF only: every supported browser (Safari 17.5+, Firefox 120+) reads it.
+// src is the full 480px image; the lightbox shows it.
+import { Image } from "astro:assets";
+
+const { item } = Astro.props;
+// thumbnails are 110–220 CSS px wide; sources are 480
+const widths = [160, 240, 320, 480];
+const sizes = "(min-width: 700px) 220px, 34vw";
+const shots = item.images || [];
+---
+{shots.length > 0 && (
+  <div class="shots">
+    {shots.map(shot => (
+      <figure>
+        <button type="button" class="shot" aria-label={`Open screenshot: ${shot.caption || item.name}`}>
+          <Image
+            src={shot.src}
+            format="avif"
+            quality={60}
+            widths={widths}
+            sizes={sizes}
+            alt={shot.alt ?? ""}
+            loading="lazy"
+            decoding="async"
+          />
+        </button>
+        {shot.caption && <figcaption>{shot.caption}</figcaption>}
+      </figure>
+    ))}
+  </div>
+)}

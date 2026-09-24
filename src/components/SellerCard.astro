@@ -1,0 +1,64 @@
+---
+// scripts/sellers.js sorts and filters on the data- attributes and sizes the
+// rating bars from data-p (the CSP allows no style attributes). Keep inline
+// elements on one line: whitespace between them renders.
+import Icon from "./Icon.astro";
+import { SELLER_BADGE, BAR_CLASSES, HIDDEN_BADGES, number, regionOf, soldCount } from "../lib/site.js";
+
+const { seller } = Astro.props;
+const { name } = seller;
+const badges = seller.badges.filter(key => !HIDDEN_BADGES.has(key));
+const bars = seller.bars.map((percent, i) => ({ percent, stars: 5 - i, cls: BAR_CLASSES[i] }));
+const barSummary = bars.map(({ stars, percent }) => `${stars}★ ${percent}%`).join(" · ");
+const from = regionOf(seller.address);
+const reviews = number(seller.reviews);
+const site = seller.website;
+const newTab = { target: "_blank", rel: "noopener noreferrer" };
+---
+
+<article
+  class="seller card"
+  data-badges={seller.badges.join(" ")}
+  data-free={seller.shipping === "Free" ? 1 : 0}
+  data-rating={seller.rating}
+  data-reviews={seller.reviews}
+  data-sold={soldCount(seller.sold)}
+>
+  <img class="seller-avatar" src={seller.avatar} alt="" loading="lazy" decoding="async" />
+  <div class="seller-main">
+    <div class="seller-top">
+      <span class="seller-name"><a class="seller-link" href={seller.url} {...newTab}><span>{name}</span><Icon name="ext" /></a>{site && (
+        <a class="seller-site" href={site} {...newTab} title="Seller's own website" aria-label={`${name}'s own website`}>🌐</a>
+      )}</span>
+      <span class="seller-rating">{seller.rating.toFixed(1)} <b>★</b> <small>{reviews} reviews</small></span>
+    </div>
+    <div class="seller-badges">{badges.map(key => (
+      <span class="seller-badge" role="img" data-badge={key} title={SELLER_BADGE[key].title} aria-label={SELLER_BADGE[key].title}>{SELLER_BADGE[key].emoji}</span>
+    ))}</div>
+  </div>
+  <div class="seller-ship">
+    <div class="seller-min">
+      <span class="lbl lbl-m">Shipping:</span><span class="lbl lbl-d">Shipping minimum</span><b>{seller.shipping}</b>
+    </div>
+    {from && <div class="seller-from lbl"><span>From:</span>{from}</div>}
+  </div>
+  <div class="seller-sold">
+    <span class="lbl lbl-d">Sold</span><b>{seller.sold}</b><span class="sold-m"> sold <i>·</i> <b>{reviews}</b> reviews</span>
+  </div>
+  <div class="seller-ratings">
+    <span class="lbl lbl-d">Ratings</span>
+    <div class="seller-bars" role="img" aria-label={barSummary}>{bars.map(({ percent, stars, cls }) =>
+      percent ? <span class={cls} data-p={percent} title={`${stars}★ ${percent}%`}></span> : null
+    )}</div>
+    <div class="seller-dist" aria-hidden="true">
+      {bars.map(({ percent, stars, cls }) => (
+        <>
+          <span class="dist-n">{stars}</span>
+          <span class="dist-stars">{"★".repeat(stars)}<i>{"☆".repeat(5 - stars)}</i></span>
+          <span class="dist-track">{percent > 0 && <span class={cls} data-p={percent}></span>}</span>
+          <span class="dist-pct">{percent.toFixed(1)}%</span>
+        </>
+      ))}
+    </div>
+  </div>
+</article>

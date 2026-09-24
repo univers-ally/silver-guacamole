@@ -1,0 +1,49 @@
+id: rebate100
+order: 20
+name: Buy and Get Coupon Bundle
+codes:
+  - rebate100
+accepts:
+  - Credit
+  - Discounts
+rating: bad
+payout:
+  - Coupons
+type:
+  - Coupon Bundle
+date: "2024-11-12"
+summary: |-
+  Buy the number of items the promo page asks for, from the promo page, before the timer ends. You get one of the coupon bundles shown on the page.
+
+  • Each coupon's expiry and where it can be used only show up after you receive it. Temu's general coupon rules also apply.
+  • Cancelling or refunding any item in the qualifying order takes all the coupons back.
+  • Items not shipped by Temu may carry shipping fees.
+reward: Several types of Coupon bundles, good and bad.
+rules:
+  - t: <b>tl;dr:</b> Buy items to get various coupon bundles
+  - t: "Has two flavors: Bad version: Coupon bundle in return for purchasing x items in an order. Better version: Coupon bundle (with considerably better numbers) and a much lower minimum item order."
+  - t: "Buy however many items the page says (seen: 1 or 2) before time runs out"
+  - t: Tap the ? on the bundle first to see what you're actually getting
+  - t: "The big number is misleading. It's mostly coupons like $50 off a $300+ order (seen: $50 off $300, $30 off $200, etc.)"
+    warn: true
+  - t: You won't see expiry dates or restrictions until after you get the coupons
+    warn: true
+  - t: 'After you qualify, it will nag you to place another order for a "boost" (seen: one more 2-item order for +$300). Same deal, tap the ⓘ first'
+  - t: Whether the boost is worth it depends on the order minimums. $300 in coupons that need $140 to $420 orders is not $300
+    warn: true
+  - t: Boost coupons usually have a 7-day expiry (seen)
+  - t: Refund anything in the order and all coupons are gone
+    warn: true
+images:
+  - src: ./837e9c98.webp
+    caption: $422 version (buy 1 item)
+  - src: ./aae333f4.webp
+    caption: $602 version (buy 2 items)
+  - src: ./f1704180.webp
+    caption: What's actually inside the bundle
+  - src: ./8979be51.webp
+    caption: "After the first order: Boost to $722 with one more 2-item order"
+  - src: ./e6e128ff.webp
+    caption: "What the $300 boost actually is: nine coupons needing $140 to $420 orders"
+  - src: ./5225e3a4.webp
+    caption: Vanilla flavor, worse version!

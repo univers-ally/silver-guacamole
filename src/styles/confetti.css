@@ -1,0 +1,40 @@
+/* ---------- confetti ---------- */
+.burst {
+  position: relative;
+  overflow: visible;
+}
+
+.confetti {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 40;
+  width: 7px;
+  height: 7px;
+  margin: -3px 0 0 -3px;
+  border-radius: 2px;
+  animation: pop 700ms ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes pop {
+  from {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) rotate(540deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confetti,
+  .chev,
+  .sheet,
+  #toast {
+    transition: none;
+    animation: none;
+  }
+}

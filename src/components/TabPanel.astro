@@ -1,0 +1,55 @@
+---
+// A promo with its own tab: the primer card, then its apps (if any) with
+// reward filters.
+import Star from "./Star.astro";
+import Codes from "./Codes.astro";
+import Shots from "./Shots.astro";
+import RulesList from "./RulesList.astro";
+import RulesButton from "./RulesButton.astro";
+import Todo from "./Todo.astro";
+import AppCard from "./AppCard.astro";
+import { REWARDS, ratingOf, appsOf, updatedText } from "../lib/site.js";
+
+const { promo } = Astro.props;
+const apps = appsOf(promo);
+const updated = updatedText(promo);
+const pending = promo.pending || !(promo.rules || []).length;
+---
+<article class="card primer" data-id={promo.id}>
+  <div class="head">
+    <Star rating={ratingOf(promo)} />
+    <h2>{promo.name}</h2>
+  </div>
+  <Codes codes={promo.codes} />
+  {promo.reward && <p class="reward" set:html={promo.reward} />}
+  <Shots item={promo} />
+  <RulesList rules={promo.rules} />
+  {pending && <Todo />}
+  {promo.summary && (
+    <div class="foot-row">
+      <RulesButton />
+      {updated && <span class="meta">{updated}</span>}
+    </div>
+  )}
+</article>
+{promo.apps && (
+  <section class="apps-wrap" aria-labelledby="apps-title">
+    <h2 class="apps-title" id="apps-title">The apps on the page</h2>
+    {apps.length ? (
+      <>
+        <div class="chips" id="app-chips" aria-label="Filter apps by reward">
+          {Object.entries(REWARDS).map(([reward, { note }]) => (
+            <button type="button" class="chip" data-f={reward} title={note} aria-pressed="false">{reward}</button>
+          ))}
+        </div>
+        <div class="status"><span id="app-count">{apps.length} apps</span></div>
+        <div class="apps" id="app-list">
+          {apps.map(app => <AppCard app={app} />)}
+          <div class="empty" hidden>No apps pay that.</div>
+        </div>
+      </>
+    ) : (
+      <Todo text="The apps are not written up yet" />
+    )}
+  </section>
+)}

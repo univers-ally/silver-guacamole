@@ -1,0 +1,76 @@
+id: credit8888
+order: 70
+name: Temu Credit Back
+codes:
+  - credit8888
+accepts:
+  - Credit
+  - Discounts
+payout:
+  - Credit
+type:
+  - Daily claim
+date: "2026-09-04"
+summary: |-
+  Unlock the promo with one order over the page's minimum before the timer ends. Then place up to 20 qualifying orders from the promo page within 7 days, at most 5 per day. Each order is its own round, and the next opens only once the current one is done.
+
+  • Each order earns tiered credit back, capped per order at the amount shown. Temu's example: 10% of the first $10, then 40% of the amount from $10 to $60 plus $1, then 100% of anything above $60 plus $21.
+  • The order amount is after discounts, coupons and credits, and doesn't count shipping, tax or fees.
+  • Each order's credit is split into 7 daily instalments you claim by hand. An unclaimed day is forfeited.
+  • Credits can't be cashed out, and issuing them can take up to 90 days.
+  • Refunding the unlock order or any qualifying order takes back its rewards, and may bar you from the promo for 90 days.
+  • Temu may swap in a reward of equal or greater value.
+reward: Credit back on up to 20 orders in 7 daily claims.
+rules:
+  - t: <b>tl;dr:</b> Unlock with a small order, then get tiered credit back on up to 20 orders in 7 days, each paid out over 7 daily claims. Use the Calculator to find the spend that hits the cap
+  - t: "Unlock it first with an order over the page minimum before the timer runs out (seen: $6.99 min, 24h timer, plus $3 credit for unlocking)"
+  - t: Then up to 20 more orders from the promo page within 7 days, max 5 a day. Every order is its own round and the next one doesn't open until you finish the current one
+  - t: "Tiered rates per order (seen: 10% on the first $10, 40% from $10 to $60, 100% on everything past $60). Each rate only applies to the dollars in that bracket"
+  - t: The order value used for the promo is the final cost, not including taxes, shipping, and fees.
+  - t: "Capped per order at whatever max the page shows (seen: $50). Once you hit it, the rest of that order earns nothing"
+    warn: true
+  - t: Each order's credit is split into 7 daily installments you claim by hand for 7 days straight. Miss a day and that day's chunk is gone
+    warn: true
+  - t: Refunds or cancellations related to this promo explicitly give your account a 90-day ban from getting it again!
+    warn: true
+calc:
+  note: Credit Back Calculator:<br>NUMBERS VARY! Find your numbers from the "Rules" in the top right of the page!
+  tpl:
+    - $50.00 Credit back x 20 Chances
+    - - Order Amount (X)
+      - Rewards Back (Y)
+    - - $0 ≤ X ≤ $10
+      - Y = 10%*X
+    - - $10 ≤ X ≤ ${c2}
+      - Y = 40%*(X-$10)+$1
+    - - X > ${c2}
+      - Y = {r3}%*(X-${c2})+${t2}
+  fields:
+    - k: c2
+      label: Tier 3 starts at
+      value: "60"
+    - k: r3
+      label: Tier 3 rate %
+      value: "100"
+      step: "1"
+    - k: t2
+      label: Tier 3 base credit
+      value: "21"
+    - k: x
+      label: Order Amount (X)
+      value: "50.00"
+      dp: "2"
+  derived:
+    top2: 1 + (c2 - 10) * 0.4
+    need: "50 <= top2 ? 10 + 49 / 0.4 : c2 + (50 - t2) / (r3 / 100)"
+  out: "Rewards Back (Y):"
+  fmt: money2
+  f: "min(x <= 10 ? x * 0.1 : x <= c2 ? (x - 10) * 0.4 + 1 : (x - c2) * r3 / 100 + t2, 50)"
+  hint: 'finite(need) ? "Reward caps out with a <b>" + $$(need) + "</b> purchase." : ""'
+images:
+  - src: ./fb05f10b.webp
+    caption: $50 x 20 version. $6.99 to unlock, $3 credit thrown in
+  - src: ./4f675296.webp
+    caption: Mid-promo
+  - src: ./0d0fbb83.webp
+    caption: The split is back-loaded, the last day is the biggest

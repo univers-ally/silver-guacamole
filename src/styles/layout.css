@@ -1,0 +1,178 @@
+/* ---------- header ----------
+   on phones the bar is .top, not .topwrap: a backdrop-filter on .topwrap would
+   make it the containing block for the fixed .tabs inside it. on desktop the
+   tabs are static and .topwrap becomes the bar (see the desktop block) */
+.topwrap {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+
+  & > .theme {
+    position: absolute;
+    top: 10px;
+    right: var(--gutter);
+  }
+}
+
+.top,
+.tabs {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.top {
+  background: var(--top);
+  color: var(--top-ink);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 60px;
+  padding: 10px calc(var(--gutter) + 52px) 8px var(--gutter);
+}
+
+.theme {
+  display: grid;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid color-mix(in srgb, var(--top-ink) 25%, transparent);
+  border-radius: var(--r-s);
+  background: color-mix(in srgb, var(--top-ink) 8%, transparent);
+  color: var(--top-ink);
+  place-items: center;
+
+  &:hover {
+    background: color-mix(in srgb, var(--top-ink) 16%, transparent);
+  }
+
+  & svg {
+    display: none;
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.8;
+  }
+}
+
+.theme:not([data-icon]) .t-auto,
+.theme[data-icon="auto"] .t-auto,
+.theme[data-icon="light"] .t-light,
+.theme[data-icon="dark"] .t-dark,
+.theme[data-icon="oled"] .t-oled {
+  display: block;
+}
+
+/* ---------- tabs (bottom bar on phones) ---------- */
+.tabs {
+  position: fixed;
+  right: 0;
+  bottom: env(safe-area-inset-bottom, 0);
+  left: 0;
+  z-index: 6;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  height: var(--bar-h);
+  padding: 6px 8px;
+  border-top: 1px solid var(--line);
+  background: var(--veil);
+  transform: translateZ(0);
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    height: env(safe-area-inset-bottom, 0);
+    background: inherit;
+  }
+
+  & button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    border-radius: var(--r-s);
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+
+    &:hover {
+      color: var(--ink);
+    }
+
+    &:focus-visible {
+      outline-offset: -2px;
+    }
+
+    &[aria-selected="true"] {
+      color: var(--accent-deep);
+      font-weight: 700;
+    }
+
+    & svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+/* ---------- panels ---------- */
+.panel {
+  padding: 8px var(--gutter) 40px;
+  scroll-margin-top: 70px;
+}
+
+.lead {
+  display: flex;
+  gap: 10px;
+  margin: 4px 0 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--bad-line);
+  border-radius: var(--r-s);
+  background: var(--bad);
+  color: var(--ink);
+  font-size: 14.5px;
+  line-height: 1.5;
+
+  & svg {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    stroke: var(--bad-text);
+    stroke-width: 1.8;
+  }
+}
+
+.stack {
+  display: grid;
+  gap: 12px;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  padding: 40px 0;
+  color: var(--muted);
+  text-align: center;
+}
+
+#seller-list .empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 36px 16px;
+  border: 1px dashed var(--line);
+  border-radius: var(--r);
+
+  & b {
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 650;
+  }
+}

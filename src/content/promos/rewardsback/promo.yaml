@@ -1,0 +1,47 @@
+id: rewardsback
+order: 50
+name: Full Reimbursement
+codes:
+  - rewardsback
+accepts:
+  - Credit
+rating: bad
+payout:
+  - Cash*
+  - Credit
+  - Coupons
+  - Discount
+type:
+  - Daily claim
+  - Coupon Bundle
+date: "2025-02-21"
+summary: |-
+  Order from the promo page over the minimum within 24 hours of joining. Your rewards are worth the order value, split 50% coupons and 50% allowance, plus an extra 30% in credits.
+
+  • Caps per order: $130 total, of which $30 credits, $50 allowance and $50 coupons, unless the page shows other amounts.
+  • Coupons and allowance arrive automatically. Credits must be claimed by hand each day over 7 days in a row; anything unclaimed is forfeited.
+  • Allowance only works on the promo page, lasts 2 hours, is one per order, and can't be combined with other offers.
+  • Credits can't be cashed out and don't expire once claimed. PayPal cashback, where offered, may be reviewed and delayed.
+  • After the first order you may be offered an upgrade to $100 total if you place a second qualifying order in time.
+  • Any refund forfeits unclaimed rewards and claimed rewards you haven't used.
+  • Items from third-party providers may carry shipping fees.
+reward: Up to 100$ back on your order, split across allowances, credits and coupons
+rules:
+  - t: <b>tl;dr:</b> Order to get your spend back as coupons, a 2-hour allowance and ~30% credit. Claim daily
+  - t: Buy from the promo page above the minimum within 24h of joining
+  - t: "The 100% is split: 50% coupons + 50% allowance + 30% credits. Each part has its own cap"
+  - t: Coupons and allowance show up automatically. Coupons have spend thresholds and time limits
+  - t: Allowance is promo-page only, one per order, and expires in ~2 hours
+    warn: true
+  - t: Daily claim for the credits over ~week. If you miss a day, the rest of the days are invalidated.
+    warn: true
+  - t: The page varies the number of daily installments, and the type you get each day (credits, allowance, or coupons) is random
+    warn: true
+  - t: After your first order they might offer an upgrade to $100 total if you buy again in time
+  - t: Refunding removes all rewards and locks the promo for a cool off period.
+    warn: true
+images:
+  - src: ./e8dbb81f.webp
+    caption: Before picking an item
+  - src: ./511c20e6.webp
+    caption: After picking, tiers and daily claim shown

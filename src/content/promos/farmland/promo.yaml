@@ -1,0 +1,148 @@
+id: farmland
+order: 170
+name: Farmland
+tab: farmland
+codes:
+  - farmland
+accepts:
+  - Credit
+  - Coupons
+  - Discounts
+rating: bad
+payout:
+  - Gift
+  - Credit
+type:
+  - Daily claim
+date: "2026-03-08"
+summary: |-
+  Two ways to earn free items.
+
+  Prizes (the farm)
+  • Choose items, collect water by doing the tasks on the page, and water your crop. Reach the target before the time limit and the chosen items are free.
+  • The water you can hold is capped. Unused water expires at the time limit, unless you've already claimed your prize, in which case it carries over to the next round.
+  • A crop can need up to 100,000 units of water, and what farming pays declines within the range shown on the page.
+
+  Gifts (the Clover-Bar)
+  • Fill the bar with clovers from qualifying orders placed from the promo page to get selected free items.
+  • Clovers per order are capped, orders must meet the minimum shown, and the total value of gifts may be capped. Orders also pay water.
+  • Refunding an order removes the progress it added, or forfeits the gift if it's already been redeemed.
+
+  Other games and tasks on the page can also pay water, under their own rules.
+reward: Water a virtual farm to an impossible 100% and get 'free' items. Every app on the page is a way to get water, and orders occasionally give credits.
+rules:
+  - t: <b>tl;dr:</b> Pick prizes. Give up on the prizes. Water daily x30, check your order rewards for credits/water to claim, and ignore everything else unless you actually like the minigames.
+  - t: A lawless wasteland.
+    warn: true
+  - t: <b>The FREE Prizes:</b> Give up on them. If you really want them, wait for the 'Claim it all Early!' promo to pop up.
+  - t: <b>Water:</b> everything on the page is water. Tap the can to water the crop for 10g per single water.
+  - t: There is a cap on how much water you can hold, and whatever is left expires when the main timer ends
+    warn: true
+  - t: <b>Harvests halve:</b> per the rules a crop can need up to 100,000 units of water and its value "declines within a range". In practice each harvest pays about half the last one.
+    warn: true
+  - t: The main timer runs about a month.
+images:
+  - src: ./76743a9d.webp
+    caption: The main page with taunting prizes and the bar up top, the farm in the middle, the apps along the bottom
+  - src: ./c36003b6.webp
+    caption: Harvest log showing the diminishing rewards
+apps:
+  - id: blooming-skin
+    name: Blooming Skin
+    blurb: Cosmetic. Get a prettier farm for 3 days
+    icon: ./f107f164.webp
+    rewards:
+      - Cosmetic
+    rules:
+      - t: Water 60 times and make the grass flowery and pretty for 3 days.
+      - t: Expires at midnight, not exactly 3 days.
+    images:
+      - src: ./be45e355.webp
+        caption: Water 60 times to get Blooming Skin. Valid for 3 days
+      - src: ./2cab616d.webp
+        caption: Before skin enabled
+      - src: ./56a0d107.webp
+        caption: After skin enabled
+  - id: fireworks
+    name: Fireworks
+    blurb: Cosmetic. Any order today makes every watering sparkle
+    icon: ./a817098d.webp
+    rewards:
+      - Cosmetic
+    rules:
+      - t: Fireworks are a pretty visual effect given by placing an order within the page which is enabled for 24h after you claim it.
+      - t: Doesn't seem to require an order minimum, but because the rest of farmland does, it kinda does.
+    images:
+      - src: ./5ea8df7d.webp
+        caption: Place an order to enable
+  - id: game-center
+    name: Game Center
+    blurb: A menu that holds mini-games. Each pays something on its own timer
+    icon: ./9f69c478.webp
+    rewards:
+      - Water
+      - Coupon
+    rules:
+      - t: The available games vary day to day, depending on your region and age of your farm.
+      - t: Most of the games have a strict time limit on how long they're available for.
+    images: []
+    sub:
+      - id: farmland-merge
+        name: Farmland Merge
+        blurb: A merge game on a 5×5 board. Orders pay water, merge milestones pay water and a coupon
+        icon: ./6f9bd229.webp
+        banner: ./b67613bb.webp
+        rewards:
+          - Water
+          - Coupon
+        date: "2024-07-28"
+        summary: |-
+          Earn Energy by watering your crop and doing daily tasks, spend it to put crops on the board, and merge two identical crops into a higher-level one. Some crops can be traded for water.
+
+          • Energy from daily tasks has to be claimed the same day or it's cleared.
+          • The Energy needed, what each task pays and the water each crop is worth are shown in the game.
+          • Unused Energy and crops are cleared when the event ends.
+          • The main Farmland rules still apply.
+        rules:
+          - t: A 5×5 board of tiles. Drag two matching ones together and they merge into the next thing up the chain. Some special powerups may appear that either accelerate your match count, add tiles, or give you some energy
+          - t: <b>Merge milestones:</b> the counter pays out at set totals. The coupons are usually not good.
+          - t: <b>Energy</b> Spent to get new tiles onto the board. You get 5⚡ per watering of the main crop, up to 20 waterings a day, plus energy tiles that appear on the board, plus a Get energy button that requires an order
+          - t: Energy from daily tasks has to be claimed before the end of the day or it is lost.
+            warn: true
+        images:
+          - src: ./9657e969.webp
+            caption: "Standard board. Shown: power up pass for extra energy"
+          - src: ./016db7c9.webp
+            caption: A completed merge bar with all rewards unlocked
+      - id: pawfect-crush
+        name: Pawfect Crush
+        blurb: Match-3 tiles, two boards, 400g for clearing both. The helpers cost water
+        icon: ./32eb5d10.webp
+        banner: ./facb0008.webp
+        rewards:
+          - Water
+        date: "2024-12-25"
+        summary: |-
+          Clear every tile across two rounds by matching three identical tiles, and you earn water. Water tiles and random drops can pay extra.
+
+          • Each round has a time limit.
+          • Once per round you can take back three tiles, undo a step, or shuffle. Each costs water.
+          • Daily chances refresh every day and are used first. Extra chances from tasks expire at the time limit.
+          • Browsing tasks only count if you browse for the full time. Refunding an order that earned chances takes them back.
+          • You can play more than one round. The main Farmland rules still apply.
+        rules:
+          - t: "Tap three identical tiles to clear them, mahjong-solitaire style: only uncovered tiles can be picked. Two rounds, Easy then Difficult, and clearing both pays the big prize (seen: 400g)"
+          - t: Easy is a dozen tiles in a cross. Difficult is a stacked pile of forty-odd with a tray of face-down tiles either side.
+          - t: Water-drop tiles turn up in the pile, and always pay out water when matched.
+          - t: Each attempt to complete has a 30-minute time limit
+            warn: true
+          - t: "The three helpers, take back three tiles, undo one step and shuffle, cost water drops, not orders (seen: 5, 1 and 10). Each works once per round"
+            warn: true
+          - t: You get a set number of chances a day, refreshed daily. Extra chances come from tasks, browsing for a set time or buying, and expire at the time limit. Daily chances are spent before the extra ones
+          - t: The Difficult board seems to be impossible based on my testing!
+            warn: true
+        images:
+          - src: ./571c5ac0.webp
+            caption: Easy version
+          - src: ./8b50b341.webp
+            caption: Difficult version
