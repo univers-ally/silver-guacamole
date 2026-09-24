@@ -1,0 +1,35 @@
+id: shipping0
+order: 180
+name: Free Shipping Card
+codes:
+  - shipping0
+accepts:
+  - None
+payout:
+  - Discount
+type:
+  - Discount
+date: "2026-08-24"
+summary: |-
+  Place one order from the promo page that meets its minimum before the timer ends. That activates a free shipping card: for 30 days it pays the shipping on eligible orders, up to $50 in total.
+
+  • Only covers shipping on local-warehouse items. Not return shipping, orders placed through other promos, or items eligible for pickup.
+  • The $50 is shared across every order in the 30 days, not per order. The card stops at whichever runs out first.
+  • Usable up to 10 times a day. Checkout shows whether it applies.
+  • Shipping the card has covered is spent for good, even if that order is later cancelled, returned or refunded, or hasn't shipped yet.
+  • Cancelling or refunding any part of the unlock order revokes the card, and Temu may take back shipping it already covered.
+  • Temu may swap the card for a coupon, credit or other reward worth its regular price.
+reward: 30 days of free shipping on local items, up to $50 total
+rules:
+  - t: <b>tl;dr:</b> Buy the min order from the page to get 30 days of free shipping on local-warehouse orders, up to $50 total
+  - t: "Seen: 1 item minimum, with local only items for the qualifying order"
+  - t: It doesn't cover orders placed under promotions
+    warn: true
+  - t: If you refund or cancel the unlock order, the card is removed and Temu reserves the right to charge you for any amount you've already used from it.
+    warn: true
+  - t: If the order you use it on is refunded, you don't get the discount back.
+images:
+  - src: ./a85fd0c5.webp
+    caption: 1 item unlocks the promo
+  - src: ./62519a88.webp
+    caption: Add 1 item and check out to get the card

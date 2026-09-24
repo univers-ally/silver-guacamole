@@ -33,7 +33,7 @@ export const FACETS = {
   type: {
     label: "Type",
     attr: "t",
-    options: ["Daily claim", "Cashout", "Coupon Bundle"].map(v => [v, v]),
+    options: ["Daily claim", "Cashout", "Coupon Bundle", "Discount"].map(v => [v, v]),
   },
 };
 
