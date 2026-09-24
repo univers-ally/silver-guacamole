@@ -41,11 +41,20 @@ rules:
   - t: <b>Harvests halve:</b> per the rules a crop can need up to 100,000 units of water and its value "declines within a range". In practice each harvest pays about half the last one.
     warn: true
   - t: The main timer runs about a month.
+  - t: Occasionally, the promo will give you 15 additional days when your timer runs out.
+  - t: "<b>Order rewards:</b> paid out daily, water and sometimes credit. Claim the credit the same day or it's gone."
+    warn: true
 images:
   - src: ./76743a9d.webp
     caption: The main page with taunting prizes and the bar up top, the farm in the middle, the apps along the bottom
-  - src: ./c36003b6.webp
-    caption: Harvest log showing the diminishing rewards
+  - src: ./fa3ac822.webp
+    caption: Order rewards, claimed over 3 days
+  - src: ./95711a4f.webp
+    caption: Random coupon pop-up
+  - src: ./4d9f1846.webp
+    caption: Timer extended after ordering
+  - src: ./1de1df54.webp
+    caption: Daily order rewards, water and credit
 apps:
   - id: blooming-skin
     name: Blooming Skin
@@ -146,3 +155,159 @@ apps:
             caption: Easy version
           - src: ./8b50b341.webp
             caption: Difficult version
+  - id: order-and-earn
+    name: Order & Earn
+    icon: ./81720960.webp
+    rewards:
+      - Credit
+      - Water
+  - id: credit-bonus
+    name: Credit Bonus
+    icon: ./5c18721b.webp
+    rewards:
+      - Credit
+  - id: order-bonus
+    name: Order Bonus
+    icon: ./b29ef472.webp
+    rewards:
+      - Credit
+      - Water
+  - id: tri-order
+    name: Tri-order
+    icon: ./cc0ccfc5.webp
+  - id: extra-free-item
+    name: Extra Free Item
+    blurb: Water 7 days in a row for a free item. ACTUALLY FREE!
+    icon: ./e2b652d0.webp
+    rewards:
+      - Coupon
+    rules:
+      - t: Starts with a pop-up saying a butterfly/ect found you a free gift.
+      - t: Hit the daily watering goal 7 days in a row. The bar at the top of the farm shows how many waterings are left.
+      - t: Miss a day and the item's gone.
+        warn: true
+      - t: Actually free. It ships at $0 with free shipping and shows up in your orders.
+    images:
+      - src: ./c367a805.webp
+        caption: How it starts
+      - src: ./157d1985.webp
+        caption: Waterings left for the day
+      - src: ./effd8675.webp
+        caption: Day 5 of 7
+      - src: ./8e0feab6.webp
+        caption: Item claimed
+  - id: clover-bar
+    name: Clover Bar
+    blurb: Order from the page to fill a bar and get 3 free items
+    icon: ./e52c3191.webp
+    rewards:
+      - Water
+    summary: |-
+      Pick three free items and fill the progress bar with clovers to get them. The three items' combined value is capped at $300.
+
+      • Clovers and water come from qualifying orders placed from the promo page, over the minimum order value and within the time limit.
+      • Each order earns clovers at the percentage of the order amount shown on the page, up to a cap per order.
+      • The water each order earns follows the water rules, and has to be claimed separately within 3 days.
+      • Cancelling an order takes back the rewards it earned.
+    rules:
+      - t: Pick 3 items and fill the bar with clovers by ordering from the page. The items unlock one at a time, and it usually gives you 965 to start.
+      - t: The 3 items are capped at $300 total.
+      - t: Clovers per order are capped ~26, so one big order won't cut it. Expect a lot of orders.
+        warn: true
+    images:
+      - src: ./9e610918.webp
+        caption: Two items unlocked, one to go
+      - src: ./be56d44a.webp
+        caption: Timer ran out, progress saved
+  - id: draw-bonus
+    name: Draw to get Water Bonus
+    blurb: Free draws for watering a lot. More draws cost an order
+    icon: ./6d1b6ba0.webp
+    rewards:
+      - Water
+    rules:
+      - t: Pops up with 2 free draws once you've watered a ton. It's a good way to see how many times you've watered!
+      - t: Four tiles, 5g, 5g, ~400g and ~800g. All free draws get the 5gs, and the big ones are locked behind the order.
+        warn: true
+      - t: 2 more draws for a $30+ order from the promo page.
+        warn: true
+    images:
+      - src: ./8382cb89.webp
+        caption: The pop-up
+      - src: ./be029b05.webp
+        caption: Both free draws got 5g
+  - id: daily-water
+    name: Daily Water
+    icon: ./c3122f13.webp
+    rewards:
+      - Water
+  - id: flower-reward
+    name: Flower reward
+    blurb: Do tasks to collect flowers for water
+    icon: ./8a860318.webp
+    rewards:
+      - Water
+    rules:
+      - t: Every task gives a flower. Watering, browsing, claiming a coupon, opening chests, etc.
+      - t: Fill the bar for water. Requires at least 1 purchase to complete in time.
+    images:
+      - src: ./eff2076e.webp
+        caption: 6 of 18 flowers
+  - id: badges
+    name: Badges
+    blurb: Water to collect 5 insects, then order for up to 6200g
+    icon: ./632268a5.webp
+    rewards:
+      - Water
+    rules:
+      - t: Watering unlocks the insects (badges) one at a time.
+      - t: "<b>Catch:</b> getting all 5 only unlocks the reward. You still have to place an order over ~$38 to get the water."
+        warn: true
+      - t: The 6200g is an "up to", as usual, so you might not get the entire amount even after all that.
+        warn: true
+    images:
+      - src: ./ae2c79e4.webp
+        caption: 4 of 5 insects
+      - src: ./5dcea726.webp
+        caption: Needs a $38 order to claim
+  - id: golden-bonus
+    name: Golden Bonus
+    icon: ./2dd17594.webp
+  - id: surprise-bonus
+    name: Surprise Bonus
+    icon: ./680c04ae.webp
+  - id: earn-it-all-early
+    name: Earn it all early
+    icon: ./2b9029f3.webp
+  - id: pup-dress-up
+    name: Pup Dress-Up
+    blurb: Cosmetic. Dress up the farm dog
+    icon: ./0fa9619e.webp
+    rewards:
+      - Cosmetic
+    rules:
+      - t: Cosmetic only. 3 outfits, bandana, straw hat and pants. The last one needs an order.
+      - t: The outfits expire after a couple days.
+    images:
+      - src: ./8757e585.webp
+        caption: Last outfit needs an order
+  - id: 7-day-puzzle
+    name: 7-day Puzzle
+    blurb: Flip a piece a day for a little water
+    icon: ./67b12d98.webp
+    rewards:
+      - Water
+    rules:
+      - t: 7 pieces, flip one a day. There seem to be 4-5 possible boards.
+      - t: Mostly small change, usually anywhere from 10-60g.
+      - t: If you finish the whole puzzle, you get a final bonus and you can see the picture, wow!
+    images:
+      - src: ./a9ebebf7.webp
+        caption: The board
+      - src: ./ed982ffe.webp
+        caption: A ? piece
+  - id: 1v1-duel
+    name: 1v1 duel
+    icon: ./10f67faf.webp
+    rewards:
+      - Water
