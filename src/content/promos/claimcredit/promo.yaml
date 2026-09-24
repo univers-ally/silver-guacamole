@@ -46,15 +46,28 @@ rules:
   - t: Refund anything and they invalidate all installments plus already-issued credits (quality/defective issues exempt)
     warn: true
 calc:
-  note: Rewards Back Calculator:<br>NUMBERS VARY! Find your numbers by scrolling through the Rules. You can see this by clicking the "Rules" label (if it exists), or by clicking the (?) under the 50% tier in the disclaimer text.
+  note: Rewards Back Calculator:<br>NUMBERS VARY! Find your numbers by scrolling through the Rules. You can see this by clicking the "Rules" label (if it exists), or by clicking the (?) under the middle tier in the disclaimer text.
   tpl:
+    - 'From the Main Promo Page:'
     - ${cap} Pending
     - - 10%
-      - 50%
+      - "{r2}%"
       - 👑 {=r3:n}%
     - - $0-$10
       - $10-${c2}
       - ${c2}+
+    - or  
+    - 'From the "Rules" tab:'
+    - - Order Amount (X)
+      - Rewards Back (Y)
+    - - X ≤ $10
+      - Y = 10%*X
+    - - $10 < X ≤ ${c2}
+      - Y = {r2}%*(X-$10) + $1
+    - - X > ${c2}, normally
+      - Y = {r3n}%*(X-${c2}) + {=t2}
+    - - X > ${c2}, limited-time
+      - Y = {r3l}%*(X-${c2}) + {=t2}
   fields:
     - k: cap
       label: Max reward (Z)
@@ -62,6 +75,10 @@ calc:
     - k: c2
       label: Tier 2 up to
       value: "280"
+    - k: r2
+      label: Tier 2 %
+      value: "50"
+      step: "1"
     - k: r3n
       label: Tier 3, normally %
       value: "135"
@@ -80,12 +97,12 @@ calc:
       type: check
   derived:
     r3: "lt ? r3l : r3n"
-    t2: 1 + (c2 - 10) * 0.5
-    need: "cap <= 1 ? cap / 0.1 : cap <= t2 ? 10 + (cap - 1) / 0.5 : c2 + (cap - t2) / (r3 / 100)"
+    t2: 1 + (c2 - 10) * r2 / 100
+    need: "cap <= 1 ? cap / 0.1 : cap <= t2 ? 10 + (cap - 1) / (r2 / 100) : c2 + (cap - t2) / (r3 / 100)"
   out: "Rewards Back (Y):"
   fmt: money2
-  f: min(min(x, 10) * 0.1 + max(0, min(x, c2) - 10) * 0.5 + max(0, x - c2) * r3 / 100, cap)
-  hint: 'cap > 0 && finite(need) ? "Reward caps out with a <b>" + $$(need) + "</b> purchase." : ""'
+  f: min(min(x, 10) * 0.1 + max(0, min(x, c2) - 10) * r2 / 100 + max(0, x - c2) * r3 / 100, cap)
+  hint: 'cap > 0 && finite(need) ? "Reward caps out with a <b>" + $$(ceil(need * 100 - 0.000001) / 100) + "</b> purchase." : ""'
 images:
   - src: ./bad01116.webp
     caption: Tiers hidden
